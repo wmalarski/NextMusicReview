@@ -1,10 +1,16 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Heading } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Link } from "@chakra-ui/react";
+import NextLink from "next/link";
 import React from "react";
 import MenuText from "./menuText";
 
-// Note: This code could be better, so I'd recommend you to understand how I solved and you could write yours better :)
-export default function Header(): JSX.Element {
+export interface HeaderProps {
+  leftAction?: React.ReactNode;
+}
+
+export default function Header(props: HeaderProps): JSX.Element {
+  const { leftAction } = props;
+
   const [show, setShow] = React.useState(false);
 
   return (
@@ -14,12 +20,11 @@ export default function Header(): JSX.Element {
       justify="space-between"
       wrap="wrap"
       padding="1.5rem"
-      bg="gray.500"
-      color="white"
+      bg="gray.200"
     >
       <Flex align="center" mr={5}>
         <Heading as="h1" size="md" letterSpacing={"-.1rem"}>
-          Next Music Review
+          <NextLink href="/">Next Music Review</NextLink>
         </Heading>
       </Flex>
 
@@ -36,15 +41,30 @@ export default function Header(): JSX.Element {
         alignItems="center"
         flexGrow={1}
       >
-        <MenuText>Docs</MenuText>
-        <MenuText>Examples</MenuText>
-        <MenuText>Blog</MenuText>
+        <MenuText>
+          <NextLink href="/performers">
+            <Link>Performers</Link>
+          </NextLink>
+        </MenuText>
+        <MenuText>
+          <NextLink href="/albums">
+            <Link>Albums</Link>
+          </NextLink>
+        </MenuText>
+        <MenuText>
+          <NextLink href="/reviews">
+            <Link>Reviews</Link>
+          </NextLink>
+        </MenuText>
       </Box>
 
       <Box
         display={{ base: show ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
       >
+        {leftAction}
+        <a href="/api/login">Login</a>
+        <a href="/api/logout">Logout</a>
         <Button bg="transparent" border="1px">
           Create account
         </Button>

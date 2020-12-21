@@ -1,16 +1,11 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Heading, Link } from "@chakra-ui/react";
+import { Box, Flex, Heading, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
+import UserHeader from "../../users/components/userHeader";
 import MenuText from "./menuText";
 
-export interface HeaderProps {
-  leftAction?: React.ReactNode;
-}
-
-export default function Header(props: HeaderProps): JSX.Element {
-  const { leftAction } = props;
-
+export default function Header(): JSX.Element {
   const [show, setShow] = React.useState(false);
 
   return (
@@ -62,12 +57,7 @@ export default function Header(props: HeaderProps): JSX.Element {
         display={{ base: show ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
       >
-        {leftAction}
-        <a href="/api/login">Login</a>
-        <a href="/api/logout">Logout</a>
-        <Button bg="transparent" border="1px">
-          Create account
-        </Button>
+        <UserHeader />
       </Box>
     </Flex>
   );

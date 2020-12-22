@@ -618,6 +618,16 @@ export type AlbumListItemFragment = (
   & { performer: Maybe<Pick<Performer, 'id' | 'name'>>, details: Maybe<{ image: Array<Pick<Image, 'size' | 'url'>> }> }
 );
 
+export type AlbumReviewsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type AlbumReviewsQuery = { album: (
+    { reviews: Maybe<{ nodes: Maybe<Array<Pick<Review, 'id' | 'rating' | 'text' | 'updatedAt' | 'createdAt'>>> }> }
+    & AlbumListItemFragment
+  ) };
+
 export type RandomAlbumsQueryVariables = Exact<{
   count: Scalars['Int'];
 }>;
@@ -669,6 +679,28 @@ export const useAlbumDetailsQuery = (variables: AlbumDetailsQueryVariables, opti
   useQuery<AlbumDetailsQuery>(
     ['AlbumDetails', variables],
     fetcher<AlbumDetailsQuery, AlbumDetailsQueryVariables>(AlbumDetailsDocument, variables),
+    options
+  );
+export const AlbumReviewsDocument = `
+    query AlbumReviews($id: ID!) {
+  album(id: $id) {
+    ...AlbumListItem
+    reviews {
+      nodes {
+        id
+        rating
+        text
+        updatedAt
+        createdAt
+      }
+    }
+  }
+}
+    ${AlbumListItemFragmentDoc}`;
+export const useAlbumReviewsQuery = (variables: AlbumReviewsQueryVariables, options?: UseQueryOptions<AlbumReviewsQuery>) => 
+  useQuery<AlbumReviewsQuery>(
+    ['AlbumReviews', variables],
+    fetcher<AlbumReviewsQuery, AlbumReviewsQueryVariables>(AlbumReviewsDocument, variables),
     options
   );
 export const RandomAlbumsDocument = `

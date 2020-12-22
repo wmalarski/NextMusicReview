@@ -1,0 +1,14 @@
+query AlbumReviews($id: ID!) {
+  album(id: $id) {
+    ...AlbumListItem
+    reviews {
+      nodes {
+        id
+        rating
+        text
+        updatedAt
+        createdAt
+      }
+    }
+  }
+}

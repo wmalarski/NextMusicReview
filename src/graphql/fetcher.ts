@@ -1,4 +1,4 @@
-export default function fetcher<TData, TVariables>(
+export function fetcher<TData, TVariables>(
   query: string,
   variables?: TVariables
 ) {

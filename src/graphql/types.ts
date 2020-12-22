@@ -1,6 +1,5 @@
-import { GraphQLClient } from 'graphql-request';
-import { print } from 'graphql';
-import gql from 'graphql-tag';
+import { useQuery, UseQueryOptions } from 'react-query';
+import { fetcher } from './fetcher';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -618,7 +617,7 @@ export type RandomAlbumsQuery = { readonly randomAlbums: ReadonlyArray<(
   )> };
 
 
-export const RandomAlbumsDocument = gql`
+export const RandomAlbumsDocument = `
     query RandomAlbums($count: Int!) {
   randomAlbums(count: $count) {
     id
@@ -636,16 +635,9 @@ export const RandomAlbumsDocument = gql`
   }
 }
     `;
-
-export type SdkFunctionWrapper = <T>(action: () => Promise<T>) => Promise<T>;
-
-
-const defaultWrapper: SdkFunctionWrapper = sdkFunction => sdkFunction();
-export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
-  return {
-    RandomAlbums(variables: RandomAlbumsQueryVariables): Promise<RandomAlbumsQuery> {
-      return withWrapper(() => client.request<RandomAlbumsQuery>(print(RandomAlbumsDocument), variables));
-    }
-  };
-}
-export type Sdk = ReturnType<typeof getSdk>;
+export const useRandomAlbumsQuery = (variables: RandomAlbumsQueryVariables, options?: UseQueryOptions<RandomAlbumsQuery>) => 
+  useQuery<RandomAlbumsQuery>(
+    ['RandomAlbums', variables],
+    fetcher<RandomAlbumsQuery, RandomAlbumsQueryVariables>(RandomAlbumsDocument, variables),
+    options
+  );

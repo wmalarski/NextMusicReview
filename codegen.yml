@@ -6,8 +6,9 @@ generates:
     plugins:
       - "typescript"
       - "typescript-operations"
-      - "typescript-graphql-request"
+      - "typescript-react-query"
     config:
       immutableTypes: true
       skipTypename: true
       avoidOptionals: true
+      fetcher: ./fetcher#fetcher

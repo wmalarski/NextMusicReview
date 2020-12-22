@@ -1,4 +1,4 @@
-fragment AlbumListItem on Album {
+fragment AlbumGridItem on Album {
   id
   name
   performer {

@@ -1,5 +1,5 @@
 query RandomAlbums($count: Int!) {
   randomAlbums(count: $count) {
-    ...AlbumListItem
+    ...AlbumGridItem
   }
 }

@@ -1,13 +1,9 @@
 query AlbumReviews($id: ID!) {
   album(id: $id) {
-    ...AlbumListItem
+    ...AlbumGridItem
     reviews {
       nodes {
-        id
-        rating
-        text
-        updatedAt
-        createdAt
+        ...ReviewListItem
       }
     }
   }

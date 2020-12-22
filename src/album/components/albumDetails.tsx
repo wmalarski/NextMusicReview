@@ -19,10 +19,12 @@ import {
   MenuList,
   Stack
 } from "@chakra-ui/react";
+import compact from "lodash/compact";
 import NextLink from "next/link";
 import React from "react";
 import WikiText from "../../common/components/wikiText";
 import { AlbumDetailsQuery, AlbumReviewsQuery } from "../../graphql/types";
+import ReviewList from "../../review/components/ReviewList";
 
 export interface AlbumDetailsProps {
   id: string;
@@ -71,7 +73,13 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
       <Heading as="h4" size="md">
         Reviews
       </Heading>
-      <pre>{JSON.stringify(reviews, null, 2)}</pre>
+      <ReviewList
+        defaultCount={1}
+        isLoading={false}
+        showImage={false}
+        defaultAlbum={reviewsQuery.album}
+        reviews={compact(reviews?.nodes)}
+      />
     </Stack>
   );
 }

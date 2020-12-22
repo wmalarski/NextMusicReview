@@ -1,9 +1,9 @@
 import { Box, Center, Image as ChakraImage } from "@chakra-ui/react";
 import React from "react";
-import { AlbumListItemFragment } from "../../graphql/types";
+import { AlbumGridItemFragment } from "../../graphql/types";
 
 export interface AlbumGridItemProps {
-  album: AlbumListItemFragment;
+  album: AlbumGridItemFragment;
   setSelectedId: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
@@ -15,7 +15,6 @@ export default function AlbumGridItem(props: AlbumGridItemProps): JSX.Element {
 
   return (
     <Box
-      bg="gray.100"
       borderColor="gray.100"
       borderWidth="2px"
       _hover={{ borderColor: "teal.500" }}

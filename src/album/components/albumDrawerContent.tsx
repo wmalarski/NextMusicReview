@@ -10,12 +10,12 @@ import NextLink from "next/link";
 import React from "react";
 import WikiText from "../../common/components/wikiText";
 import {
-  AlbumListItemFragment,
+  AlbumGridItemFragment,
   useAlbumDetailsQuery
 } from "../../graphql/types";
 
 export interface AlbumDrawerContentProps {
-  album: AlbumListItemFragment;
+  album: AlbumGridItemFragment;
 }
 
 export default function AlbumDrawerContent(

@@ -613,7 +613,7 @@ export type AlbumDetailsQueryVariables = Exact<{
 
 export type AlbumDetailsQuery = { album: { details: Maybe<{ wiki: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> } };
 
-export type AlbumListItemFragment = (
+export type AlbumGridItemFragment = (
   Pick<Album, 'id' | 'name' | 'year'>
   & { performer: Maybe<Pick<Performer, 'id' | 'name'>>, details: Maybe<{ image: Array<Pick<Image, 'size' | 'url'>> }> }
 );
@@ -624,8 +624,8 @@ export type AlbumReviewsQueryVariables = Exact<{
 
 
 export type AlbumReviewsQuery = { album: (
-    { reviews: Maybe<{ nodes: Maybe<Array<Pick<Review, 'id' | 'rating' | 'text' | 'updatedAt' | 'createdAt'>>> }> }
-    & AlbumListItemFragment
+    { reviews: Maybe<{ nodes: Maybe<Array<ReviewListItemFragment>> }> }
+    & AlbumGridItemFragment
   ) };
 
 export type RandomAlbumsQueryVariables = Exact<{
@@ -633,7 +633,7 @@ export type RandomAlbumsQueryVariables = Exact<{
 }>;
 
 
-export type RandomAlbumsQuery = { randomAlbums: Array<AlbumListItemFragment> };
+export type RandomAlbumsQuery = { randomAlbums: Array<AlbumGridItemFragment> };
 
 export type PerformerDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -642,11 +642,13 @@ export type PerformerDetailsQueryVariables = Exact<{
 
 export type PerformerDetailsQuery = { performer: (
     Pick<Performer, 'id' | 'name'>
-    & { albums: Maybe<{ nodes: Maybe<Array<AlbumListItemFragment>> }>, details: Maybe<{ bio: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
+    & { albums: Maybe<{ nodes: Maybe<Array<AlbumGridItemFragment>> }>, details: Maybe<{ bio: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
   ) };
 
-export const AlbumListItemFragmentDoc = `
-    fragment AlbumListItem on Album {
+export type ReviewListItemFragment = Pick<Review, 'id' | 'rating' | 'text' | 'updatedAt' | 'createdAt'>;
+
+export const AlbumGridItemFragmentDoc = `
+    fragment AlbumGridItem on Album {
   id
   name
   performer {
@@ -660,6 +662,15 @@ export const AlbumListItemFragmentDoc = `
       url
     }
   }
+}
+    `;
+export const ReviewListItemFragmentDoc = `
+    fragment ReviewListItem on Review {
+  id
+  rating
+  text
+  updatedAt
+  createdAt
 }
     `;
 export const AlbumDetailsDocument = `
@@ -684,19 +695,16 @@ export const useAlbumDetailsQuery = (variables: AlbumDetailsQueryVariables, opti
 export const AlbumReviewsDocument = `
     query AlbumReviews($id: ID!) {
   album(id: $id) {
-    ...AlbumListItem
+    ...AlbumGridItem
     reviews {
       nodes {
-        id
-        rating
-        text
-        updatedAt
-        createdAt
+        ...ReviewListItem
       }
     }
   }
 }
-    ${AlbumListItemFragmentDoc}`;
+    ${AlbumGridItemFragmentDoc}
+${ReviewListItemFragmentDoc}`;
 export const useAlbumReviewsQuery = (variables: AlbumReviewsQueryVariables, options?: UseQueryOptions<AlbumReviewsQuery>) => 
   useQuery<AlbumReviewsQuery>(
     ['AlbumReviews', variables],
@@ -706,10 +714,10 @@ export const useAlbumReviewsQuery = (variables: AlbumReviewsQueryVariables, opti
 export const RandomAlbumsDocument = `
     query RandomAlbums($count: Int!) {
   randomAlbums(count: $count) {
-    ...AlbumListItem
+    ...AlbumGridItem
   }
 }
-    ${AlbumListItemFragmentDoc}`;
+    ${AlbumGridItemFragmentDoc}`;
 export const useRandomAlbumsQuery = (variables: RandomAlbumsQueryVariables, options?: UseQueryOptions<RandomAlbumsQuery>) => 
   useQuery<RandomAlbumsQuery>(
     ['RandomAlbums', variables],
@@ -723,7 +731,7 @@ export const PerformerDetailsDocument = `
     name
     albums {
       nodes {
-        ...AlbumListItem
+        ...AlbumGridItem
       }
     }
     details {
@@ -735,7 +743,7 @@ export const PerformerDetailsDocument = `
     }
   }
 }
-    ${AlbumListItemFragmentDoc}`;
+    ${AlbumGridItemFragmentDoc}`;
 export const usePerformerDetailsQuery = (variables: PerformerDetailsQueryVariables, options?: UseQueryOptions<PerformerDetailsQuery>) => 
   useQuery<PerformerDetailsQuery>(
     ['PerformerDetails', variables],

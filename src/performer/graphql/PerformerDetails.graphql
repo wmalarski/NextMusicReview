@@ -8,10 +8,6 @@ query PerformerDetails($id: ID!) {
       }
     }
     details {
-      image {
-        size
-        url
-      }
       bio {
         content
         published

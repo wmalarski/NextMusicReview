@@ -611,7 +611,7 @@ export type AlbumDetailsQueryVariables = Exact<{
 }>;
 
 
-export type AlbumDetailsQuery = { album: { details: Maybe<{ tags: Maybe<{ tag: Array<Pick<Tag, 'name'>> }>, wiki: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> } };
+export type AlbumDetailsQuery = { album: { details: Maybe<{ wiki: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> } };
 
 export type AlbumListItemFragment = (
   Pick<Album, 'id' | 'name' | 'year'>
@@ -632,7 +632,7 @@ export type PerformerDetailsQueryVariables = Exact<{
 
 export type PerformerDetailsQuery = { performer: (
     Pick<Performer, 'id' | 'name'>
-    & { albums: Maybe<{ nodes: Maybe<Array<AlbumListItemFragment>> }>, details: Maybe<{ image: Array<Pick<Image, 'size' | 'url'>>, bio: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
+    & { albums: Maybe<{ nodes: Maybe<Array<AlbumListItemFragment>> }>, details: Maybe<{ bio: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
   ) };
 
 export const AlbumListItemFragmentDoc = `
@@ -656,11 +656,6 @@ export const AlbumDetailsDocument = `
     query AlbumDetails($id: ID!) {
   album(id: $id) {
     details {
-      tags {
-        tag {
-          name
-        }
-      }
       wiki {
         content
         published
@@ -700,10 +695,6 @@ export const PerformerDetailsDocument = `
       }
     }
     details {
-      image {
-        size
-        url
-      }
       bio {
         content
         published

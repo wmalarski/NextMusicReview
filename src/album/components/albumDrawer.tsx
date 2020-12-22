@@ -9,11 +9,11 @@ import {
   HStack
 } from "@chakra-ui/react";
 import React from "react";
-import { AlbumItem } from "../types";
+import { AlbumListItemFragment } from "../../graphql/types";
 import AlbumDrawerContent from "./albumDrawerContent";
 
 export interface AlbumDrawerProps {
-  selectedAlbum?: AlbumItem;
+  selectedAlbum?: AlbumListItemFragment;
   setSelectedId: React.Dispatch<React.SetStateAction<string | null>>;
 }
 

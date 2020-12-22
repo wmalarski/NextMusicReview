@@ -1,48 +1,59 @@
+import { DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Flex,
+  Heading,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Stack
+} from "@chakra-ui/react";
+import compact from "lodash/compact";
 import React from "react";
+import AlbumGrid from "../../album/components/albumGrid";
+import WikiText from "../../common/components/wikiText";
 import { PerformerDetailsQuery } from "../../graphql/types";
 
 export interface PerformerDetailsProps {
   id: string;
-  details: PerformerDetailsQuery;
+  query: PerformerDetailsQuery;
 }
 
 export default function PerformerDetails(
   props: PerformerDetailsProps
 ): JSX.Element {
-  const { details } = props;
+  const { query } = props;
 
-  return <pre>{JSON.stringify(details, null, 2)}</pre>;
-  // const { data, isLoading } = useRandomAlbumsQuery({ count: AlbumCount });
-  // const albums = data?.randomAlbums;
+  const { details, name, albums } = query?.performer;
 
-  // const [selectedId, setSelectedId] = React.useState<string | null>(null);
-  // const selectedAlbum = React.useMemo(
-  //   () => albums?.find(album => album.id === selectedId),
-  //   [albums, selectedId]
-  // );
+  return (
+    <Stack>
+      <Flex justify="space-between" wrap="wrap">
+        <Box alignItems="center" flexGrow={1}>
+          <Heading as="h2" size="lg">
+            {name}
+          </Heading>
+        </Box>
+        <Menu>
+          <MenuButton as={IconButton} icon={<HamburgerIcon />} />
+          <MenuList>
+            <MenuItem icon={<EditIcon />}>Edit</MenuItem>
+            <MenuItem icon={<DeleteIcon />}>Delete</MenuItem>
+          </MenuList>
+        </Menu>
+      </Flex>
 
-  // return (
-  //   <>
-  //     <SimpleGrid minChildWidth="250px" spacing="10px">
-  //       {isLoading
-  //         ? range(0, AlbumCount).map(index => (
-  //             <Box key={index} bg="tomato" height="250px">
-  //               <Spinner />
-  //             </Box>
-  //           ))
-  //         : albums?.map(album => (
-  //             <AlbumGridItem
-  //               key={album.id}
-  //               album={album}
-  //               setSelectedId={setSelectedId}
-  //             />
-  //           ))}
-  //     </SimpleGrid>
-
-  //     <AlbumDrawer
-  //       selectedAlbum={selectedAlbum}
-  //       setSelectedId={setSelectedId}
-  //     />
-  //   </>
-  // );
+      <WikiText isLoading={false} wiki={details?.bio} />
+      <Heading as="h4" size="md">
+        Albums
+      </Heading>
+      <AlbumGrid
+        albums={compact(albums?.nodes)}
+        isLoading={false}
+        defaultCount={albums?.nodes?.length ?? 5}
+      />
+    </Stack>
+  );
 }

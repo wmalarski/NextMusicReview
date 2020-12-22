@@ -3,13 +3,16 @@ import { range } from "lodash";
 import React from "react";
 import AlbumDrawer from "../../album/components/albumDrawer";
 import AlbumGridItem from "../../album/components/albumGridItem";
-import { useRandomAlbumsQuery } from "../../graphql/types";
+import { AlbumListItemFragment } from "../../graphql/types";
 
-const AlbumCount = 20;
+export interface AlbumGridProps {
+  isLoading: boolean;
+  defaultCount: number;
+  albums?: AlbumListItemFragment[];
+}
 
-export default function RandomAlbumGrid(): JSX.Element {
-  const { data, isLoading } = useRandomAlbumsQuery({ count: AlbumCount });
-  const albums = data?.randomAlbums;
+export default function AlbumGrid(props: AlbumGridProps): JSX.Element {
+  const { albums, isLoading, defaultCount } = props;
 
   const [selectedId, setSelectedId] = React.useState<string | null>(null);
   const selectedAlbum = React.useMemo(
@@ -21,7 +24,7 @@ export default function RandomAlbumGrid(): JSX.Element {
     <>
       <SimpleGrid minChildWidth="250px" spacing="10px">
         {isLoading
-          ? range(0, AlbumCount).map(index => (
+          ? range(0, defaultCount).map(index => (
               <Box key={index} bg="tomato" height="250px">
                 <Spinner />
               </Box>

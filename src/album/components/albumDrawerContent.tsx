@@ -4,18 +4,18 @@ import {
   Heading,
   Image,
   Link,
-  Skeleton,
-  Stack,
-  Text
+  Stack
 } from "@chakra-ui/react";
-import range from "lodash/range";
 import NextLink from "next/link";
 import React from "react";
-import { useAlbumDetailsQuery } from "../../graphql/types";
-import { AlbumItem } from "../types";
+import WikiText from "../../common/components/wikiText";
+import {
+  AlbumListItemFragment,
+  useAlbumDetailsQuery
+} from "../../graphql/types";
 
 export interface AlbumDrawerContentProps {
-  album: AlbumItem;
+  album: AlbumListItemFragment;
 }
 
 export default function AlbumDrawerContent(
@@ -26,7 +26,7 @@ export default function AlbumDrawerContent(
 
   const image = details?.image.find(img => img.size === "mega");
 
-  const { data: detailsData } = useAlbumDetailsQuery({ id: album.id });
+  const { data, isLoading } = useAlbumDetailsQuery({ id: album.id });
 
   return (
     <>
@@ -47,28 +47,7 @@ export default function AlbumDrawerContent(
       <DrawerBody>
         <Stack>
           {image?.url && <Image src={image.url} alt={name} />}
-          {detailsData ? (
-            <Stack>
-              <Text
-                fontSize="md"
-                dangerouslySetInnerHTML={{
-                  __html: detailsData.album.details?.wiki?.summary ?? ""
-                }}
-              />
-              <Text
-                fontSize="sm"
-                dangerouslySetInnerHTML={{
-                  __html: detailsData.album.details?.wiki?.content ?? ""
-                }}
-              />
-            </Stack>
-          ) : (
-            <Stack>
-              {range(0, 6).map(index => (
-                <Skeleton key={index} height="20px" />
-              ))}
-            </Stack>
-          )}
+          <WikiText isLoading={isLoading} wiki={data?.album.details?.wiki} />
         </Stack>
       </DrawerBody>
     </>

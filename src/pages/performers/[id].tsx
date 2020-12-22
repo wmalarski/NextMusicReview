@@ -1,4 +1,3 @@
-import { Box } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
 import Layout from "../../common/components/layout";
@@ -12,19 +11,17 @@ import PerformerDetails from "../../performer/components/performerDetails";
 
 export interface PerformerDetailsPageProps {
   id: string;
-  details: PerformerDetailsQuery;
+  query: PerformerDetailsQuery;
 }
 
 export default function PerformerDetailsPage(
   props: PerformerDetailsPageProps
 ): JSX.Element {
-  const { id, details } = props;
+  const { id, query } = props;
 
   return (
-    <Layout>
-      <Box>
-        <PerformerDetails id={id} details={details} />
-      </Box>
+    <Layout container>
+      <PerformerDetails id={id} query={query} />
     </Layout>
   );
 }
@@ -40,10 +37,10 @@ export const getStaticProps: GetStaticProps<PerformerDetailsPageProps> = async (
 
   if (!id) return { notFound: true };
 
-  const details = await fetcher<
+  const query = await fetcher<
     PerformerDetailsQuery,
     PerformerDetailsQueryVariables
   >(PerformerDetailsDocument, { id })();
 
-  return { props: { id, details } };
+  return { props: { id, query } };
 };

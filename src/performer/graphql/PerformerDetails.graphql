@@ -1,0 +1,22 @@
+query PerformerDetails($id: ID!) {
+  performer(id: $id) {
+    id
+    name
+    albums {
+      nodes {
+        ...AlbumListItem
+      }
+    }
+    details {
+      image {
+        size
+        url
+      }
+      bio {
+        content
+        published
+        summary
+      }
+    }
+  }
+}

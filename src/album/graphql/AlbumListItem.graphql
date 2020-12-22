@@ -1,0 +1,15 @@
+fragment AlbumListItem on Album {
+  id
+  name
+  performer {
+    id
+    name
+  }
+  year
+  details {
+    image {
+      size
+      url
+    }
+  }
+}

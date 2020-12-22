@@ -14,13 +14,14 @@ export default function AlbumGridItem(props: AlbumGridItemProps): JSX.Element {
   const image = details?.image.find(img => img.size === "mega");
 
   return (
-    <>
-      <Box
-        bg="tomato"
-        onClick={() => setSelectedId(curr => (curr === id ? null : id))}
-      >
-        {image?.url && <ChakraImage src={image.url} alt={name} />}
-      </Box>
-    </>
+    <Box
+      bg="gray.100"
+      borderColor="gray.100"
+      borderWidth="2px"
+      _hover={{ borderColor: "teal.500" }}
+      onClick={() => setSelectedId(curr => (curr === id ? null : id))}
+    >
+      {image?.url && <ChakraImage src={image.url} alt={name} />}
+    </Box>
   );
 }

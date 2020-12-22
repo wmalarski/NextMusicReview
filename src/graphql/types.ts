@@ -613,17 +613,45 @@ export type AlbumDetailsQueryVariables = Exact<{
 
 export type AlbumDetailsQuery = { album: { details: Maybe<{ tags: Maybe<{ tag: Array<Pick<Tag, 'name'>> }>, wiki: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> } };
 
+export type AlbumListItemFragment = (
+  Pick<Album, 'id' | 'name' | 'year'>
+  & { performer: Maybe<Pick<Performer, 'id' | 'name'>>, details: Maybe<{ image: Array<Pick<Image, 'size' | 'url'>> }> }
+);
+
 export type RandomAlbumsQueryVariables = Exact<{
   count: Scalars['Int'];
 }>;
 
 
-export type RandomAlbumsQuery = { randomAlbums: Array<(
-    Pick<Album, 'id' | 'name' | 'year'>
-    & { performer: Maybe<Pick<Performer, 'name'>>, details: Maybe<{ image: Array<Pick<Image, 'size' | 'url'>> }> }
-  )> };
+export type RandomAlbumsQuery = { randomAlbums: Array<AlbumListItemFragment> };
+
+export type PerformerDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
 
 
+export type PerformerDetailsQuery = { performer: (
+    Pick<Performer, 'id' | 'name'>
+    & { albums: Maybe<{ nodes: Maybe<Array<AlbumListItemFragment>> }>, details: Maybe<{ image: Array<Pick<Image, 'size' | 'url'>>, bio: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
+  ) };
+
+export const AlbumListItemFragmentDoc = `
+    fragment AlbumListItem on Album {
+  id
+  name
+  performer {
+    id
+    name
+  }
+  year
+  details {
+    image {
+      size
+      url
+    }
+  }
+}
+    `;
 export const AlbumDetailsDocument = `
     query AlbumDetails($id: ID!) {
   album(id: $id) {
@@ -651,24 +679,43 @@ export const useAlbumDetailsQuery = (variables: AlbumDetailsQueryVariables, opti
 export const RandomAlbumsDocument = `
     query RandomAlbums($count: Int!) {
   randomAlbums(count: $count) {
+    ...AlbumListItem
+  }
+}
+    ${AlbumListItemFragmentDoc}`;
+export const useRandomAlbumsQuery = (variables: RandomAlbumsQueryVariables, options?: UseQueryOptions<RandomAlbumsQuery>) => 
+  useQuery<RandomAlbumsQuery>(
+    ['RandomAlbums', variables],
+    fetcher<RandomAlbumsQuery, RandomAlbumsQueryVariables>(RandomAlbumsDocument, variables),
+    options
+  );
+export const PerformerDetailsDocument = `
+    query PerformerDetails($id: ID!) {
+  performer(id: $id) {
     id
     name
-    performer {
-      name
+    albums {
+      nodes {
+        ...AlbumListItem
+      }
     }
-    year
     details {
       image {
         size
         url
       }
+      bio {
+        content
+        published
+        summary
+      }
     }
   }
 }
-    `;
-export const useRandomAlbumsQuery = (variables: RandomAlbumsQueryVariables, options?: UseQueryOptions<RandomAlbumsQuery>) => 
-  useQuery<RandomAlbumsQuery>(
-    ['RandomAlbums', variables],
-    fetcher<RandomAlbumsQuery, RandomAlbumsQueryVariables>(RandomAlbumsDocument, variables),
+    ${AlbumListItemFragmentDoc}`;
+export const usePerformerDetailsQuery = (variables: PerformerDetailsQueryVariables, options?: UseQueryOptions<PerformerDetailsQuery>) => 
+  useQuery<PerformerDetailsQuery>(
+    ['PerformerDetails', variables],
+    fetcher<PerformerDetailsQuery, PerformerDetailsQueryVariables>(PerformerDetailsDocument, variables),
     options
   );

@@ -3,11 +3,13 @@ import {
   DrawerHeader,
   Heading,
   Image,
+  Link,
   Skeleton,
   Stack,
   Text
 } from "@chakra-ui/react";
 import range from "lodash/range";
+import NextLink from "next/link";
 import React from "react";
 import { useAlbumDetailsQuery } from "../../graphql/types";
 import { AlbumItem } from "../types";
@@ -20,7 +22,7 @@ export default function AlbumDrawerContent(
   props: AlbumDrawerContentProps
 ): JSX.Element {
   const { album } = props;
-  const { details, name, year, performer } = album;
+  const { id, details, name, year, performer } = album;
 
   const image = details?.image.find(img => img.size === "mega");
 
@@ -29,9 +31,13 @@ export default function AlbumDrawerContent(
   return (
     <>
       <DrawerHeader>
-        {name}
+        <NextLink href={`/albums/${id}`}>
+          <Link>{name}</Link>
+        </NextLink>
         <Heading as="h5" size="sm">
-          {performer?.name}
+          <NextLink href={`/performers/${performer?.id}`}>
+            <Link>{performer?.name}</Link>
+          </NextLink>
         </Heading>
         <Heading as="h6" size="xs">
           {year}

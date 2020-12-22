@@ -1,0 +1,16 @@
+query RandomAlbums($count: Int!) {
+  randomAlbums(count: $count) {
+    id
+    name
+    performer {
+      name
+    }
+    year
+    details {
+      image {
+        size
+        url
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+overwrite: true
+schema: "https://next-music-rating.azurewebsites.net/graphql/"
+documents: "src/**/*.graphql"
+generates:
+  src/graphql/types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-graphql-request"
+    config:
+      immutableTypes: true
+      skipTypename: true
+      avoidOptionals: true

@@ -4,7 +4,7 @@ import Head from "next/head";
 import React from "react";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import queryClient from "../common/queryClient";
+import queryClient from "../graphql/queryClient";
 
 export default function MyApp(props: AppProps): JSX.Element {
   const { Component, pageProps } = props;

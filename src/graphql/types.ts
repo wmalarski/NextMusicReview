@@ -18,18 +18,18 @@ export type Scalars = {
 };
 
 export type Query = {
-  readonly node: Maybe<Node>;
-  readonly performers: Maybe<PerformerConnection>;
-  readonly performer: Performer;
-  readonly albums: Maybe<AlbumConnection>;
-  readonly randomAlbums: ReadonlyArray<Album>;
-  readonly myRandomAlbums: ReadonlyArray<Album>;
-  readonly album: Album;
-  readonly reviews: Maybe<ReviewConnection>;
-  readonly review: Review;
-  readonly searchAlbums: Maybe<ReadonlyArray<AlbumSearch>>;
-  readonly searchPerformers: Maybe<ReadonlyArray<PerformerSearch>>;
-  readonly performerCorrection: Maybe<PerformerCorrection>;
+  node: Maybe<Node>;
+  performers: Maybe<PerformerConnection>;
+  performer: Performer;
+  albums: Maybe<AlbumConnection>;
+  randomAlbums: Array<Album>;
+  myRandomAlbums: Array<Album>;
+  album: Album;
+  reviews: Maybe<ReviewConnection>;
+  review: Review;
+  searchAlbums: Maybe<Array<AlbumSearch>>;
+  searchPerformers: Maybe<Array<PerformerSearch>>;
+  performerCorrection: Maybe<PerformerCorrection>;
 };
 
 
@@ -44,7 +44,7 @@ export type QueryPerformersArgs = {
   last: Maybe<Scalars['Int']>;
   before: Maybe<Scalars['String']>;
   where: Maybe<PerformerFilterInput>;
-  order: Maybe<ReadonlyArray<PerformerSortInput>>;
+  order: Maybe<Array<PerformerSortInput>>;
 };
 
 
@@ -59,21 +59,21 @@ export type QueryAlbumsArgs = {
   last: Maybe<Scalars['Int']>;
   before: Maybe<Scalars['String']>;
   where: Maybe<AlbumFilterInput>;
-  order: Maybe<ReadonlyArray<AlbumSortInput>>;
+  order: Maybe<Array<AlbumSortInput>>;
 };
 
 
 export type QueryRandomAlbumsArgs = {
   count: Scalars['Int'];
   where: Maybe<AlbumFilterInput>;
-  order: Maybe<ReadonlyArray<AlbumSortInput>>;
+  order: Maybe<Array<AlbumSortInput>>;
 };
 
 
 export type QueryMyRandomAlbumsArgs = {
   count: Scalars['Int'];
   where: Maybe<AlbumFilterInput>;
-  order: Maybe<ReadonlyArray<AlbumSortInput>>;
+  order: Maybe<Array<AlbumSortInput>>;
 };
 
 
@@ -88,7 +88,7 @@ export type QueryReviewsArgs = {
   last: Maybe<Scalars['Int']>;
   before: Maybe<Scalars['String']>;
   where: Maybe<ReviewFilterInput>;
-  order: Maybe<ReadonlyArray<ReviewSortInput>>;
+  order: Maybe<Array<ReviewSortInput>>;
 };
 
 
@@ -112,15 +112,15 @@ export type QueryPerformerCorrectionArgs = {
 };
 
 export type Mutation = {
-  readonly createPerformer: CreatePerformerPayload;
-  readonly updatePerformer: UpdatePerformerPayload;
-  readonly deletePerformer: DeletePayload;
-  readonly createAlbum: CreateAlbumPayload;
-  readonly updateAlbum: UpdateAlbumPayload;
-  readonly deleteAlbum: DeletePayload;
-  readonly createReview: CreateReviewPayload;
-  readonly updateReview: UpdateReviewPayload;
-  readonly deleteReview: DeletePayload;
+  createPerformer: CreatePerformerPayload;
+  updatePerformer: UpdatePerformerPayload;
+  deletePerformer: DeletePayload;
+  createAlbum: CreateAlbumPayload;
+  updateAlbum: UpdateAlbumPayload;
+  deleteAlbum: DeletePayload;
+  createReview: CreateReviewPayload;
+  updateReview: UpdateReviewPayload;
+  deleteReview: DeletePayload;
 };
 
 
@@ -169,14 +169,14 @@ export type MutationDeleteReviewArgs = {
 };
 
 export type Performer = Node & {
-  readonly id: Scalars['ID'];
-  readonly user: Maybe<User>;
-  readonly albums: Maybe<AlbumConnection>;
-  readonly details: Maybe<PerformerDetails>;
-  readonly mBid: Scalars['String'];
-  readonly name: Scalars['String'];
-  readonly createdAt: Scalars['DateTime'];
-  readonly updatedAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  user: Maybe<User>;
+  albums: Maybe<AlbumConnection>;
+  details: Maybe<PerformerDetails>;
+  mBid: Scalars['String'];
+  name: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
 
@@ -186,21 +186,21 @@ export type PerformerAlbumsArgs = {
   last: Maybe<Scalars['Int']>;
   before: Maybe<Scalars['String']>;
   where: Maybe<AlbumFilterInput>;
-  order: Maybe<ReadonlyArray<AlbumSortInput>>;
+  order: Maybe<Array<AlbumSortInput>>;
 };
 
 export type Album = Node & {
-  readonly id: Scalars['ID'];
-  readonly user: Maybe<User>;
-  readonly performer: Maybe<Performer>;
-  readonly reviews: Maybe<ReviewConnection>;
-  readonly reviewsCount: Scalars['Int'];
-  readonly details: Maybe<AlbumDetails>;
-  readonly mBid: Scalars['String'];
-  readonly name: Scalars['String'];
-  readonly year: Scalars['Int'];
-  readonly createdAt: Scalars['DateTime'];
-  readonly updatedAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  user: Maybe<User>;
+  performer: Maybe<Performer>;
+  reviews: Maybe<ReviewConnection>;
+  reviewsCount: Scalars['Int'];
+  details: Maybe<AlbumDetails>;
+  mBid: Scalars['String'];
+  name: Scalars['String'];
+  year: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
 
@@ -210,91 +210,91 @@ export type AlbumReviewsArgs = {
   last: Maybe<Scalars['Int']>;
   before: Maybe<Scalars['String']>;
   where: Maybe<ReviewFilterInput>;
-  order: Maybe<ReadonlyArray<ReviewSortInput>>;
+  order: Maybe<Array<ReviewSortInput>>;
 };
 
 export type Review = Node & {
-  readonly id: Scalars['ID'];
-  readonly user: Maybe<User>;
-  readonly album: Maybe<Album>;
-  readonly text: Scalars['String'];
-  readonly rating: Scalars['Decimal'];
-  readonly createdAt: Scalars['DateTime'];
-  readonly updatedAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  user: Maybe<User>;
+  album: Maybe<Album>;
+  text: Scalars['String'];
+  rating: Scalars['Decimal'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type User = {
-  readonly performers: Maybe<ReadonlyArray<Maybe<Performer>>>;
-  readonly albums: Maybe<ReadonlyArray<Maybe<Album>>>;
-  readonly reviews: Maybe<ReadonlyArray<Maybe<Review>>>;
-  readonly id: Scalars['String'];
+  performers: Maybe<Array<Maybe<Performer>>>;
+  albums: Maybe<Array<Maybe<Album>>>;
+  reviews: Maybe<Array<Maybe<Review>>>;
+  id: Scalars['String'];
 };
 
 /** The node interface is implemented by entities that have a global unique identifier. */
 export type Node = {
-  readonly id: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 export type AlbumFilterInput = {
-  readonly and: Maybe<ReadonlyArray<AlbumFilterInput>>;
-  readonly or: Maybe<ReadonlyArray<AlbumFilterInput>>;
-  readonly name: Maybe<StringOperationFilterInput>;
-  readonly year: Maybe<ComparableInt32OperationFilterInput>;
-  readonly createdAt: Maybe<ComparableDateTimeOperationFilterInput>;
-  readonly updatedAt: Maybe<ComparableDateTimeOperationFilterInput>;
+  and: Maybe<Array<AlbumFilterInput>>;
+  or: Maybe<Array<AlbumFilterInput>>;
+  name: Maybe<StringOperationFilterInput>;
+  year: Maybe<ComparableInt32OperationFilterInput>;
+  createdAt: Maybe<ComparableDateTimeOperationFilterInput>;
+  updatedAt: Maybe<ComparableDateTimeOperationFilterInput>;
 };
 
 export type AlbumSortInput = {
-  readonly id: Maybe<SortEnumType>;
-  readonly mBid: Maybe<SortEnumType>;
-  readonly name: Maybe<SortEnumType>;
-  readonly performer: Maybe<SortEnumType>;
-  readonly year: Maybe<SortEnumType>;
-  readonly user: Maybe<SortEnumType>;
-  readonly createdAt: Maybe<SortEnumType>;
-  readonly updatedAt: Maybe<SortEnumType>;
+  id: Maybe<SortEnumType>;
+  mBid: Maybe<SortEnumType>;
+  name: Maybe<SortEnumType>;
+  performer: Maybe<SortEnumType>;
+  year: Maybe<SortEnumType>;
+  user: Maybe<SortEnumType>;
+  createdAt: Maybe<SortEnumType>;
+  updatedAt: Maybe<SortEnumType>;
 };
 
 /** A connection to a list of items. */
 export type AlbumConnection = {
   /** Information to aid in pagination. */
-  readonly pageInfo: PageInfo;
+  pageInfo: PageInfo;
   /** A list of edges. */
-  readonly edges: Maybe<ReadonlyArray<AlbumEdge>>;
+  edges: Maybe<Array<AlbumEdge>>;
   /** A flattened list of the nodes. */
-  readonly nodes: Maybe<ReadonlyArray<Album>>;
+  nodes: Maybe<Array<Album>>;
 };
 
 export type ReviewFilterInput = {
-  readonly and: Maybe<ReadonlyArray<ReviewFilterInput>>;
-  readonly or: Maybe<ReadonlyArray<ReviewFilterInput>>;
-  readonly id: Maybe<StringOperationFilterInput>;
-  readonly album: Maybe<StringOperationFilterInput>;
-  readonly text: Maybe<StringOperationFilterInput>;
-  readonly rating: Maybe<ComparableDecimalOperationFilterInput>;
-  readonly user: Maybe<StringOperationFilterInput>;
-  readonly createdAt: Maybe<ComparableDateTimeOperationFilterInput>;
-  readonly updatedAt: Maybe<ComparableDateTimeOperationFilterInput>;
+  and: Maybe<Array<ReviewFilterInput>>;
+  or: Maybe<Array<ReviewFilterInput>>;
+  id: Maybe<StringOperationFilterInput>;
+  album: Maybe<StringOperationFilterInput>;
+  text: Maybe<StringOperationFilterInput>;
+  rating: Maybe<ComparableDecimalOperationFilterInput>;
+  user: Maybe<StringOperationFilterInput>;
+  createdAt: Maybe<ComparableDateTimeOperationFilterInput>;
+  updatedAt: Maybe<ComparableDateTimeOperationFilterInput>;
 };
 
 export type ReviewSortInput = {
-  readonly id: Maybe<SortEnumType>;
-  readonly album: Maybe<SortEnumType>;
-  readonly text: Maybe<SortEnumType>;
-  readonly rating: Maybe<SortEnumType>;
-  readonly user: Maybe<SortEnumType>;
-  readonly createdAt: Maybe<SortEnumType>;
-  readonly updatedAt: Maybe<SortEnumType>;
+  id: Maybe<SortEnumType>;
+  album: Maybe<SortEnumType>;
+  text: Maybe<SortEnumType>;
+  rating: Maybe<SortEnumType>;
+  user: Maybe<SortEnumType>;
+  createdAt: Maybe<SortEnumType>;
+  updatedAt: Maybe<SortEnumType>;
 };
 
 /** A connection to a list of items. */
 export type ReviewConnection = {
   /** Information to aid in pagination. */
-  readonly pageInfo: PageInfo;
+  pageInfo: PageInfo;
   /** A list of edges. */
-  readonly edges: Maybe<ReadonlyArray<ReviewEdge>>;
+  edges: Maybe<Array<ReviewEdge>>;
   /** A flattened list of the nodes. */
-  readonly nodes: Maybe<ReadonlyArray<Review>>;
+  nodes: Maybe<Array<Review>>;
 };
 
 export enum ApplyPolicy {
@@ -303,48 +303,48 @@ export enum ApplyPolicy {
 }
 
 export type StringOperationFilterInput = {
-  readonly and: Maybe<ReadonlyArray<StringOperationFilterInput>>;
-  readonly or: Maybe<ReadonlyArray<StringOperationFilterInput>>;
-  readonly eq: Maybe<Scalars['String']>;
-  readonly neq: Maybe<Scalars['String']>;
-  readonly contains: Maybe<Scalars['String']>;
-  readonly ncontains: Maybe<Scalars['String']>;
-  readonly in: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly nin: Maybe<ReadonlyArray<Maybe<Scalars['String']>>>;
-  readonly startsWith: Maybe<Scalars['String']>;
-  readonly nstartsWith: Maybe<Scalars['String']>;
-  readonly endsWith: Maybe<Scalars['String']>;
-  readonly nendsWith: Maybe<Scalars['String']>;
+  and: Maybe<Array<StringOperationFilterInput>>;
+  or: Maybe<Array<StringOperationFilterInput>>;
+  eq: Maybe<Scalars['String']>;
+  neq: Maybe<Scalars['String']>;
+  contains: Maybe<Scalars['String']>;
+  ncontains: Maybe<Scalars['String']>;
+  in: Maybe<Array<Maybe<Scalars['String']>>>;
+  nin: Maybe<Array<Maybe<Scalars['String']>>>;
+  startsWith: Maybe<Scalars['String']>;
+  nstartsWith: Maybe<Scalars['String']>;
+  endsWith: Maybe<Scalars['String']>;
+  nendsWith: Maybe<Scalars['String']>;
 };
 
 export type ComparableInt32OperationFilterInput = {
-  readonly eq: Maybe<Scalars['Int']>;
-  readonly neq: Maybe<Scalars['Int']>;
-  readonly in: Maybe<ReadonlyArray<Scalars['Int']>>;
-  readonly nin: Maybe<ReadonlyArray<Scalars['Int']>>;
-  readonly gt: Maybe<Scalars['Int']>;
-  readonly ngt: Maybe<Scalars['Int']>;
-  readonly gte: Maybe<Scalars['Int']>;
-  readonly ngte: Maybe<Scalars['Int']>;
-  readonly lt: Maybe<Scalars['Int']>;
-  readonly nlt: Maybe<Scalars['Int']>;
-  readonly lte: Maybe<Scalars['Int']>;
-  readonly nlte: Maybe<Scalars['Int']>;
+  eq: Maybe<Scalars['Int']>;
+  neq: Maybe<Scalars['Int']>;
+  in: Maybe<Array<Scalars['Int']>>;
+  nin: Maybe<Array<Scalars['Int']>>;
+  gt: Maybe<Scalars['Int']>;
+  ngt: Maybe<Scalars['Int']>;
+  gte: Maybe<Scalars['Int']>;
+  ngte: Maybe<Scalars['Int']>;
+  lt: Maybe<Scalars['Int']>;
+  nlt: Maybe<Scalars['Int']>;
+  lte: Maybe<Scalars['Int']>;
+  nlte: Maybe<Scalars['Int']>;
 };
 
 export type ComparableDateTimeOperationFilterInput = {
-  readonly eq: Maybe<Scalars['DateTime']>;
-  readonly neq: Maybe<Scalars['DateTime']>;
-  readonly in: Maybe<ReadonlyArray<Scalars['DateTime']>>;
-  readonly nin: Maybe<ReadonlyArray<Scalars['DateTime']>>;
-  readonly gt: Maybe<Scalars['DateTime']>;
-  readonly ngt: Maybe<Scalars['DateTime']>;
-  readonly gte: Maybe<Scalars['DateTime']>;
-  readonly ngte: Maybe<Scalars['DateTime']>;
-  readonly lt: Maybe<Scalars['DateTime']>;
-  readonly nlt: Maybe<Scalars['DateTime']>;
-  readonly lte: Maybe<Scalars['DateTime']>;
-  readonly nlte: Maybe<Scalars['DateTime']>;
+  eq: Maybe<Scalars['DateTime']>;
+  neq: Maybe<Scalars['DateTime']>;
+  in: Maybe<Array<Scalars['DateTime']>>;
+  nin: Maybe<Array<Scalars['DateTime']>>;
+  gt: Maybe<Scalars['DateTime']>;
+  ngt: Maybe<Scalars['DateTime']>;
+  gte: Maybe<Scalars['DateTime']>;
+  ngte: Maybe<Scalars['DateTime']>;
+  lt: Maybe<Scalars['DateTime']>;
+  nlt: Maybe<Scalars['DateTime']>;
+  lte: Maybe<Scalars['DateTime']>;
+  nlte: Maybe<Scalars['DateTime']>;
 };
 
 export enum SortEnumType {
@@ -355,268 +355,299 @@ export enum SortEnumType {
 /** Information about pagination in a connection. */
 export type PageInfo = {
   /** Indicates whether more edges exist following the set defined by the clients arguments. */
-  readonly hasNextPage: Scalars['Boolean'];
+  hasNextPage: Scalars['Boolean'];
   /** Indicates whether more edges exist prior the set defined by the clients arguments. */
-  readonly hasPreviousPage: Scalars['Boolean'];
+  hasPreviousPage: Scalars['Boolean'];
   /** When paginating backwards, the cursor to continue. */
-  readonly startCursor: Maybe<Scalars['String']>;
+  startCursor: Maybe<Scalars['String']>;
   /** When paginating forwards, the cursor to continue. */
-  readonly endCursor: Maybe<Scalars['String']>;
+  endCursor: Maybe<Scalars['String']>;
 };
 
 /** An edge in a connection. */
 export type AlbumEdge = {
   /** A cursor for use in pagination. */
-  readonly cursor: Scalars['String'];
+  cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  readonly node: Album;
+  node: Album;
 };
 
 export type ComparableDecimalOperationFilterInput = {
-  readonly eq: Maybe<Scalars['Decimal']>;
-  readonly neq: Maybe<Scalars['Decimal']>;
-  readonly in: Maybe<ReadonlyArray<Scalars['Decimal']>>;
-  readonly nin: Maybe<ReadonlyArray<Scalars['Decimal']>>;
-  readonly gt: Maybe<Scalars['Decimal']>;
-  readonly ngt: Maybe<Scalars['Decimal']>;
-  readonly gte: Maybe<Scalars['Decimal']>;
-  readonly ngte: Maybe<Scalars['Decimal']>;
-  readonly lt: Maybe<Scalars['Decimal']>;
-  readonly nlt: Maybe<Scalars['Decimal']>;
-  readonly lte: Maybe<Scalars['Decimal']>;
-  readonly nlte: Maybe<Scalars['Decimal']>;
+  eq: Maybe<Scalars['Decimal']>;
+  neq: Maybe<Scalars['Decimal']>;
+  in: Maybe<Array<Scalars['Decimal']>>;
+  nin: Maybe<Array<Scalars['Decimal']>>;
+  gt: Maybe<Scalars['Decimal']>;
+  ngt: Maybe<Scalars['Decimal']>;
+  gte: Maybe<Scalars['Decimal']>;
+  ngte: Maybe<Scalars['Decimal']>;
+  lt: Maybe<Scalars['Decimal']>;
+  nlt: Maybe<Scalars['Decimal']>;
+  lte: Maybe<Scalars['Decimal']>;
+  nlte: Maybe<Scalars['Decimal']>;
 };
 
 /** An edge in a connection. */
 export type ReviewEdge = {
   /** A cursor for use in pagination. */
-  readonly cursor: Scalars['String'];
+  cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  readonly node: Review;
+  node: Review;
 };
 
 export type PerformerDetails = {
-  readonly mBid: Scalars['String'];
-  readonly image: ReadonlyArray<Image>;
-  readonly bio: Maybe<Wiki>;
-  readonly tags: Maybe<Tags>;
+  mBid: Scalars['String'];
+  image: Array<Image>;
+  bio: Maybe<Wiki>;
+  tags: Maybe<Tags>;
 };
 
 
 export type AlbumDetails = {
-  readonly mBid: Scalars['String'];
-  readonly image: ReadonlyArray<Image>;
-  readonly wiki: Maybe<Wiki>;
-  readonly tags: Maybe<Tags>;
+  mBid: Scalars['String'];
+  image: Array<Image>;
+  wiki: Maybe<Wiki>;
+  tags: Maybe<Tags>;
 };
 
 
 export type PerformerFilterInput = {
-  readonly and: Maybe<ReadonlyArray<PerformerFilterInput>>;
-  readonly or: Maybe<ReadonlyArray<PerformerFilterInput>>;
-  readonly id: Maybe<StringOperationFilterInput>;
-  readonly mBid: Maybe<StringOperationFilterInput>;
-  readonly name: Maybe<StringOperationFilterInput>;
-  readonly user: Maybe<StringOperationFilterInput>;
-  readonly createdAt: Maybe<ComparableDateTimeOperationFilterInput>;
-  readonly updatedAt: Maybe<ComparableDateTimeOperationFilterInput>;
+  and: Maybe<Array<PerformerFilterInput>>;
+  or: Maybe<Array<PerformerFilterInput>>;
+  id: Maybe<StringOperationFilterInput>;
+  mBid: Maybe<StringOperationFilterInput>;
+  name: Maybe<StringOperationFilterInput>;
+  user: Maybe<StringOperationFilterInput>;
+  createdAt: Maybe<ComparableDateTimeOperationFilterInput>;
+  updatedAt: Maybe<ComparableDateTimeOperationFilterInput>;
 };
 
 export type PerformerSortInput = {
-  readonly id: Maybe<SortEnumType>;
-  readonly mBid: Maybe<SortEnumType>;
-  readonly name: Maybe<SortEnumType>;
-  readonly user: Maybe<SortEnumType>;
-  readonly createdAt: Maybe<SortEnumType>;
-  readonly updatedAt: Maybe<SortEnumType>;
+  id: Maybe<SortEnumType>;
+  mBid: Maybe<SortEnumType>;
+  name: Maybe<SortEnumType>;
+  user: Maybe<SortEnumType>;
+  createdAt: Maybe<SortEnumType>;
+  updatedAt: Maybe<SortEnumType>;
 };
 
 /** A connection to a list of items. */
 export type PerformerConnection = {
   /** Information to aid in pagination. */
-  readonly pageInfo: PageInfo;
+  pageInfo: PageInfo;
   /** A list of edges. */
-  readonly edges: Maybe<ReadonlyArray<PerformerEdge>>;
+  edges: Maybe<Array<PerformerEdge>>;
   /** A flattened list of the nodes. */
-  readonly nodes: Maybe<ReadonlyArray<Performer>>;
+  nodes: Maybe<Array<Performer>>;
 };
 
 /** An edge in a connection. */
 export type PerformerEdge = {
   /** A cursor for use in pagination. */
-  readonly cursor: Scalars['String'];
+  cursor: Scalars['String'];
   /** The item at the end of the edge. */
-  readonly node: Performer;
+  node: Performer;
 };
 
 export type CreateAlbumPayload = {
-  readonly album: Maybe<Album>;
-  readonly errors: Maybe<ReadonlyArray<UserError>>;
+  album: Maybe<Album>;
+  errors: Maybe<Array<UserError>>;
 };
 
 export type DeletePerformerInput = {
-  readonly id: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 export type UpdatePerformerInput = {
-  readonly id: Scalars['ID'];
-  readonly name: Scalars['String'];
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type CreatePerformerInput = {
-  readonly mBid: Scalars['String'];
-  readonly name: Scalars['String'];
-  readonly albums: ReadonlyArray<CreatePerformerAlbumInput>;
+  mBid: Scalars['String'];
+  name: Scalars['String'];
+  albums: Array<CreatePerformerAlbumInput>;
 };
 
 export type DeletePayload = {
-  readonly success: Scalars['Boolean'];
-  readonly errors: Maybe<ReadonlyArray<UserError>>;
+  success: Scalars['Boolean'];
+  errors: Maybe<Array<UserError>>;
 };
 
 export type UpdatePerformerPayload = {
-  readonly performer: Maybe<Performer>;
-  readonly errors: Maybe<ReadonlyArray<UserError>>;
+  performer: Maybe<Performer>;
+  errors: Maybe<Array<UserError>>;
 };
 
 export type CreatePerformerPayload = {
-  readonly performer: Maybe<Performer>;
-  readonly errors: Maybe<ReadonlyArray<UserError>>;
+  performer: Maybe<Performer>;
+  errors: Maybe<Array<UserError>>;
 };
 
 export type PerformerCorrectionInput = {
-  readonly performer: Scalars['String'];
+  performer: Scalars['String'];
 };
 
 export type SearchPerformerInput = {
-  readonly performer: Scalars['String'];
-  readonly page: Scalars['Int'];
-  readonly limit: Scalars['Int'];
+  performer: Scalars['String'];
+  page: Scalars['Int'];
+  limit: Scalars['Int'];
 };
 
 export type SearchAlbumsInput = {
-  readonly album: Scalars['String'];
-  readonly page: Scalars['Int'];
-  readonly limit: Scalars['Int'];
+  album: Scalars['String'];
+  page: Scalars['Int'];
+  limit: Scalars['Int'];
 };
 
 export type PerformerCorrection = {
-  readonly name: Maybe<Scalars['String']>;
-  readonly mbid: Maybe<Scalars['String']>;
+  name: Maybe<Scalars['String']>;
+  mbid: Maybe<Scalars['String']>;
 };
 
 export type PerformerSearch = {
-  readonly name: Scalars['String'];
-  readonly image: ReadonlyArray<Image>;
-  readonly mbid: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  image: Array<Image>;
+  mbid: Maybe<Scalars['String']>;
 };
 
 export type AlbumSearch = {
-  readonly name: Scalars['String'];
-  readonly performer: Scalars['String'];
-  readonly image: ReadonlyArray<Image>;
-  readonly mbid: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  performer: Scalars['String'];
+  image: Array<Image>;
+  mbid: Maybe<Scalars['String']>;
 };
 
 export type UpdateAlbumPayload = {
-  readonly album: Maybe<Album>;
-  readonly errors: Maybe<ReadonlyArray<UserError>>;
+  album: Maybe<Album>;
+  errors: Maybe<Array<UserError>>;
 };
 
 export type CreateAlbumInput = {
-  readonly mBid: Scalars['String'];
-  readonly name: Scalars['String'];
-  readonly performer: Scalars['ID'];
-  readonly year: Scalars['Int'];
+  mBid: Scalars['String'];
+  name: Scalars['String'];
+  performer: Scalars['ID'];
+  year: Scalars['Int'];
 };
 
 export type UpdateAlbumInput = {
-  readonly id: Scalars['ID'];
-  readonly mBid: Scalars['String'];
-  readonly name: Scalars['String'];
-  readonly performer: Scalars['ID'];
-  readonly year: Scalars['Int'];
+  id: Scalars['ID'];
+  mBid: Scalars['String'];
+  name: Scalars['String'];
+  performer: Scalars['ID'];
+  year: Scalars['Int'];
 };
 
 export type DeleteAlbumInput = {
-  readonly id: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 export type CreateReviewPayload = {
-  readonly review: Maybe<Review>;
-  readonly errors: Maybe<ReadonlyArray<UserError>>;
+  review: Maybe<Review>;
+  errors: Maybe<Array<UserError>>;
 };
 
 export type UpdateReviewPayload = {
-  readonly review: Maybe<Review>;
-  readonly errors: Maybe<ReadonlyArray<UserError>>;
+  review: Maybe<Review>;
+  errors: Maybe<Array<UserError>>;
 };
 
 export type CreateReviewInput = {
-  readonly album: Scalars['ID'];
-  readonly rating: Scalars['Decimal'];
-  readonly text: Scalars['String'];
+  album: Scalars['ID'];
+  rating: Scalars['Decimal'];
+  text: Scalars['String'];
 };
 
 export type UpdateReviewInput = {
-  readonly id: Scalars['ID'];
-  readonly text: Scalars['String'];
-  readonly rating: Scalars['Decimal'];
+  id: Scalars['ID'];
+  text: Scalars['String'];
+  rating: Scalars['Decimal'];
 };
 
 export type DeleteReviewInput = {
-  readonly id: Scalars['ID'];
+  id: Scalars['ID'];
 };
 
 export type Image = {
-  readonly url: Maybe<Scalars['String']>;
-  readonly size: Maybe<Scalars['String']>;
+  url: Maybe<Scalars['String']>;
+  size: Maybe<Scalars['String']>;
 };
 
 export type Wiki = {
-  readonly published: Maybe<Scalars['String']>;
-  readonly summary: Scalars['String'];
-  readonly content: Scalars['String'];
+  published: Maybe<Scalars['String']>;
+  summary: Scalars['String'];
+  content: Scalars['String'];
 };
 
 export type Tags = {
-  readonly tag: ReadonlyArray<Tag>;
+  tag: Array<Tag>;
 };
 
 export type Tag = {
-  readonly name: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type CreatePerformerAlbumInput = {
-  readonly mBid: Scalars['String'];
-  readonly name: Scalars['String'];
-  readonly year: Scalars['Int'];
-  readonly reviews: Maybe<ReadonlyArray<CreatePerformerReviewInput>>;
+  mBid: Scalars['String'];
+  name: Scalars['String'];
+  year: Scalars['Int'];
+  reviews: Maybe<Array<CreatePerformerReviewInput>>;
 };
 
 export type UserError = {
-  readonly message: Scalars['String'];
-  readonly code: Scalars['String'];
+  message: Scalars['String'];
+  code: Scalars['String'];
 };
 
 export type CreatePerformerReviewInput = {
-  readonly text: Scalars['String'];
-  readonly rating: Scalars['Decimal'];
-  readonly createdAt: Scalars['DateTime'];
-  readonly updatedAt: Scalars['DateTime'];
+  text: Scalars['String'];
+  rating: Scalars['Decimal'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
+
+export type AlbumDetailsQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type AlbumDetailsQuery = { album: { details: Maybe<{ tags: Maybe<{ tag: Array<Pick<Tag, 'name'>> }>, wiki: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> } };
 
 export type RandomAlbumsQueryVariables = Exact<{
   count: Scalars['Int'];
 }>;
 
 
-export type RandomAlbumsQuery = { readonly randomAlbums: ReadonlyArray<(
+export type RandomAlbumsQuery = { randomAlbums: Array<(
     Pick<Album, 'id' | 'name' | 'year'>
-    & { readonly performer: Maybe<Pick<Performer, 'name'>>, readonly details: Maybe<{ readonly image: ReadonlyArray<Pick<Image, 'size' | 'url'>> }> }
+    & { performer: Maybe<Pick<Performer, 'name'>>, details: Maybe<{ image: Array<Pick<Image, 'size' | 'url'>> }> }
   )> };
 
 
+export const AlbumDetailsDocument = `
+    query AlbumDetails($id: ID!) {
+  album(id: $id) {
+    details {
+      tags {
+        tag {
+          name
+        }
+      }
+      wiki {
+        content
+        published
+        summary
+      }
+    }
+  }
+}
+    `;
+export const useAlbumDetailsQuery = (variables: AlbumDetailsQueryVariables, options?: UseQueryOptions<AlbumDetailsQuery>) => 
+  useQuery<AlbumDetailsQuery>(
+    ['AlbumDetails', variables],
+    fetcher<AlbumDetailsQuery, AlbumDetailsQueryVariables>(AlbumDetailsDocument, variables),
+    options
+  );
 export const RandomAlbumsDocument = `
     query RandomAlbums($count: Int!) {
   randomAlbums(count: $count) {

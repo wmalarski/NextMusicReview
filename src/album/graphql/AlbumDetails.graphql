@@ -1,0 +1,16 @@
+query AlbumDetails($id: ID!) {
+  album(id: $id) {
+    details {
+      tags {
+        tag {
+          name
+        }
+      }
+      wiki {
+        content
+        published
+        summary
+      }
+    }
+  }
+}

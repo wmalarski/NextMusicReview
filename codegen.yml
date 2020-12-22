@@ -8,7 +8,6 @@ generates:
       - "typescript-operations"
       - "typescript-react-query"
     config:
-      immutableTypes: true
       skipTypename: true
       avoidOptionals: true
       fetcher: ./fetcher#fetcher

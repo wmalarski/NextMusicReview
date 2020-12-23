@@ -647,6 +647,18 @@ export type PerformerDetailsQuery = { performer: (
 
 export type ReviewListItemFragment = Pick<Review, 'id' | 'rating' | 'text' | 'updatedAt' | 'createdAt'>;
 
+export type ReviewsQueryVariables = Exact<{
+  after: Maybe<Scalars['String']>;
+  first: Maybe<Scalars['Int']>;
+  order: Maybe<Array<ReviewSortInput>>;
+}>;
+
+
+export type ReviewsQuery = { reviews: Maybe<{ pageInfo: Pick<PageInfo, 'endCursor' | 'hasNextPage' | 'hasPreviousPage' | 'startCursor'>, nodes: Maybe<Array<(
+      { album: Maybe<AlbumGridItemFragment> }
+      & ReviewListItemFragment
+    )>> }> };
+
 export const AlbumGridItemFragmentDoc = `
     fragment AlbumGridItem on Album {
   id
@@ -748,5 +760,30 @@ export const usePerformerDetailsQuery = (variables: PerformerDetailsQueryVariabl
   useQuery<PerformerDetailsQuery>(
     ['PerformerDetails', variables],
     fetcher<PerformerDetailsQuery, PerformerDetailsQueryVariables>(PerformerDetailsDocument, variables),
+    options
+  );
+export const ReviewsDocument = `
+    query Reviews($after: String, $first: Int, $order: [ReviewSortInput!]) {
+  reviews(after: $after, first: $first, order: $order) {
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+    nodes {
+      ...ReviewListItem
+      album {
+        ...AlbumGridItem
+      }
+    }
+  }
+}
+    ${ReviewListItemFragmentDoc}
+${AlbumGridItemFragmentDoc}`;
+export const useReviewsQuery = (variables?: ReviewsQueryVariables, options?: UseQueryOptions<ReviewsQuery>) => 
+  useQuery<ReviewsQuery>(
+    ['Reviews', variables],
+    fetcher<ReviewsQuery, ReviewsQueryVariables>(ReviewsDocument, variables),
     options
   );

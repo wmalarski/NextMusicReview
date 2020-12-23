@@ -1,0 +1,14 @@
+query Reviews($after: String, $first: Int, $order: [ReviewSortInput!]) {
+  reviews(after: $after, first: $first, order: $order) {
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    nodes {
+      ...ReviewListItem
+      album {
+        ...AlbumGridItem
+      }
+    }
+  }
+}

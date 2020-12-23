@@ -28,15 +28,15 @@ import ReviewList from "../../review/components/ReviewList";
 
 export interface AlbumDetailsProps {
   id: string;
-  detailsQuery: AlbumDetailsQuery;
-  reviewsQuery: AlbumReviewsQuery;
+  detailsQuery?: AlbumDetailsQuery;
+  reviewsQuery?: AlbumReviewsQuery;
 }
 
 export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
   const { detailsQuery, reviewsQuery } = props;
 
-  const { wiki } = detailsQuery.album.details ?? {};
-  const { reviews, name, performer, details, year } = reviewsQuery.album;
+  const { wiki } = detailsQuery?.album?.details ?? {};
+  const { reviews, name, performer, details, year } = reviewsQuery?.album ?? {};
 
   const image = details?.image.find(img => img.size === "extralarge");
 
@@ -77,7 +77,7 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
         defaultCount={1}
         isLoading={false}
         showImage={false}
-        defaultAlbum={reviewsQuery.album}
+        defaultAlbum={reviewsQuery?.album}
         reviews={compact(reviews?.nodes)}
       />
     </Stack>

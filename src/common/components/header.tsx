@@ -1,5 +1,5 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Divider, Flex, Heading, Link } from "@chakra-ui/react";
+import { Box, Divider, Flex, Heading, HStack, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 import UserHeader from "../../users/components/userHeader";
@@ -37,16 +37,6 @@ export default function Header(): JSX.Element {
           flexGrow={1}
         >
           <MenuText>
-            <NextLink href="/performers">
-              <Link>Performers</Link>
-            </NextLink>
-          </MenuText>
-          <MenuText>
-            <NextLink href="/albums">
-              <Link>Albums</Link>
-            </NextLink>
-          </MenuText>
-          <MenuText>
             <NextLink href="/reviews">
               <Link>Reviews</Link>
             </NextLink>
@@ -57,7 +47,15 @@ export default function Header(): JSX.Element {
           display={{ base: show ? "block" : "none", md: "block" }}
           mt={{ base: 4, md: 0 }}
         >
-          <UserHeader />
+          <HStack>
+            <Link href="https://www.linkedin.com/in/wojciech-malarski-4a1473168/">
+              LinkedIn
+            </Link>
+            <Link href="https://github.com/wmalarski/NextMusicReview">
+              GitHub
+            </Link>
+            <UserHeader />
+          </HStack>
         </Box>
       </Flex>
       <Divider height="1px" />

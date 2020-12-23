@@ -14,8 +14,8 @@ import {
 
 export interface AlbumDetailsPageProps {
   id: string;
-  detailsQuery: AlbumDetailsQuery;
-  reviewsQuery: AlbumReviewsQuery;
+  detailsQuery?: AlbumDetailsQuery;
+  reviewsQuery?: AlbumReviewsQuery;
 }
 
 export default function AlbumDetailsPage(

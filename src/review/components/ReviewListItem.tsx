@@ -14,18 +14,11 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
-import {
-  AlbumGridItemFragment,
-  ReviewListItemFragment
-} from "../../graphql/types";
-
-export interface ReviewAlbumProps {
-  album?: AlbumGridItemFragment;
-}
+import { ReviewListItemArgs } from "../types";
 
 export interface ReviewListItemProps {
   showImage: boolean;
-  review: ReviewListItemFragment & ReviewAlbumProps;
+  review: ReviewListItemArgs;
 }
 
 export default function ReviewListItem(

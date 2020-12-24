@@ -26,6 +26,7 @@ import Card from "../../common/components/card";
 import WikiText from "../../common/components/wikiText";
 import { AlbumDetailsQuery, AlbumReviewsQuery } from "../../graphql/types";
 import ReviewList from "../../review/components/reviewList";
+import ReviewPopover from "../../review/components/reviewPopover";
 
 export interface AlbumDetailsProps {
   id: string;
@@ -37,7 +38,8 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
   const { detailsQuery, reviewsQuery } = props;
 
   const { wiki } = detailsQuery?.album?.details ?? {};
-  const { reviews, name, performer, details, year } = reviewsQuery?.album ?? {};
+  const { id, reviews, name, performer, details, year } =
+    reviewsQuery?.album ?? {};
 
   const image = details?.image.find(img => img.size === "extralarge");
 
@@ -60,6 +62,7 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
             </Heading>
           </Box>
         </HStack>
+        {id && <ReviewPopover albumId={id} />}
         <Menu>
           <MenuButton as={IconButton} icon={<HamburgerIcon />} />
           <MenuList>

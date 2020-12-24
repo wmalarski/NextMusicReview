@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from 'react-query';
+import { useQuery, UseQueryOptions, useMutation, MutationConfig } from 'react-query';
 import { fetcher } from './fetcher';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -645,6 +645,13 @@ export type PerformerDetailsQuery = { performer: (
     & { albums?: Maybe<{ nodes?: Maybe<Array<AlbumGridItemFragment>> }>, details?: Maybe<{ bio?: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
   ) };
 
+export type CreateReviewMutationVariables = Exact<{
+  input: CreateReviewInput;
+}>;
+
+
+export type CreateReviewMutation = { createReview: { review?: Maybe<ReviewListItemFragment> } };
+
 export type ReviewListItemFragment = Pick<Review, 'id' | 'rating' | 'text' | 'updatedAt' | 'createdAt'>;
 
 export type ReviewsQueryVariables = Exact<{
@@ -760,6 +767,20 @@ export const usePerformerDetailsQuery = (variables: PerformerDetailsQueryVariabl
   useQuery<PerformerDetailsQuery>(
     ['PerformerDetails', variables],
     fetcher<PerformerDetailsQuery, PerformerDetailsQueryVariables>(PerformerDetailsDocument, variables),
+    options
+  );
+export const CreateReviewDocument = `
+    mutation CreateReview($input: CreateReviewInput!) {
+  createReview(input: $input) {
+    review {
+      ...ReviewListItem
+    }
+  }
+}
+    ${ReviewListItemFragmentDoc}`;
+export const useCreateReviewMutation = (variables: CreateReviewMutationVariables, options?: MutationConfig<CreateReviewMutation, unknown, CreateReviewMutationVariables>) => 
+    useMutation<CreateReviewMutation, unknown, CreateReviewMutationVariables>(
+    fetcher<CreateReviewMutation, CreateReviewMutationVariables>(CreateReviewDocument, variables),
     options
   );
 export const ReviewsDocument = `

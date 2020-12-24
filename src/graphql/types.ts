@@ -18,18 +18,18 @@ export type Scalars = {
 };
 
 export type Query = {
-  node: Maybe<Node>;
-  performers: Maybe<PerformerConnection>;
+  node?: Maybe<Node>;
+  performers?: Maybe<PerformerConnection>;
   performer: Performer;
-  albums: Maybe<AlbumConnection>;
+  albums?: Maybe<AlbumConnection>;
   randomAlbums: Array<Album>;
   myRandomAlbums: Array<Album>;
   album: Album;
-  reviews: Maybe<ReviewConnection>;
+  reviews?: Maybe<ReviewConnection>;
   review: Review;
-  searchAlbums: Maybe<Array<AlbumSearch>>;
-  searchPerformers: Maybe<Array<PerformerSearch>>;
-  performerCorrection: Maybe<PerformerCorrection>;
+  searchAlbums?: Maybe<Array<AlbumSearch>>;
+  searchPerformers?: Maybe<Array<PerformerSearch>>;
+  performerCorrection?: Maybe<PerformerCorrection>;
 };
 
 
@@ -39,12 +39,12 @@ export type QueryNodeArgs = {
 
 
 export type QueryPerformersArgs = {
-  first: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  last: Maybe<Scalars['Int']>;
-  before: Maybe<Scalars['String']>;
-  where: Maybe<PerformerFilterInput>;
-  order: Maybe<Array<PerformerSortInput>>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  where?: Maybe<PerformerFilterInput>;
+  order?: Maybe<Array<PerformerSortInput>>;
 };
 
 
@@ -54,26 +54,26 @@ export type QueryPerformerArgs = {
 
 
 export type QueryAlbumsArgs = {
-  first: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  last: Maybe<Scalars['Int']>;
-  before: Maybe<Scalars['String']>;
-  where: Maybe<AlbumFilterInput>;
-  order: Maybe<Array<AlbumSortInput>>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  where?: Maybe<AlbumFilterInput>;
+  order?: Maybe<Array<AlbumSortInput>>;
 };
 
 
 export type QueryRandomAlbumsArgs = {
   count: Scalars['Int'];
-  where: Maybe<AlbumFilterInput>;
-  order: Maybe<Array<AlbumSortInput>>;
+  where?: Maybe<AlbumFilterInput>;
+  order?: Maybe<Array<AlbumSortInput>>;
 };
 
 
 export type QueryMyRandomAlbumsArgs = {
   count: Scalars['Int'];
-  where: Maybe<AlbumFilterInput>;
-  order: Maybe<Array<AlbumSortInput>>;
+  where?: Maybe<AlbumFilterInput>;
+  order?: Maybe<Array<AlbumSortInput>>;
 };
 
 
@@ -83,12 +83,12 @@ export type QueryAlbumArgs = {
 
 
 export type QueryReviewsArgs = {
-  first: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  last: Maybe<Scalars['Int']>;
-  before: Maybe<Scalars['String']>;
-  where: Maybe<ReviewFilterInput>;
-  order: Maybe<Array<ReviewSortInput>>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  where?: Maybe<ReviewFilterInput>;
+  order?: Maybe<Array<ReviewSortInput>>;
 };
 
 
@@ -170,9 +170,9 @@ export type MutationDeleteReviewArgs = {
 
 export type Performer = Node & {
   id: Scalars['ID'];
-  user: Maybe<User>;
-  albums: Maybe<AlbumConnection>;
-  details: Maybe<PerformerDetails>;
+  user?: Maybe<User>;
+  albums?: Maybe<AlbumConnection>;
+  details?: Maybe<PerformerDetails>;
   mBid: Scalars['String'];
   name: Scalars['String'];
   createdAt: Scalars['DateTime'];
@@ -181,21 +181,21 @@ export type Performer = Node & {
 
 
 export type PerformerAlbumsArgs = {
-  first: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  last: Maybe<Scalars['Int']>;
-  before: Maybe<Scalars['String']>;
-  where: Maybe<AlbumFilterInput>;
-  order: Maybe<Array<AlbumSortInput>>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  where?: Maybe<AlbumFilterInput>;
+  order?: Maybe<Array<AlbumSortInput>>;
 };
 
 export type Album = Node & {
   id: Scalars['ID'];
-  user: Maybe<User>;
-  performer: Maybe<Performer>;
-  reviews: Maybe<ReviewConnection>;
+  user?: Maybe<User>;
+  performer?: Maybe<Performer>;
+  reviews?: Maybe<ReviewConnection>;
   reviewsCount: Scalars['Int'];
-  details: Maybe<AlbumDetails>;
+  details?: Maybe<AlbumDetails>;
   mBid: Scalars['String'];
   name: Scalars['String'];
   year: Scalars['Int'];
@@ -205,18 +205,18 @@ export type Album = Node & {
 
 
 export type AlbumReviewsArgs = {
-  first: Maybe<Scalars['Int']>;
-  after: Maybe<Scalars['String']>;
-  last: Maybe<Scalars['Int']>;
-  before: Maybe<Scalars['String']>;
-  where: Maybe<ReviewFilterInput>;
-  order: Maybe<Array<ReviewSortInput>>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  where?: Maybe<ReviewFilterInput>;
+  order?: Maybe<Array<ReviewSortInput>>;
 };
 
 export type Review = Node & {
   id: Scalars['ID'];
-  user: Maybe<User>;
-  album: Maybe<Album>;
+  user?: Maybe<User>;
+  album?: Maybe<Album>;
   text: Scalars['String'];
   rating: Scalars['Decimal'];
   createdAt: Scalars['DateTime'];
@@ -224,9 +224,9 @@ export type Review = Node & {
 };
 
 export type User = {
-  performers: Maybe<Array<Maybe<Performer>>>;
-  albums: Maybe<Array<Maybe<Album>>>;
-  reviews: Maybe<Array<Maybe<Review>>>;
+  performers?: Maybe<Array<Maybe<Performer>>>;
+  albums?: Maybe<Array<Maybe<Album>>>;
+  reviews?: Maybe<Array<Maybe<Review>>>;
   id: Scalars['String'];
 };
 
@@ -236,23 +236,23 @@ export type Node = {
 };
 
 export type AlbumFilterInput = {
-  and: Maybe<Array<AlbumFilterInput>>;
-  or: Maybe<Array<AlbumFilterInput>>;
-  name: Maybe<StringOperationFilterInput>;
-  year: Maybe<ComparableInt32OperationFilterInput>;
-  createdAt: Maybe<ComparableDateTimeOperationFilterInput>;
-  updatedAt: Maybe<ComparableDateTimeOperationFilterInput>;
+  and?: Maybe<Array<AlbumFilterInput>>;
+  or?: Maybe<Array<AlbumFilterInput>>;
+  name?: Maybe<StringOperationFilterInput>;
+  year?: Maybe<ComparableInt32OperationFilterInput>;
+  createdAt?: Maybe<ComparableDateTimeOperationFilterInput>;
+  updatedAt?: Maybe<ComparableDateTimeOperationFilterInput>;
 };
 
 export type AlbumSortInput = {
-  id: Maybe<SortEnumType>;
-  mBid: Maybe<SortEnumType>;
-  name: Maybe<SortEnumType>;
-  performer: Maybe<SortEnumType>;
-  year: Maybe<SortEnumType>;
-  user: Maybe<SortEnumType>;
-  createdAt: Maybe<SortEnumType>;
-  updatedAt: Maybe<SortEnumType>;
+  id?: Maybe<SortEnumType>;
+  mBid?: Maybe<SortEnumType>;
+  name?: Maybe<SortEnumType>;
+  performer?: Maybe<SortEnumType>;
+  year?: Maybe<SortEnumType>;
+  user?: Maybe<SortEnumType>;
+  createdAt?: Maybe<SortEnumType>;
+  updatedAt?: Maybe<SortEnumType>;
 };
 
 /** A connection to a list of items. */
@@ -260,31 +260,31 @@ export type AlbumConnection = {
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   /** A list of edges. */
-  edges: Maybe<Array<AlbumEdge>>;
+  edges?: Maybe<Array<AlbumEdge>>;
   /** A flattened list of the nodes. */
-  nodes: Maybe<Array<Album>>;
+  nodes?: Maybe<Array<Album>>;
 };
 
 export type ReviewFilterInput = {
-  and: Maybe<Array<ReviewFilterInput>>;
-  or: Maybe<Array<ReviewFilterInput>>;
-  id: Maybe<StringOperationFilterInput>;
-  album: Maybe<StringOperationFilterInput>;
-  text: Maybe<StringOperationFilterInput>;
-  rating: Maybe<ComparableDecimalOperationFilterInput>;
-  user: Maybe<StringOperationFilterInput>;
-  createdAt: Maybe<ComparableDateTimeOperationFilterInput>;
-  updatedAt: Maybe<ComparableDateTimeOperationFilterInput>;
+  and?: Maybe<Array<ReviewFilterInput>>;
+  or?: Maybe<Array<ReviewFilterInput>>;
+  id?: Maybe<StringOperationFilterInput>;
+  album?: Maybe<StringOperationFilterInput>;
+  text?: Maybe<StringOperationFilterInput>;
+  rating?: Maybe<ComparableDecimalOperationFilterInput>;
+  user?: Maybe<StringOperationFilterInput>;
+  createdAt?: Maybe<ComparableDateTimeOperationFilterInput>;
+  updatedAt?: Maybe<ComparableDateTimeOperationFilterInput>;
 };
 
 export type ReviewSortInput = {
-  id: Maybe<SortEnumType>;
-  album: Maybe<SortEnumType>;
-  text: Maybe<SortEnumType>;
-  rating: Maybe<SortEnumType>;
-  user: Maybe<SortEnumType>;
-  createdAt: Maybe<SortEnumType>;
-  updatedAt: Maybe<SortEnumType>;
+  id?: Maybe<SortEnumType>;
+  album?: Maybe<SortEnumType>;
+  text?: Maybe<SortEnumType>;
+  rating?: Maybe<SortEnumType>;
+  user?: Maybe<SortEnumType>;
+  createdAt?: Maybe<SortEnumType>;
+  updatedAt?: Maybe<SortEnumType>;
 };
 
 /** A connection to a list of items. */
@@ -292,9 +292,9 @@ export type ReviewConnection = {
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   /** A list of edges. */
-  edges: Maybe<Array<ReviewEdge>>;
+  edges?: Maybe<Array<ReviewEdge>>;
   /** A flattened list of the nodes. */
-  nodes: Maybe<Array<Review>>;
+  nodes?: Maybe<Array<Review>>;
 };
 
 export enum ApplyPolicy {
@@ -303,48 +303,48 @@ export enum ApplyPolicy {
 }
 
 export type StringOperationFilterInput = {
-  and: Maybe<Array<StringOperationFilterInput>>;
-  or: Maybe<Array<StringOperationFilterInput>>;
-  eq: Maybe<Scalars['String']>;
-  neq: Maybe<Scalars['String']>;
-  contains: Maybe<Scalars['String']>;
-  ncontains: Maybe<Scalars['String']>;
-  in: Maybe<Array<Maybe<Scalars['String']>>>;
-  nin: Maybe<Array<Maybe<Scalars['String']>>>;
-  startsWith: Maybe<Scalars['String']>;
-  nstartsWith: Maybe<Scalars['String']>;
-  endsWith: Maybe<Scalars['String']>;
-  nendsWith: Maybe<Scalars['String']>;
+  and?: Maybe<Array<StringOperationFilterInput>>;
+  or?: Maybe<Array<StringOperationFilterInput>>;
+  eq?: Maybe<Scalars['String']>;
+  neq?: Maybe<Scalars['String']>;
+  contains?: Maybe<Scalars['String']>;
+  ncontains?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  nin?: Maybe<Array<Maybe<Scalars['String']>>>;
+  startsWith?: Maybe<Scalars['String']>;
+  nstartsWith?: Maybe<Scalars['String']>;
+  endsWith?: Maybe<Scalars['String']>;
+  nendsWith?: Maybe<Scalars['String']>;
 };
 
 export type ComparableInt32OperationFilterInput = {
-  eq: Maybe<Scalars['Int']>;
-  neq: Maybe<Scalars['Int']>;
-  in: Maybe<Array<Scalars['Int']>>;
-  nin: Maybe<Array<Scalars['Int']>>;
-  gt: Maybe<Scalars['Int']>;
-  ngt: Maybe<Scalars['Int']>;
-  gte: Maybe<Scalars['Int']>;
-  ngte: Maybe<Scalars['Int']>;
-  lt: Maybe<Scalars['Int']>;
-  nlt: Maybe<Scalars['Int']>;
-  lte: Maybe<Scalars['Int']>;
-  nlte: Maybe<Scalars['Int']>;
+  eq?: Maybe<Scalars['Int']>;
+  neq?: Maybe<Scalars['Int']>;
+  in?: Maybe<Array<Scalars['Int']>>;
+  nin?: Maybe<Array<Scalars['Int']>>;
+  gt?: Maybe<Scalars['Int']>;
+  ngt?: Maybe<Scalars['Int']>;
+  gte?: Maybe<Scalars['Int']>;
+  ngte?: Maybe<Scalars['Int']>;
+  lt?: Maybe<Scalars['Int']>;
+  nlt?: Maybe<Scalars['Int']>;
+  lte?: Maybe<Scalars['Int']>;
+  nlte?: Maybe<Scalars['Int']>;
 };
 
 export type ComparableDateTimeOperationFilterInput = {
-  eq: Maybe<Scalars['DateTime']>;
-  neq: Maybe<Scalars['DateTime']>;
-  in: Maybe<Array<Scalars['DateTime']>>;
-  nin: Maybe<Array<Scalars['DateTime']>>;
-  gt: Maybe<Scalars['DateTime']>;
-  ngt: Maybe<Scalars['DateTime']>;
-  gte: Maybe<Scalars['DateTime']>;
-  ngte: Maybe<Scalars['DateTime']>;
-  lt: Maybe<Scalars['DateTime']>;
-  nlt: Maybe<Scalars['DateTime']>;
-  lte: Maybe<Scalars['DateTime']>;
-  nlte: Maybe<Scalars['DateTime']>;
+  eq?: Maybe<Scalars['DateTime']>;
+  neq?: Maybe<Scalars['DateTime']>;
+  in?: Maybe<Array<Scalars['DateTime']>>;
+  nin?: Maybe<Array<Scalars['DateTime']>>;
+  gt?: Maybe<Scalars['DateTime']>;
+  ngt?: Maybe<Scalars['DateTime']>;
+  gte?: Maybe<Scalars['DateTime']>;
+  ngte?: Maybe<Scalars['DateTime']>;
+  lt?: Maybe<Scalars['DateTime']>;
+  nlt?: Maybe<Scalars['DateTime']>;
+  lte?: Maybe<Scalars['DateTime']>;
+  nlte?: Maybe<Scalars['DateTime']>;
 };
 
 export enum SortEnumType {
@@ -359,9 +359,9 @@ export type PageInfo = {
   /** Indicates whether more edges exist prior the set defined by the clients arguments. */
   hasPreviousPage: Scalars['Boolean'];
   /** When paginating backwards, the cursor to continue. */
-  startCursor: Maybe<Scalars['String']>;
+  startCursor?: Maybe<Scalars['String']>;
   /** When paginating forwards, the cursor to continue. */
-  endCursor: Maybe<Scalars['String']>;
+  endCursor?: Maybe<Scalars['String']>;
 };
 
 /** An edge in a connection. */
@@ -373,18 +373,18 @@ export type AlbumEdge = {
 };
 
 export type ComparableDecimalOperationFilterInput = {
-  eq: Maybe<Scalars['Decimal']>;
-  neq: Maybe<Scalars['Decimal']>;
-  in: Maybe<Array<Scalars['Decimal']>>;
-  nin: Maybe<Array<Scalars['Decimal']>>;
-  gt: Maybe<Scalars['Decimal']>;
-  ngt: Maybe<Scalars['Decimal']>;
-  gte: Maybe<Scalars['Decimal']>;
-  ngte: Maybe<Scalars['Decimal']>;
-  lt: Maybe<Scalars['Decimal']>;
-  nlt: Maybe<Scalars['Decimal']>;
-  lte: Maybe<Scalars['Decimal']>;
-  nlte: Maybe<Scalars['Decimal']>;
+  eq?: Maybe<Scalars['Decimal']>;
+  neq?: Maybe<Scalars['Decimal']>;
+  in?: Maybe<Array<Scalars['Decimal']>>;
+  nin?: Maybe<Array<Scalars['Decimal']>>;
+  gt?: Maybe<Scalars['Decimal']>;
+  ngt?: Maybe<Scalars['Decimal']>;
+  gte?: Maybe<Scalars['Decimal']>;
+  ngte?: Maybe<Scalars['Decimal']>;
+  lt?: Maybe<Scalars['Decimal']>;
+  nlt?: Maybe<Scalars['Decimal']>;
+  lte?: Maybe<Scalars['Decimal']>;
+  nlte?: Maybe<Scalars['Decimal']>;
 };
 
 /** An edge in a connection. */
@@ -398,37 +398,37 @@ export type ReviewEdge = {
 export type PerformerDetails = {
   mBid: Scalars['String'];
   image: Array<Image>;
-  bio: Maybe<Wiki>;
-  tags: Maybe<Tags>;
+  bio?: Maybe<Wiki>;
+  tags?: Maybe<Tags>;
 };
 
 
 export type AlbumDetails = {
   mBid: Scalars['String'];
   image: Array<Image>;
-  wiki: Maybe<Wiki>;
-  tags: Maybe<Tags>;
+  wiki?: Maybe<Wiki>;
+  tags?: Maybe<Tags>;
 };
 
 
 export type PerformerFilterInput = {
-  and: Maybe<Array<PerformerFilterInput>>;
-  or: Maybe<Array<PerformerFilterInput>>;
-  id: Maybe<StringOperationFilterInput>;
-  mBid: Maybe<StringOperationFilterInput>;
-  name: Maybe<StringOperationFilterInput>;
-  user: Maybe<StringOperationFilterInput>;
-  createdAt: Maybe<ComparableDateTimeOperationFilterInput>;
-  updatedAt: Maybe<ComparableDateTimeOperationFilterInput>;
+  and?: Maybe<Array<PerformerFilterInput>>;
+  or?: Maybe<Array<PerformerFilterInput>>;
+  id?: Maybe<StringOperationFilterInput>;
+  mBid?: Maybe<StringOperationFilterInput>;
+  name?: Maybe<StringOperationFilterInput>;
+  user?: Maybe<StringOperationFilterInput>;
+  createdAt?: Maybe<ComparableDateTimeOperationFilterInput>;
+  updatedAt?: Maybe<ComparableDateTimeOperationFilterInput>;
 };
 
 export type PerformerSortInput = {
-  id: Maybe<SortEnumType>;
-  mBid: Maybe<SortEnumType>;
-  name: Maybe<SortEnumType>;
-  user: Maybe<SortEnumType>;
-  createdAt: Maybe<SortEnumType>;
-  updatedAt: Maybe<SortEnumType>;
+  id?: Maybe<SortEnumType>;
+  mBid?: Maybe<SortEnumType>;
+  name?: Maybe<SortEnumType>;
+  user?: Maybe<SortEnumType>;
+  createdAt?: Maybe<SortEnumType>;
+  updatedAt?: Maybe<SortEnumType>;
 };
 
 /** A connection to a list of items. */
@@ -436,9 +436,9 @@ export type PerformerConnection = {
   /** Information to aid in pagination. */
   pageInfo: PageInfo;
   /** A list of edges. */
-  edges: Maybe<Array<PerformerEdge>>;
+  edges?: Maybe<Array<PerformerEdge>>;
   /** A flattened list of the nodes. */
-  nodes: Maybe<Array<Performer>>;
+  nodes?: Maybe<Array<Performer>>;
 };
 
 /** An edge in a connection. */
@@ -450,8 +450,8 @@ export type PerformerEdge = {
 };
 
 export type CreateAlbumPayload = {
-  album: Maybe<Album>;
-  errors: Maybe<Array<UserError>>;
+  album?: Maybe<Album>;
+  errors?: Maybe<Array<UserError>>;
 };
 
 export type DeletePerformerInput = {
@@ -471,17 +471,17 @@ export type CreatePerformerInput = {
 
 export type DeletePayload = {
   success: Scalars['Boolean'];
-  errors: Maybe<Array<UserError>>;
+  errors?: Maybe<Array<UserError>>;
 };
 
 export type UpdatePerformerPayload = {
-  performer: Maybe<Performer>;
-  errors: Maybe<Array<UserError>>;
+  performer?: Maybe<Performer>;
+  errors?: Maybe<Array<UserError>>;
 };
 
 export type CreatePerformerPayload = {
-  performer: Maybe<Performer>;
-  errors: Maybe<Array<UserError>>;
+  performer?: Maybe<Performer>;
+  errors?: Maybe<Array<UserError>>;
 };
 
 export type PerformerCorrectionInput = {
@@ -501,26 +501,26 @@ export type SearchAlbumsInput = {
 };
 
 export type PerformerCorrection = {
-  name: Maybe<Scalars['String']>;
-  mbid: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  mbid?: Maybe<Scalars['String']>;
 };
 
 export type PerformerSearch = {
   name: Scalars['String'];
   image: Array<Image>;
-  mbid: Maybe<Scalars['String']>;
+  mbid?: Maybe<Scalars['String']>;
 };
 
 export type AlbumSearch = {
   name: Scalars['String'];
   performer: Scalars['String'];
   image: Array<Image>;
-  mbid: Maybe<Scalars['String']>;
+  mbid?: Maybe<Scalars['String']>;
 };
 
 export type UpdateAlbumPayload = {
-  album: Maybe<Album>;
-  errors: Maybe<Array<UserError>>;
+  album?: Maybe<Album>;
+  errors?: Maybe<Array<UserError>>;
 };
 
 export type CreateAlbumInput = {
@@ -543,13 +543,13 @@ export type DeleteAlbumInput = {
 };
 
 export type CreateReviewPayload = {
-  review: Maybe<Review>;
-  errors: Maybe<Array<UserError>>;
+  review?: Maybe<Review>;
+  errors?: Maybe<Array<UserError>>;
 };
 
 export type UpdateReviewPayload = {
-  review: Maybe<Review>;
-  errors: Maybe<Array<UserError>>;
+  review?: Maybe<Review>;
+  errors?: Maybe<Array<UserError>>;
 };
 
 export type CreateReviewInput = {
@@ -569,12 +569,12 @@ export type DeleteReviewInput = {
 };
 
 export type Image = {
-  url: Maybe<Scalars['String']>;
-  size: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['String']>;
 };
 
 export type Wiki = {
-  published: Maybe<Scalars['String']>;
+  published?: Maybe<Scalars['String']>;
   summary: Scalars['String'];
   content: Scalars['String'];
 };
@@ -591,7 +591,7 @@ export type CreatePerformerAlbumInput = {
   mBid: Scalars['String'];
   name: Scalars['String'];
   year: Scalars['Int'];
-  reviews: Maybe<Array<CreatePerformerReviewInput>>;
+  reviews?: Maybe<Array<CreatePerformerReviewInput>>;
 };
 
 export type UserError = {
@@ -611,11 +611,11 @@ export type AlbumDetailsQueryVariables = Exact<{
 }>;
 
 
-export type AlbumDetailsQuery = { album: { details: Maybe<{ wiki: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> } };
+export type AlbumDetailsQuery = { album: { details?: Maybe<{ wiki?: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> } };
 
 export type AlbumGridItemFragment = (
   Pick<Album, 'id' | 'name' | 'year'>
-  & { performer: Maybe<Pick<Performer, 'id' | 'name'>>, details: Maybe<{ image: Array<Pick<Image, 'size' | 'url'>> }> }
+  & { performer?: Maybe<Pick<Performer, 'id' | 'name'>>, details?: Maybe<{ image: Array<Pick<Image, 'size' | 'url'>> }> }
 );
 
 export type AlbumReviewsQueryVariables = Exact<{
@@ -624,7 +624,7 @@ export type AlbumReviewsQueryVariables = Exact<{
 
 
 export type AlbumReviewsQuery = { album: (
-    { reviews: Maybe<{ nodes: Maybe<Array<ReviewListItemFragment>> }> }
+    { reviews?: Maybe<{ nodes?: Maybe<Array<ReviewListItemFragment>> }> }
     & AlbumGridItemFragment
   ) };
 
@@ -642,20 +642,20 @@ export type PerformerDetailsQueryVariables = Exact<{
 
 export type PerformerDetailsQuery = { performer: (
     Pick<Performer, 'id' | 'name'>
-    & { albums: Maybe<{ nodes: Maybe<Array<AlbumGridItemFragment>> }>, details: Maybe<{ bio: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
+    & { albums?: Maybe<{ nodes?: Maybe<Array<AlbumGridItemFragment>> }>, details?: Maybe<{ bio?: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
   ) };
 
 export type ReviewListItemFragment = Pick<Review, 'id' | 'rating' | 'text' | 'updatedAt' | 'createdAt'>;
 
 export type ReviewsQueryVariables = Exact<{
-  after: Maybe<Scalars['String']>;
-  first: Maybe<Scalars['Int']>;
-  order: Maybe<Array<ReviewSortInput>>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  order?: Maybe<Array<ReviewSortInput>>;
 }>;
 
 
-export type ReviewsQuery = { reviews: Maybe<{ pageInfo: Pick<PageInfo, 'endCursor' | 'hasNextPage' | 'hasPreviousPage' | 'startCursor'>, nodes: Maybe<Array<(
-      { album: Maybe<AlbumGridItemFragment> }
+export type ReviewsQuery = { reviews?: Maybe<{ pageInfo: Pick<PageInfo, 'endCursor' | 'hasNextPage'>, nodes?: Maybe<Array<(
+      { album?: Maybe<AlbumGridItemFragment> }
       & ReviewListItemFragment
     )>> }> };
 
@@ -768,8 +768,6 @@ export const ReviewsDocument = `
     pageInfo {
       endCursor
       hasNextPage
-      hasPreviousPage
-      startCursor
     }
     nodes {
       ...ReviewListItem

@@ -3,7 +3,7 @@ import range from "lodash/range";
 import React from "react";
 import { AlbumGridItemFragment } from "../../graphql/types";
 import { ReviewListItemArgs } from "../types";
-import ReviewListItem from "./ReviewListItem";
+import ReviewListItem from "./reviewListItem";
 
 export interface ReviewListProps {
   isLoading: boolean;
@@ -17,22 +17,20 @@ export default function ReviewList(props: ReviewListProps): JSX.Element {
   const { reviews, isLoading, defaultCount, showImage, defaultAlbum } = props;
 
   return (
-    <>
-      <Stack>
-        {isLoading
-          ? range(0, defaultCount).map(index => (
-              <Box key={index}>
-                <Skeleton height="150px" />
-              </Box>
-            ))
-          : reviews?.map(review => (
-              <ReviewListItem
-                key={review.id}
-                showImage={showImage}
-                review={{ album: defaultAlbum, ...review }}
-              />
-            ))}
-      </Stack>
-    </>
+    <Stack>
+      {isLoading
+        ? range(0, defaultCount).map(index => (
+            <Box key={index}>
+              <Skeleton height="150px" />
+            </Box>
+          ))
+        : reviews?.map(review => (
+            <ReviewListItem
+              key={review.id}
+              showImage={showImage}
+              review={{ album: defaultAlbum, ...review }}
+            />
+          ))}
+    </Stack>
   );
 }

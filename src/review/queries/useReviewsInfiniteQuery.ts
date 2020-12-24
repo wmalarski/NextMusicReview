@@ -10,24 +10,25 @@ import {
   ReviewsQuery,
   ReviewsQueryVariables
 } from "../../graphql/types";
+import { ReviewFilterState } from "../types";
 
-export const fetchReviews: QueryFunction<ReviewsQuery> = (
-  context: QueryFunctionContext
-) =>
+export type FetchReviewsKey = ["reviews", ReviewFilterState];
+
+const fetchReviews: QueryFunction<ReviewsQuery> = ({
+  pageParam,
+  queryKey
+}: QueryFunctionContext<FetchReviewsKey, string>) =>
   fetcher<ReviewsQuery, ReviewsQueryVariables>(ReviewsDocument, {
-    after: context.pageParam,
+    after: pageParam ?? null,
     first: 10,
-    order: null
+    order: [queryKey[1].sort]
   })();
 
-export const ReviewsInfiniteQueryKey = "reviews";
-
-export default function useReviewsInfiniteQuery(): UseInfiniteQueryResult<
-  ReviewsQuery,
-  Error
-> {
+export default function useReviewsInfiniteQuery(
+  filter: ReviewFilterState
+): UseInfiniteQueryResult<ReviewsQuery, Error> {
   return useInfiniteQuery<ReviewsQuery, Error, ReviewsQuery>(
-    ReviewsInfiniteQueryKey,
+    ["reviews", filter],
     fetchReviews,
     {
       getNextPageParam: lastPage => {

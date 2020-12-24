@@ -1,5 +1,6 @@
-import { Box, Center, Image as ChakraImage } from "@chakra-ui/react";
+import { Center, Image as ChakraImage } from "@chakra-ui/react";
 import React from "react";
+import Card from "../../common/components/card";
 import { AlbumGridItemFragment } from "../../graphql/types";
 
 export interface AlbumGridItemProps {
@@ -14,15 +15,13 @@ export default function AlbumGridItem(props: AlbumGridItemProps): JSX.Element {
   const image = details?.image.find(img => img.size === "mega");
 
   return (
-    <Box
-      borderColor="gray.100"
-      borderWidth="2px"
+    <Card
       _hover={{ borderColor: "teal.500" }}
       onClick={() => setSelectedId(curr => (curr === id ? null : id))}
     >
       <Center>
         {image?.url && <ChakraImage src={image.url} alt={name} />}
       </Center>
-    </Box>
+    </Card>
   );
 }

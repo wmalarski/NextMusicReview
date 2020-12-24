@@ -22,9 +22,10 @@ import {
 import compact from "lodash/compact";
 import NextLink from "next/link";
 import React from "react";
+import Card from "../../common/components/card";
 import WikiText from "../../common/components/wikiText";
 import { AlbumDetailsQuery, AlbumReviewsQuery } from "../../graphql/types";
-import ReviewList from "../../review/components/ReviewList";
+import ReviewList from "../../review/components/reviewList";
 
 export interface AlbumDetailsProps {
   id: string;
@@ -44,7 +45,7 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
     <Stack>
       <Flex justify="space-between" wrap="wrap">
         <HStack>
-          {image?.url && <Image src={image.url} alt={name} />}
+          <Card>{image?.url && <Image src={image.url} alt={name} />}</Card>
           <Box alignItems="center" flexGrow={1}>
             <Heading as="h2" size="lg">
               {name}

@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
+import Card from "../../common/components/card";
 import { ReviewListItemArgs } from "../types";
 
 export interface ReviewListItemProps {
@@ -31,17 +32,14 @@ export default function ReviewListItem(
   const image = details?.image.find(img => img.size === "mega");
 
   return (
-    <Box>
-      <HStack
-        borderColor="gray.100"
-        borderWidth="2px"
-        padding="20px"
-        spacing="20px"
-      >
+    <Card>
+      <HStack>
         <Box>
           {showImage && (
             <Center>
-              {image?.url && <ChakraImage src={image.url} alt={name} />}
+              <Card>
+                {image?.url && <ChakraImage src={image.url} alt={name} />}
+              </Card>
             </Center>
           )}
         </Box>
@@ -75,6 +73,6 @@ export default function ReviewListItem(
           </Slider>
         </Stack>
       </HStack>
-    </Box>
+    </Card>
   );
 }

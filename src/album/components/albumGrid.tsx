@@ -1,8 +1,9 @@
-import { Box, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { SimpleGrid, Skeleton } from "@chakra-ui/react";
 import { range } from "lodash";
 import React from "react";
 import AlbumDrawer from "../../album/components/albumDrawer";
 import AlbumGridItem from "../../album/components/albumGridItem";
+import Card from "../../common/components/card";
 import { AlbumGridItemFragment } from "../../graphql/types";
 
 export interface AlbumGridProps {
@@ -25,14 +26,15 @@ export default function AlbumGrid(props: AlbumGridProps): JSX.Element {
       <SimpleGrid minChildWidth="250px" spacing="10px">
         {isLoading
           ? range(0, defaultCount).map(index => (
-              <Box key={index} bg="tomato" height="250px">
-                <Spinner />
-              </Box>
+              <Card key={index} height="250px">
+                <Skeleton height="210px" />
+              </Card>
             ))
           : albums?.map(album => (
               <AlbumGridItem
                 key={album.id}
                 album={album}
+                imageHeight="210px"
                 setSelectedId={setSelectedId}
               />
             ))}

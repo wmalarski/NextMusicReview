@@ -11,7 +11,7 @@ import PerformerDetails from "../../performer/components/performerDetails";
 
 export interface PerformerDetailsPageProps {
   id: string;
-  query: PerformerDetailsQuery;
+  query?: PerformerDetailsQuery;
 }
 
 export default function PerformerDetailsPage(

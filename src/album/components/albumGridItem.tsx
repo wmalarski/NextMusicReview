@@ -5,11 +5,12 @@ import { AlbumGridItemFragment } from "../../graphql/types";
 
 export interface AlbumGridItemProps {
   album: AlbumGridItemFragment;
+  imageHeight: string;
   setSelectedId: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export default function AlbumGridItem(props: AlbumGridItemProps): JSX.Element {
-  const { album, setSelectedId } = props;
+  const { album, imageHeight, setSelectedId } = props;
   const { id, name, details } = album;
 
   const image = details?.image.find(img => img.size === "mega");
@@ -20,7 +21,9 @@ export default function AlbumGridItem(props: AlbumGridItemProps): JSX.Element {
       onClick={() => setSelectedId(curr => (curr === id ? null : id))}
     >
       <Center>
-        {image?.url && <ChakraImage src={image.url} alt={name} />}
+        {image?.url && (
+          <ChakraImage height={imageHeight} src={image.url} alt={name} />
+        )}
       </Center>
     </Card>
   );

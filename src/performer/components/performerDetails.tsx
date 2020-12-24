@@ -8,6 +8,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Skeleton,
   Stack
 } from "@chakra-ui/react";
 import compact from "lodash/compact";
@@ -18,7 +19,7 @@ import { PerformerDetailsQuery } from "../../graphql/types";
 
 export interface PerformerDetailsProps {
   id: string;
-  query: PerformerDetailsQuery;
+  query?: PerformerDetailsQuery;
 }
 
 export default function PerformerDetails(
@@ -26,18 +27,27 @@ export default function PerformerDetails(
 ): JSX.Element {
   const { query } = props;
 
-  const { details, name, albums } = query?.performer;
+  const { details, name, albums } = query?.performer ?? {};
+  const isLoading = !query;
 
   return (
     <Stack>
       <Flex justify="space-between" wrap="wrap">
         <Box alignItems="center" flexGrow={1}>
-          <Heading as="h2" size="lg">
-            {name}
-          </Heading>
+          {isLoading ? (
+            <Skeleton size="lg" />
+          ) : (
+            <Heading as="h2" size="lg">
+              {name}
+            </Heading>
+          )}
         </Box>
         <Menu>
-          <MenuButton as={IconButton} icon={<HamburgerIcon />} />
+          <MenuButton
+            isLoading={isLoading}
+            as={IconButton}
+            icon={<HamburgerIcon />}
+          />
           <MenuList>
             <MenuItem icon={<EditIcon />}>Edit</MenuItem>
             <MenuItem icon={<DeleteIcon />}>Delete</MenuItem>
@@ -45,13 +55,13 @@ export default function PerformerDetails(
         </Menu>
       </Flex>
 
-      <WikiText isLoading={false} wiki={details?.bio} />
+      <WikiText isLoading={isLoading} wiki={details?.bio} />
       <Heading as="h4" size="md">
         Albums
       </Heading>
       <AlbumGrid
         albums={compact(albums?.nodes)}
-        isLoading={false}
+        isLoading={isLoading}
         defaultCount={albums?.nodes?.length ?? 5}
       />
     </Stack>

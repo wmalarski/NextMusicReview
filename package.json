@@ -8,7 +8,7 @@
     "start": "next start",
     "prettier": "prettier --config .prettierrc 'src/**/*.(ts|tsx)' --write",
     "lint": "eslint . --fix --ext .tsx,.ts",
-    "codegen": "graphql-codegen --config codegen.yml;sed -i 's/QueryConfig/UseQueryOptions/g' src/graphql/types.ts"
+    "codegen": "graphql-codegen --config codegen.yml;sed -i 's/QueryConfig/UseQueryOptions/g' src/graphql/types.ts; sed -i 's/MutationConfig/UseMutationOptions/g' src/graphql/types.ts"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^0.16.0",

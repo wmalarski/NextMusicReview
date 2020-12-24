@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions, useMutation, MutationConfig } from 'react-query';
+import { useQuery, UseQueryOptions, useMutation, UseMutationOptions } from 'react-query';
 import { fetcher } from './fetcher';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -778,7 +778,7 @@ export const CreateReviewDocument = `
   }
 }
     ${ReviewListItemFragmentDoc}`;
-export const useCreateReviewMutation = (variables: CreateReviewMutationVariables, options?: MutationConfig<CreateReviewMutation, unknown, CreateReviewMutationVariables>) => 
+export const useCreateReviewMutation = (variables: CreateReviewMutationVariables, options?: UseMutationOptions<CreateReviewMutation, unknown, CreateReviewMutationVariables>) => 
     useMutation<CreateReviewMutation, unknown, CreateReviewMutationVariables>(
     fetcher<CreateReviewMutation, CreateReviewMutationVariables>(CreateReviewDocument, variables),
     options

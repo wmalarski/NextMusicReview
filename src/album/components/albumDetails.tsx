@@ -32,10 +32,11 @@ export interface AlbumDetailsProps {
   id: string;
   detailsQuery?: AlbumDetailsQuery;
   reviewsQuery?: AlbumReviewsQuery;
+  isLoading: boolean;
 }
 
 export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
-  const { detailsQuery, reviewsQuery } = props;
+  const { detailsQuery, reviewsQuery, isLoading } = props;
 
   const { wiki } = detailsQuery?.album?.details ?? {};
   const { id, reviews, name, performer, details, year } =
@@ -73,13 +74,13 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
           </MenuList>
         </Menu>
       </Flex>
-      <WikiText isLoading={false} wiki={wiki} />
+      <WikiText isLoading={isLoading} wiki={wiki} />
       <Heading as="h4" size="md">
         Reviews
       </Heading>
       <ReviewList
         defaultCount={1}
-        isLoading={false}
+        isLoading={isLoading}
         showImage={false}
         defaultAlbum={reviewsQuery?.album}
         reviews={compact(reviews?.nodes)}

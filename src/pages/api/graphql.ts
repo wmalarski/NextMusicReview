@@ -1,18 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import auth0 from "../../users/auth0";
-
-async function getAccessToken(
-  req: NextApiRequest,
-  res: NextApiResponse
-): Promise<string | null> {
-  try {
-    const tokenCache = auth0.tokenCache(req, res);
-    const { accessToken } = await tokenCache.getAccessToken();
-    return accessToken ?? null;
-  } catch (err) {
-    return null;
-  }
-}
+import getAccessToken from "../../users/getAccessToken";
 
 export default async function graphql(
   req: NextApiRequest,
@@ -27,7 +14,7 @@ export default async function graphql(
       body: JSON.stringify(req.body),
       headers: {
         "Content-Type": "application/json",
-        ...(accessToken ? { Authorization: accessToken } : {})
+        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {})
       }
     }
   );

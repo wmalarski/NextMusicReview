@@ -10,6 +10,7 @@ import {
   Stack
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useQueryClient } from "react-query";
 import TextInput from "../../common/components/textInput";
 import { useCreateReviewMutation } from "../../graphql/types";
 
@@ -27,12 +28,21 @@ export interface ReviewFormProps {
 export default function ReviewForm(props: ReviewFormProps): JSX.Element {
   const { albumId, firstFieldRef, onCancel } = props;
 
+  const queryClient = useQueryClient();
+
   const [text, setText] = useState<string>("");
   const [rating, setRating] = useState<number>(5);
 
-  const { mutate, isLoading } = useCreateReviewMutation({
-    input: { album: albumId, rating, text }
-  });
+  const { mutate, isLoading } = useCreateReviewMutation(
+    {
+      input: { album: albumId, rating, text }
+    },
+    {
+      onSuccess() {
+        queryClient.invalidateQueries(["AlbumReviews", { id: albumId }]);
+      }
+    }
+  );
 
   return (
     <form

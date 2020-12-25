@@ -27,6 +27,7 @@ import WikiText from "../../common/components/wikiText";
 import { AlbumDetailsQuery, AlbumReviewsQuery } from "../../graphql/types";
 import ReviewList from "../../review/components/reviewList";
 import ReviewPopover from "../../review/components/reviewPopover";
+import AlbumPopover from "./albumPopover";
 
 export interface AlbumDetailsProps {
   id: string;
@@ -36,11 +37,11 @@ export interface AlbumDetailsProps {
 }
 
 export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
-  const { detailsQuery, reviewsQuery, isLoading } = props;
+  const { detailsQuery, reviewsQuery, isLoading, id } = props;
 
   const { wiki } = detailsQuery?.album?.details ?? {};
-  const { id, reviews, name, performer, details, year } =
-    reviewsQuery?.album ?? {};
+  const { album } = reviewsQuery ?? {};
+  const { reviews, name, performer, details, year } = album ?? {};
 
   const image = details?.image.find(img => img.size === "extralarge");
 
@@ -63,7 +64,8 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
             </Heading>
           </Box>
         </HStack>
-        {id && <ReviewPopover albumId={id} />}
+        {album && <AlbumPopover album={album} />}
+        <ReviewPopover albumId={id} />
         <Menu>
           <MenuButton as={IconButton} icon={<HamburgerIcon />} />
           <MenuList>

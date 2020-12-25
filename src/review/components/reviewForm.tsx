@@ -40,6 +40,10 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
     {
       onSuccess() {
         queryClient.invalidateQueries(["AlbumReviews", { id: albumId }]);
+        onCancel();
+      },
+      onError() {
+        // TODO: handle error
       }
     }
   );

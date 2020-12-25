@@ -614,7 +614,7 @@ export type AlbumDetailsQueryVariables = Exact<{
 export type AlbumDetailsQuery = { album: { details?: Maybe<{ wiki?: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> } };
 
 export type AlbumGridItemFragment = (
-  Pick<Album, 'id' | 'name' | 'year'>
+  Pick<Album, 'id' | 'name' | 'mBid' | 'year'>
   & { performer?: Maybe<Pick<Performer, 'id' | 'name'>>, details?: Maybe<{ image: Array<Pick<Image, 'size' | 'url'>> }> }
 );
 
@@ -627,6 +627,13 @@ export type AlbumReviewsQuery = { album: (
     { reviews?: Maybe<{ nodes?: Maybe<Array<ReviewListItemFragment>> }> }
     & AlbumGridItemFragment
   ) };
+
+export type UpdateAlbumMutationVariables = Exact<{
+  input: UpdateAlbumInput;
+}>;
+
+
+export type UpdateAlbumMutation = { updateAlbum: { album?: Maybe<AlbumGridItemFragment> } };
 
 export type RandomAlbumsQueryVariables = Exact<{
   count: Scalars['Int'];
@@ -670,6 +677,7 @@ export const AlbumGridItemFragmentDoc = `
     fragment AlbumGridItem on Album {
   id
   name
+  mBid
   performer {
     id
     name
@@ -728,6 +736,20 @@ export const useAlbumReviewsQuery = (variables: AlbumReviewsQueryVariables, opti
   useQuery<AlbumReviewsQuery>(
     ['AlbumReviews', variables],
     fetcher<AlbumReviewsQuery, AlbumReviewsQueryVariables>(AlbumReviewsDocument, variables),
+    options
+  );
+export const UpdateAlbumDocument = `
+    mutation UpdateAlbum($input: UpdateAlbumInput!) {
+  updateAlbum(input: $input) {
+    album {
+      ...AlbumGridItem
+    }
+  }
+}
+    ${AlbumGridItemFragmentDoc}`;
+export const useUpdateAlbumMutation = (variables: UpdateAlbumMutationVariables, options?: UseMutationOptions<UpdateAlbumMutation, unknown, UpdateAlbumMutationVariables>) => 
+    useMutation<UpdateAlbumMutation, unknown, UpdateAlbumMutationVariables>(
+    fetcher<UpdateAlbumMutation, UpdateAlbumMutationVariables>(UpdateAlbumDocument, variables),
     options
   );
 export const RandomAlbumsDocument = `

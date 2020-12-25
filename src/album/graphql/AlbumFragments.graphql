@@ -1,6 +1,7 @@
 fragment AlbumGridItem on Album {
   id
   name
+  mBid
   performer {
     id
     name

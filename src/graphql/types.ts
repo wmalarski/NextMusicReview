@@ -652,15 +652,34 @@ export type RandomAlbumsQueryVariables = Exact<{
 
 export type RandomAlbumsQuery = { randomAlbums: Array<AlbumGridItemFragment> };
 
+export type DeletePerformerMutationVariables = Exact<{
+  input: DeletePerformerInput;
+}>;
+
+
+export type DeletePerformerMutation = { deletePerformer: (
+    Pick<DeletePayload, 'success'>
+    & { errors?: Maybe<Array<Pick<UserError, 'code' | 'message'>>> }
+  ) };
+
 export type PerformerDetailsQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
 export type PerformerDetailsQuery = { performer: (
-    Pick<Performer, 'id' | 'name'>
-    & { albums?: Maybe<{ nodes?: Maybe<Array<AlbumGridItemFragment>> }>, details?: Maybe<{ bio?: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
+    { albums?: Maybe<{ nodes?: Maybe<Array<AlbumGridItemFragment>> }>, details?: Maybe<{ bio?: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
+    & PerformerDetailsFragment
   ) };
+
+export type PerformerDetailsFragment = Pick<Performer, 'id' | 'name' | 'mBid'>;
+
+export type UpdatePerformerMutationVariables = Exact<{
+  input: UpdatePerformerInput;
+}>;
+
+
+export type UpdatePerformerMutation = { updatePerformer: { errors?: Maybe<Array<Pick<UserError, 'code' | 'message'>>>, performer?: Maybe<PerformerDetailsFragment> } };
 
 export type CreateReviewMutationVariables = Exact<{
   input: CreateReviewInput;
@@ -699,6 +718,13 @@ export const AlbumGridItemFragmentDoc = `
       url
     }
   }
+}
+    `;
+export const PerformerDetailsFragmentDoc = `
+    fragment PerformerDetails on Performer {
+  id
+  name
+  mBid
 }
     `;
 export const ReviewListItemFragmentDoc = `
@@ -791,11 +817,26 @@ export const useRandomAlbumsQuery = (variables: RandomAlbumsQueryVariables, opti
     fetcher<RandomAlbumsQuery, RandomAlbumsQueryVariables>(RandomAlbumsDocument, variables),
     options
   );
+export const DeletePerformerDocument = `
+    mutation DeletePerformer($input: DeletePerformerInput!) {
+  deletePerformer(input: $input) {
+    success
+    errors {
+      code
+      message
+    }
+  }
+}
+    `;
+export const useDeletePerformerMutation = (variables: DeletePerformerMutationVariables, options?: UseMutationOptions<DeletePerformerMutation, unknown, DeletePerformerMutationVariables>) => 
+    useMutation<DeletePerformerMutation, unknown, DeletePerformerMutationVariables>(
+    fetcher<DeletePerformerMutation, DeletePerformerMutationVariables>(DeletePerformerDocument, variables),
+    options
+  );
 export const PerformerDetailsDocument = `
     query PerformerDetails($id: ID!) {
   performer(id: $id) {
-    id
-    name
+    ...PerformerDetails
     albums {
       nodes {
         ...AlbumGridItem
@@ -810,11 +851,30 @@ export const PerformerDetailsDocument = `
     }
   }
 }
-    ${AlbumGridItemFragmentDoc}`;
+    ${PerformerDetailsFragmentDoc}
+${AlbumGridItemFragmentDoc}`;
 export const usePerformerDetailsQuery = (variables: PerformerDetailsQueryVariables, options?: UseQueryOptions<PerformerDetailsQuery>) => 
   useQuery<PerformerDetailsQuery>(
     ['PerformerDetails', variables],
     fetcher<PerformerDetailsQuery, PerformerDetailsQueryVariables>(PerformerDetailsDocument, variables),
+    options
+  );
+export const UpdatePerformerDocument = `
+    mutation UpdatePerformer($input: UpdatePerformerInput!) {
+  updatePerformer(input: $input) {
+    errors {
+      code
+      message
+    }
+    performer {
+      ...PerformerDetails
+    }
+  }
+}
+    ${PerformerDetailsFragmentDoc}`;
+export const useUpdatePerformerMutation = (variables: UpdatePerformerMutationVariables, options?: UseMutationOptions<UpdatePerformerMutation, unknown, UpdatePerformerMutationVariables>) => 
+    useMutation<UpdatePerformerMutation, unknown, UpdatePerformerMutationVariables>(
+    fetcher<UpdatePerformerMutation, UpdatePerformerMutationVariables>(UpdatePerformerDocument, variables),
     options
   );
 export const CreateReviewDocument = `

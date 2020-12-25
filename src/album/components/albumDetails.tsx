@@ -26,25 +26,23 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
 
   return (
     <Stack>
-      <Stack display="flex" justify="space-between" wrap="wrap">
-        <HStack>
-          <Card>{image?.url && <Image src={image.url} alt={name} />}</Card>
-          <Box alignItems="center" flexGrow={1}>
-            <Heading as="h2" size="lg">
-              {name}
-            </Heading>
-            <Heading as="h4" size="md">
-              <NextLink href={`/performers/${performer?.id}`}>
-                <Link>{performer?.name}</Link>
-              </NextLink>
-            </Heading>
-            <Heading as="h6" size="xs">
-              {year}
-            </Heading>
-          </Box>
-        </HStack>
-        <AlbumActionsBar album={album} />
-      </Stack>
+      <HStack>
+        <Card>{image?.url && <Image src={image.url} alt={name} />}</Card>
+        <Box alignItems="center" flexGrow={1}>
+          <Heading as="h2" size="lg">
+            {name}
+          </Heading>
+          <Heading as="h4" size="md">
+            <NextLink href={`/performers/${performer?.id}`}>
+              <Link>{performer?.name}</Link>
+            </NextLink>
+          </Heading>
+          <Heading as="h6" size="xs">
+            {year}
+          </Heading>
+        </Box>
+      </HStack>
+      <AlbumActionsBar album={album} />
       <WikiText isLoading={isLoading} wiki={wiki} />
       <Heading as="h4" size="md">
         Reviews

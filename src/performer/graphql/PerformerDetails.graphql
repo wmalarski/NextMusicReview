@@ -1,7 +1,6 @@
 query PerformerDetails($id: ID!) {
   performer(id: $id) {
-    id
-    name
+    ...PerformerDetails,
     albums {
       nodes {
         ...AlbumGridItem

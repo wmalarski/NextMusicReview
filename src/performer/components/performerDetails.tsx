@@ -1,21 +1,10 @@
-import { DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Flex,
-  Heading,
-  IconButton,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Skeleton,
-  Stack
-} from "@chakra-ui/react";
+import { Box, Heading, Skeleton, Stack } from "@chakra-ui/react";
 import compact from "lodash/compact";
 import React from "react";
 import AlbumGrid from "../../album/components/albumGrid";
 import WikiText from "../../common/components/wikiText";
 import { PerformerDetailsQuery } from "../../graphql/types";
+import PerformerActionsBar from "./performerActionsBar";
 
 export interface PerformerDetailsProps {
   id: string;
@@ -27,34 +16,22 @@ export default function PerformerDetails(
 ): JSX.Element {
   const { query } = props;
 
-  const { details, name, albums } = query?.performer ?? {};
+  const { performer } = query ?? {};
+  const { details, name, albums } = performer ?? {};
   const isLoading = !query;
 
   return (
     <Stack>
-      <Flex justify="space-between" wrap="wrap">
-        <Box alignItems="center" flexGrow={1}>
-          {isLoading ? (
-            <Skeleton size="lg" />
-          ) : (
-            <Heading as="h2" size="lg">
-              {name}
-            </Heading>
-          )}
-        </Box>
-        <Menu>
-          <MenuButton
-            isLoading={isLoading}
-            as={IconButton}
-            icon={<HamburgerIcon />}
-          />
-          <MenuList>
-            <MenuItem icon={<EditIcon />}>Edit</MenuItem>
-            <MenuItem icon={<DeleteIcon />}>Delete</MenuItem>
-          </MenuList>
-        </Menu>
-      </Flex>
-
+      <Box alignItems="center" flexGrow={1}>
+        {isLoading ? (
+          <Skeleton size="lg" />
+        ) : (
+          <Heading as="h2" size="lg">
+            {name}
+          </Heading>
+        )}
+      </Box>
+      {performer && <PerformerActionsBar performer={performer} />}
       <WikiText isLoading={isLoading} wiki={details?.bio} />
       <Heading as="h4" size="md">
         Albums

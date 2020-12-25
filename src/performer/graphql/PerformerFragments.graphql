@@ -1,0 +1,4 @@
+fragment PerformerDetails on Performer {
+  id
+  name
+}

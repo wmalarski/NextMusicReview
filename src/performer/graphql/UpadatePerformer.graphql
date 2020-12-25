@@ -1,0 +1,11 @@
+mutation UpdatePerformer($input: UpdatePerformerInput!) {
+  updatePerformer(input: $input) {
+    errors {
+      code
+      message
+    }
+    performer {
+      ...PerformerDetails
+    }
+  }
+}

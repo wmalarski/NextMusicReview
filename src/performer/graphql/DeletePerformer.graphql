@@ -1,0 +1,9 @@
+mutation DeletePerformer($input: DeletePerformerInput!) {
+  deletePerformer(input: $input) {
+    success
+    errors {
+      code
+      message
+    }
+  }
+}

@@ -9,14 +9,16 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import React, { useRef } from "react";
+import { AlbumGridItemFragment } from "../../graphql/types";
 import ReviewForm from "./reviewForm";
 
 export interface ReviewPopoverProps {
-  albumId: string;
+  album: AlbumGridItemFragment;
 }
 
 export default function ReviewPopover(props: ReviewPopoverProps): JSX.Element {
-  const { albumId } = props;
+  const { album } = props;
+  const { id } = album;
 
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = useRef<HTMLInputElement>(null);
@@ -31,16 +33,14 @@ export default function ReviewPopover(props: ReviewPopoverProps): JSX.Element {
       closeOnBlur={false}
     >
       <PopoverTrigger>
-        <Button size="sm" leftIcon={<ChatIcon />}>
-          Review
-        </Button>
+        <Button leftIcon={<ChatIcon />}>Review</Button>
       </PopoverTrigger>
       <PopoverContent p={5}>
         <PopoverArrow />
         <PopoverCloseButton />
         <ReviewForm
           firstFieldRef={firstFieldRef}
-          albumId={albumId}
+          albumId={id}
           onCancel={onClose}
         />
       </PopoverContent>

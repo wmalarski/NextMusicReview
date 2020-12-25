@@ -1,24 +1,4 @@
-import {
-  ChatIcon,
-  DeleteIcon,
-  EditIcon,
-  HamburgerIcon,
-  SearchIcon
-} from "@chakra-ui/icons";
-import {
-  Box,
-  Flex,
-  Heading,
-  HStack,
-  IconButton,
-  Image,
-  Link,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Stack
-} from "@chakra-ui/react";
+import { Box, Heading, HStack, Image, Link, Stack } from "@chakra-ui/react";
 import compact from "lodash/compact";
 import NextLink from "next/link";
 import React from "react";
@@ -26,8 +6,7 @@ import Card from "../../common/components/card";
 import WikiText from "../../common/components/wikiText";
 import { AlbumDetailsQuery, AlbumReviewsQuery } from "../../graphql/types";
 import ReviewList from "../../review/components/reviewList";
-import ReviewPopover from "../../review/components/reviewPopover";
-import AlbumPopover from "./albumPopover";
+import AlbumActionsBar from "./albumActionsBar";
 
 export interface AlbumDetailsProps {
   id: string;
@@ -37,7 +16,7 @@ export interface AlbumDetailsProps {
 }
 
 export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
-  const { detailsQuery, reviewsQuery, isLoading, id } = props;
+  const { detailsQuery, reviewsQuery, isLoading } = props;
 
   const { wiki } = detailsQuery?.album?.details ?? {};
   const { album } = reviewsQuery ?? {};
@@ -47,7 +26,7 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
 
   return (
     <Stack>
-      <Flex justify="space-between" wrap="wrap">
+      <Stack display="flex" justify="space-between" wrap="wrap">
         <HStack>
           <Card>{image?.url && <Image src={image.url} alt={name} />}</Card>
           <Box alignItems="center" flexGrow={1}>
@@ -64,18 +43,8 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
             </Heading>
           </Box>
         </HStack>
-        {album && <AlbumPopover album={album} />}
-        <ReviewPopover albumId={id} />
-        <Menu>
-          <MenuButton as={IconButton} icon={<HamburgerIcon />} />
-          <MenuList>
-            <MenuItem icon={<SearchIcon />}>YouTube</MenuItem>
-            <MenuItem icon={<ChatIcon />}>Review</MenuItem>
-            <MenuItem icon={<EditIcon />}>Edit</MenuItem>
-            <MenuItem icon={<DeleteIcon />}>Delete</MenuItem>
-          </MenuList>
-        </Menu>
-      </Flex>
+        <AlbumActionsBar album={album} />
+      </Stack>
       <WikiText isLoading={isLoading} wiki={wiki} />
       <Heading as="h4" size="md">
         Reviews

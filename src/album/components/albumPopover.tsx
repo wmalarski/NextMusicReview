@@ -32,9 +32,7 @@ export default function AlbumPopover(props: AlbumPopoverProps): JSX.Element {
       closeOnBlur={false}
     >
       <PopoverTrigger>
-        <Button size="sm" leftIcon={<EditIcon />}>
-          Edit
-        </Button>
+        <Button leftIcon={<EditIcon />}>Edit</Button>
       </PopoverTrigger>
       <PopoverContent p={5}>
         <PopoverArrow />

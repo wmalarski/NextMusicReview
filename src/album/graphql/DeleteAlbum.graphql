@@ -1,0 +1,9 @@
+mutation DeleteAlbum($input: DeleteAlbumInput!) {
+  deleteAlbum(input: $input) {
+    success
+    errors {
+      code
+      message
+    }
+  }
+}

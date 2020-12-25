@@ -628,6 +628,16 @@ export type AlbumReviewsQuery = { album: (
     & AlbumGridItemFragment
   ) };
 
+export type DeleteAlbumMutationVariables = Exact<{
+  input: DeleteAlbumInput;
+}>;
+
+
+export type DeleteAlbumMutation = { deleteAlbum: (
+    Pick<DeletePayload, 'success'>
+    & { errors?: Maybe<Array<Pick<UserError, 'code' | 'message'>>> }
+  ) };
+
 export type UpdateAlbumMutationVariables = Exact<{
   input: UpdateAlbumInput;
 }>;
@@ -736,6 +746,22 @@ export const useAlbumReviewsQuery = (variables: AlbumReviewsQueryVariables, opti
   useQuery<AlbumReviewsQuery>(
     ['AlbumReviews', variables],
     fetcher<AlbumReviewsQuery, AlbumReviewsQueryVariables>(AlbumReviewsDocument, variables),
+    options
+  );
+export const DeleteAlbumDocument = `
+    mutation DeleteAlbum($input: DeleteAlbumInput!) {
+  deleteAlbum(input: $input) {
+    success
+    errors {
+      code
+      message
+    }
+  }
+}
+    `;
+export const useDeleteAlbumMutation = (variables: DeleteAlbumMutationVariables, options?: UseMutationOptions<DeleteAlbumMutation, unknown, DeleteAlbumMutationVariables>) => 
+    useMutation<DeleteAlbumMutation, unknown, DeleteAlbumMutationVariables>(
+    fetcher<DeleteAlbumMutation, DeleteAlbumMutationVariables>(DeleteAlbumDocument, variables),
     options
   );
 export const UpdateAlbumDocument = `

@@ -1,4 +1,3 @@
-import { ChatIcon, DeleteIcon, EditIcon, SearchIcon } from "@chakra-ui/icons";
 import {
   Button,
   Drawer,
@@ -10,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { AlbumGridItemFragment } from "../../graphql/types";
+import AlbumActionsBar from "./albumActionsBar";
 import AlbumDrawerContent from "./albumDrawerContent";
 
 export interface AlbumDrawerProps {
@@ -34,18 +34,7 @@ export default function AlbumDrawer(props: AlbumDrawerProps): JSX.Element {
             <AlbumDrawerContent album={selectedAlbum} />
             <DrawerFooter>
               <HStack>
-                <Button leftIcon={<SearchIcon />} color="red">
-                  YouTube
-                </Button>
-                <Button leftIcon={<ChatIcon />} color="blue">
-                  Review
-                </Button>
-                <Button leftIcon={<EditIcon />} color="blue">
-                  Edit
-                </Button>
-                <Button leftIcon={<DeleteIcon />} color="blue">
-                  Remove
-                </Button>
+                <AlbumActionsBar album={selectedAlbum} />
                 <Button
                   variant="outline"
                   mr={3}

@@ -12,5 +12,9 @@ export async function fetchMeData(): Promise<UserAuth | null> {
 export const MeQueryKey = "me";
 
 export default function useMeQuery(): UseQueryResult<UserAuth | null, Error> {
-  return useQuery(MeQueryKey, fetchMeData, { retry: 0 });
+  // const userAuth = getLocalUser();
+
+  return useQuery(MeQueryKey, fetchMeData, {
+    retry: 0
+  });
 }

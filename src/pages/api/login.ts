@@ -3,7 +3,7 @@ import auth0 from "../../users/auth0";
 
 export default async function login(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse
 ): Promise<void> {
   try {
     await auth0.handleLogin(req, res);

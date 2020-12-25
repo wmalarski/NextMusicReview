@@ -4,7 +4,7 @@ import { UserAuth } from "../../users/types";
 
 export default async function me(
   req: NextApiRequest,
-  res: NextApiResponse<UserAuth>,
+  res: NextApiResponse<UserAuth>
 ): Promise<void> {
   try {
     await auth0.handleProfile(req, res);

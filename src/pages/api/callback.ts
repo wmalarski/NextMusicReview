@@ -3,9 +3,10 @@ import auth0 from "../../users/auth0";
 
 export default async function callback(
   req: NextApiRequest,
-  res: NextApiResponse,
+  res: NextApiResponse
 ): Promise<void> {
   try {
+    console.log("callback", req, res);
     await auth0.handleCallback(req, res, { redirectTo: "/" });
   } catch (error) {
     console.error(error);

@@ -16,10 +16,10 @@ export interface ReviewPopoverProps {
 }
 
 export default function ReviewPopover(props: ReviewPopoverProps): JSX.Element {
+  const { albumId } = props;
+
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = useRef<HTMLInputElement>(null);
-
-  // const [] = useCreateReviewMutation();
 
   return (
     <Popover
@@ -40,10 +40,8 @@ export default function ReviewPopover(props: ReviewPopoverProps): JSX.Element {
         <PopoverCloseButton />
         <ReviewForm
           firstFieldRef={firstFieldRef}
+          albumId={albumId}
           onCancel={onClose}
-          onSubmit={res => {
-            console.log("res", res);
-          }}
         />
       </PopoverContent>
     </Popover>

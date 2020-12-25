@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import TextInput from "../../common/components/textInput";
+import { useCreateReviewMutation } from "../../graphql/types";
 
 export interface ReviewFormResults {
   text: string;
@@ -18,22 +19,26 @@ export interface ReviewFormResults {
 }
 
 export interface ReviewFormProps {
+  albumId: string;
   firstFieldRef: React.RefObject<HTMLInputElement>;
   onCancel: () => void;
-  onSubmit: (result: ReviewFormResults) => void;
 }
 
 export default function ReviewForm(props: ReviewFormProps): JSX.Element {
-  const { firstFieldRef, onCancel, onSubmit } = props;
+  const { albumId, firstFieldRef, onCancel } = props;
 
   const [text, setText] = useState<string>("");
   const [rating, setRating] = useState<number>(5);
+
+  const { mutate, isLoading } = useCreateReviewMutation({
+    input: { album: albumId, rating, text }
+  });
 
   return (
     <form
       onSubmit={event => {
         event.preventDefault();
-        onSubmit({ text, rating });
+        mutate({ input: { album: albumId, text, rating } });
       }}
     >
       <Stack spacing={4}>
@@ -66,10 +71,10 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
         </FormControl>
 
         <ButtonGroup d="flex" justifyContent="flex-end">
-          <Button variant="outline" onClick={onCancel}>
+          <Button isLoading={isLoading} variant="outline" onClick={onCancel}>
             Cancel
           </Button>
-          <Button type="submit" colorScheme="gray">
+          <Button isLoading={isLoading} type="submit" colorScheme="gray">
             Save
           </Button>
         </ButtonGroup>

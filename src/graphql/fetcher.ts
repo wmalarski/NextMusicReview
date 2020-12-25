@@ -3,16 +3,13 @@ export function fetcher<TData, TVariables>(
   variables?: TVariables
 ) {
   return async (): Promise<TData> => {
-    const res = await fetch(
-      "https://next-music-rating.azurewebsites.net/graphql/",
-      {
-        method: "POST",
-        body: JSON.stringify({ query, variables }),
-        headers: {
-          "Content-Type": "application/json"
-        }
+    const res = await fetch("api/graphql/", {
+      method: "POST",
+      body: JSON.stringify({ query, variables }),
+      headers: {
+        "Content-Type": "application/json"
       }
-    );
+    });
 
     const json = await res.json();
 

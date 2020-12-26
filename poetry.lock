@@ -18,6 +18,17 @@ yarl = ">=1.0,<2.0"
 speedups = ["aiodns", "brotlipy", "cchardet"]
 
 [[package]]
+name = "algoliasearch"
+version = "2.4.0"
+description = "Algolia Search API Client for Python."
+category = "main"
+optional = false
+python-versions = ">= 2.7, != 3.0.*, != 3.1.*, != 3.2.*, !=3.3.*"
+
+[package.dependencies]
+requests = ">=2.21,<3.0"
+
+[[package]]
 name = "async-timeout"
 version = "3.0.1"
 description = "Timeout context manager for asyncio programs"
@@ -280,7 +291,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "9eee9884df1581561c57dca8dd3c9470728046d79844c3430e504e1a4e76e95e"
+content-hash = "3bcd1d234cd095e45a8e41e641f5b8e9f7648baeaebdabbfc63d0ef12b161894"
 
 [metadata.files]
 aiohttp = [
@@ -321,6 +332,10 @@ aiohttp = [
     {file = "aiohttp-3.7.3-cp39-cp39-win32.whl", hash = "sha256:3b0036c978cbcc4a4512278e98e3e6d9e6b834dc973206162eddf98b586ef1c6"},
     {file = "aiohttp-3.7.3-cp39-cp39-win_amd64.whl", hash = "sha256:e1b95972a0ae3f248a899cdbac92ba2e01d731225f566569311043ce2226f5e7"},
     {file = "aiohttp-3.7.3.tar.gz", hash = "sha256:9c1a81af067e72261c9cbe33ea792893e83bc6aa987bfbd6fdc1e5e7b22777c4"},
+]
+algoliasearch = [
+    {file = "algoliasearch-2.4.0-py2.py3-none-any.whl", hash = "sha256:5f62155450949642fe6ae1c163d89630c9ffce9cca62901893ddc1ad3e653239"},
+    {file = "algoliasearch-2.4.0.tar.gz", hash = "sha256:525f9d50f5363c8ae6603a8e328d8c23957e825fdfe363ecbda55487a0140c76"},
 ]
 async-timeout = [
     {file = "async-timeout-3.0.1.tar.gz", hash = "sha256:0c3c816a028d47f659d6ff5c745cb2acf1f966da1fe5c19c77a70282b25f4c5f"},

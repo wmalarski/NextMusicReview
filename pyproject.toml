@@ -9,6 +9,7 @@ python = "^3.8"
 gql = {version = "3.0.0a5", extras = ["all"]}
 python-dotenv = "^0.15.0"
 tqdm = "^4.55.0"
+algoliasearch = "^2.4.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

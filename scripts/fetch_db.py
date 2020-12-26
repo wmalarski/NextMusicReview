@@ -53,8 +53,6 @@ def get_performers(input_performers: Dict) -> List:
 
 
 def fetch_db_performers() -> List:
-    transport = RequestsHTTPTransport("https://review-music.herokuapp.com/")
-
     read_document = gql("""
         query read($after: String){
           performerSet(after: $after, first: 50) {
@@ -91,7 +89,7 @@ def fetch_db_performers() -> List:
           }
         }
     """)
-
+    transport = RequestsHTTPTransport("https://review-music.herokuapp.com/")
     client = Client(transport=transport, fetch_schema_from_transport=True)
 
     has_next_page = True

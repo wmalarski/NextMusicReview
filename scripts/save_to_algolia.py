@@ -26,6 +26,12 @@ def fetch_albums():
                 name
               }
               year
+              details {
+                image {
+                  size
+                  url
+                }
+              }
             }
           }
         }
@@ -37,10 +43,15 @@ def fetch_albums():
     end_cursor = None
     nodes = []
     while has_next_page:
-        data = client.execute(
-            document=document,
-            variable_values={"after": end_cursor, "first": 50}
-        )
+        try:
+            data = client.execute(
+                document=document,
+                variable_values={"after": end_cursor, "first": 50}
+            )
+        except Exception as e:
+            print("Exception", e, {"after": end_cursor, "first": 50})
+            continue
+
         page_info = data["albums"]["pageInfo"]
         has_next_page = page_info["hasNextPage"]
         end_cursor = page_info["endCursor"]
@@ -65,7 +76,11 @@ def upload_to_algolia():
         {
             **album,
             "performer": album["performer"]["name"],
-            "performerId": album["performer"]["id"]
+            "performerId": album["performer"]["id"],
+            "imageUrl": next((
+                image["url"] for image in (album.get("details") or {}).get("image", [])
+                if image is not None and image["size"] == "large"
+            ), None),
         } for album in albums
     ]
 
@@ -75,7 +90,7 @@ def upload_to_algolia():
     )
     index_ = client.init_index(os.getenv("ALGOLIA_INDEX_NAME"))
 
-    index_.save_objects(
+    index_.replace_all_objects(
         objects=objects,
         request_options={'autoGenerateObjectIDIfNotExist': True}
     )

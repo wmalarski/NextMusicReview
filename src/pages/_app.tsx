@@ -17,6 +17,12 @@ export default function MyApp(props: AppProps): JSX.Element {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.3.1/themes/algolia-min.css"
+          integrity="sha256-HB49n/BZjuqiCtQQf49OdZn63XuKFaxcIHWf0HNKte8="
+          crossOrigin="anonymous"
+        />
       </Head>
       <ChakraProvider>
         <QueryClientProvider client={queryClient}>

@@ -41,6 +41,11 @@ export default function Header(): JSX.Element {
               <Link>Reviews</Link>
             </NextLink>
           </MenuText>
+          <MenuText>
+            <NextLink href="/search">
+              <Link>Search</Link>
+            </NextLink>
+          </MenuText>
         </Box>
 
         <Box

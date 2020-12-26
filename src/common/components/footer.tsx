@@ -9,7 +9,8 @@ export default function Footer(): JSX.Element {
         <HStack spacing="3px">
           <Text>© {new Date().getFullYear()}, Built with </Text>
           <Link href="https://nextjs.org/">NextJS,</Link>
-          <Link href="https://www.typescriptlang.org">Typescript</Link>
+          <Link href="https://www.typescriptlang.org">Typescript,</Link>
+          <Link href="https://www.algolia.com/">Algolia</Link>
           <Text>and</Text>
           <Link href="https://chakra-ui.com">Chakra-ui</Link>
         </HStack>

@@ -7,7 +7,8 @@ import {
   SliderFilledTrack,
   SliderThumb,
   SliderTrack,
-  Stack
+  Stack,
+  useToast
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
@@ -40,6 +41,8 @@ export default function AlbumForm(props: AlbumFormProps): JSX.Element {
   const input = { id, mBid, performer: performer?.id ?? "" };
   const queryKey = ["AlbumReviews", { id }];
 
+  const toast = useToast();
+
   const { mutate, isLoading } = useUpdateAlbumMutation(
     {
       input: { ...input, year, name }
@@ -63,10 +66,23 @@ export default function AlbumForm(props: AlbumFormProps): JSX.Element {
       },
       onSuccess() {
         onCancel();
+        toast({
+          description: "Album updated",
+          isClosable: true,
+          position: "bottom",
+          status: "success",
+          title: "Success"
+        });
       },
       onError(error, variables, context: any) {
         queryClient.setQueryData(queryKey, context.previous);
-        // TODO: handle errors
+        toast({
+          description: String(error),
+          isClosable: true,
+          position: "bottom",
+          status: "error",
+          title: "Save not completed"
+        });
       },
       onSettled() {
         queryClient.invalidateQueries(queryKey);

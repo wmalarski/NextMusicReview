@@ -6,7 +6,6 @@ export default async function callback(
   res: NextApiResponse
 ): Promise<void> {
   try {
-    console.log("callback", req, res);
     await auth0.handleCallback(req, res, { redirectTo: "/" });
   } catch (error) {
     console.error(error);

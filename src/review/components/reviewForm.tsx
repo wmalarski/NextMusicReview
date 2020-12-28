@@ -7,7 +7,8 @@ import {
   SliderFilledTrack,
   SliderThumb,
   SliderTrack,
-  Stack
+  Stack,
+  useToast
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
@@ -33,6 +34,8 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
   const [text, setText] = useState<string>("");
   const [rating, setRating] = useState<number>(5);
 
+  const toast = useToast();
+
   const { mutate, isLoading } = useCreateReviewMutation(
     {
       input: { album: albumId, rating, text }
@@ -41,9 +44,22 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
       onSuccess() {
         queryClient.invalidateQueries(["AlbumReviews", { id: albumId }]);
         onCancel();
+        toast({
+          description: "Review added",
+          isClosable: true,
+          position: "bottom",
+          status: "success",
+          title: "Success"
+        });
       },
-      onError() {
-        // TODO: handle error
+      onError(error) {
+        toast({
+          description: String(error),
+          isClosable: true,
+          position: "bottom",
+          status: "error",
+          title: "Error"
+        });
       }
     }
   );

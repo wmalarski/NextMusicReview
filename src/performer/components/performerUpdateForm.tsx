@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Stack } from "@chakra-ui/react";
+import { Button, ButtonGroup, Stack, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useQueryClient } from "react-query";
 import TextInput from "../../common/components/textInput";
@@ -29,6 +29,8 @@ export default function PerformerUpdateForm(
   const [name, setName] = useState<string>(initName);
   const key = ["PerformerDetails", { id }];
 
+  const toast = useToast();
+
   const { mutate, isLoading } = useUpdatePerformerMutation(
     {
       input: { id, name }
@@ -51,10 +53,23 @@ export default function PerformerUpdateForm(
       },
       onSuccess() {
         onCancel();
+        toast({
+          description: "Performer updated",
+          isClosable: true,
+          position: "bottom",
+          status: "success",
+          title: "Success"
+        });
       },
       onError(error, variables, context: any) {
         queryClient.setQueryData(key, context.previous);
-        // TODO: handle errors
+        toast({
+          description: String(error),
+          isClosable: true,
+          position: "bottom",
+          status: "error",
+          title: "Save not completed"
+        });
       },
       onSettled() {
         queryClient.invalidateQueries(key);

@@ -5,10 +5,6 @@ import {
   HStack,
   Image as ChakraImage,
   Link,
-  Slider,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderTrack,
   Stack,
   Text
 } from "@chakra-ui/react";
@@ -29,7 +25,7 @@ export default function ReviewListItem(
   const { createdAt, rating, text, album } = review;
   const { id, details, name, performer, year } = album ?? {};
 
-  const image = details?.image.find(img => img.size === "mega");
+  const image = details?.image.find(img => img.size === "large");
 
   return (
     <Card>
@@ -37,9 +33,7 @@ export default function ReviewListItem(
         <Box>
           {showImage && (
             <Center>
-              <Card>
-                {image?.url && <ChakraImage src={image.url} alt={name} />}
-              </Card>
+              {image?.url && <ChakraImage src={image.url} alt={name} />}
             </Center>
           )}
         </Box>
@@ -59,18 +53,7 @@ export default function ReviewListItem(
           </Heading>
           <Text>{createdAt}</Text>
           <Text>{text}</Text>
-          <Slider
-            aria-label="rating-slider"
-            defaultValue={rating}
-            isDisabled={true}
-            min={0}
-            max={10}
-          >
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb boxSize={9}>{rating}</SliderThumb>
-          </Slider>
+          <Text>{`Rate: ${rating}`}</Text>
         </Stack>
       </HStack>
     </Card>

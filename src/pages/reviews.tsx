@@ -1,4 +1,4 @@
-import { Button, Center, Stack } from "@chakra-ui/react";
+import { Button, Stack } from "@chakra-ui/react";
 import compact from "lodash/compact";
 import React, { useState } from "react";
 import Layout from "../common/components/layout";
@@ -33,11 +33,9 @@ export default function ReviewsPage(): JSX.Element {
           showImage={true}
           reviews={reviews}
         />
-        <Center>
-          <Button isLoading={isFetching} onClick={() => fetchNextPage()}>
-            Fetch More
-          </Button>
-        </Center>
+        <Button isLoading={isFetching} onClick={() => fetchNextPage()}>
+          Fetch More
+        </Button>
       </Stack>
     </Layout>
   );

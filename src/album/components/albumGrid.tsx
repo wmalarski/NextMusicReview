@@ -23,18 +23,18 @@ export default function AlbumGrid(props: AlbumGridProps): JSX.Element {
 
   return (
     <>
-      <SimpleGrid minChildWidth="250px" spacing="10px">
+      <SimpleGrid minChildWidth="230px" spacing="10px">
         {isLoading
           ? range(0, defaultCount).map(index => (
-              <Card key={index} height="250px">
-                <Skeleton height="210px" />
+              <Card key={index} height="230px">
+                <Skeleton height="190px" />
               </Card>
             ))
           : albums?.map(album => (
               <AlbumGridItem
                 key={album.id}
                 album={album}
-                imageHeight="210px"
+                imageHeight="190px"
                 setSelectedId={setSelectedId}
               />
             ))}

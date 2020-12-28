@@ -83,7 +83,7 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
           }}
         />
         <FormControl>
-          <FormLabel htmlFor={"slider-rating"}>Rating</FormLabel>
+          <FormLabel htmlFor={"slider-rating"}>{`Rating ${rating}`}</FormLabel>
           <Slider
             id="slider-rating"
             aria-label="slider-rating"
@@ -96,7 +96,7 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
             <SliderTrack>
               <SliderFilledTrack />
             </SliderTrack>
-            <SliderThumb boxSize="30px">{rating}</SliderThumb>
+            <SliderThumb />
           </Slider>
         </FormControl>
 

@@ -9,7 +9,6 @@ import {
   Text
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import Card from "../../common/components/card";
 import { ReviewSortInput, SortEnumType } from "../../graphql/types";
 import { ReviewFilterState } from "../types";
 
@@ -38,36 +37,34 @@ export default function ReviewFilter(props: ReviewFilterProps): JSX.Element {
         }));
       }}
     >
-      <Card>
-        <HStack>
-          <Text>Sort by:</Text>
-          <Box>
-            <Select
-              placeholder="-"
-              value={String(key)}
-              onChange={event => {
-                const value = event.target.value;
-                setKey(value === "" ? null : (value as keyof ReviewSortInput));
-              }}
-            >
-              <option value="createdAt">Created At</option>
-              <option value="rating">Rating</option>
-            </Select>
-          </Box>
-          <Box flexGrow={1}>
-            <RadioGroup
-              onChange={value => setDirection(value as SortEnumType)}
-              value={direction}
-            >
-              <Stack direction="row">
-                <Radio value={SortEnumType.Asc}>Asc</Radio>
-                <Radio value={SortEnumType.Desc}>Desc</Radio>
-              </Stack>
-            </RadioGroup>
-          </Box>
-          <Button type="submit">Apply</Button>
-        </HStack>
-      </Card>
+      <HStack>
+        <Text>Sort by:</Text>
+        <Box>
+          <Select
+            placeholder="-"
+            value={String(key)}
+            onChange={event => {
+              const value = event.target.value;
+              setKey(value === "" ? null : (value as keyof ReviewSortInput));
+            }}
+          >
+            <option value="createdAt">Created At</option>
+            <option value="rating">Rating</option>
+          </Select>
+        </Box>
+        <Box flexGrow={1}>
+          <RadioGroup
+            onChange={value => setDirection(value as SortEnumType)}
+            value={direction}
+          >
+            <Stack direction="row">
+              <Radio value={SortEnumType.Asc}>Asc</Radio>
+              <Radio value={SortEnumType.Desc}>Desc</Radio>
+            </Stack>
+          </RadioGroup>
+        </Box>
+        <Button type="submit">Apply</Button>
+      </HStack>
     </form>
   );
 }

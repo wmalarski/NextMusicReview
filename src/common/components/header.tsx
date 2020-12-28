@@ -1,12 +1,22 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Divider, Flex, Heading, HStack, Link } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  HStack,
+  Link,
+  useColorMode
+} from "@chakra-ui/react";
 import NextLink from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import UserHeader from "../../users/components/userHeader";
 import MenuText from "./menuText";
 
 export default function Header(): JSX.Element {
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
+  const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Box>
@@ -53,6 +63,9 @@ export default function Header(): JSX.Element {
           mt={{ base: 4, md: 0 }}
         >
           <HStack>
+            <Button onClick={toggleColorMode}>
+              Toggle {colorMode === "light" ? "Dark" : "Light"}
+            </Button>
             <Link href="https://www.linkedin.com/in/wojciech-malarski-4a1473168/">
               LinkedIn
             </Link>

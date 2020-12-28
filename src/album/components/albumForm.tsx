@@ -109,7 +109,7 @@ export default function AlbumForm(props: AlbumFormProps): JSX.Element {
           }}
         />
         <FormControl>
-          <FormLabel htmlFor={"slider-year"}>Year</FormLabel>
+          <FormLabel htmlFor={"slider-year"}>{`Year: ${year}`}</FormLabel>
           <Slider
             id="slider-year"
             aria-label="slider-year"
@@ -122,7 +122,7 @@ export default function AlbumForm(props: AlbumFormProps): JSX.Element {
             <SliderTrack>
               <SliderFilledTrack />
             </SliderTrack>
-            <SliderThumb boxSize="30px">{year}</SliderThumb>
+            <SliderThumb />
           </Slider>
         </FormControl>
 

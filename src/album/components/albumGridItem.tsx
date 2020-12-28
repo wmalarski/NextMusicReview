@@ -20,7 +20,7 @@ export default function AlbumGridItem(props: AlbumGridItemProps): JSX.Element {
   const { album, imageHeight, setSelectedId } = props;
   const { id, name, details, performer, year } = album;
 
-  const image = details?.image.find(img => img.size === "mega");
+  const image = details?.image.find(img => img.size === "large");
 
   return (
     <Card

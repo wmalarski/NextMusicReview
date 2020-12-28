@@ -3,7 +3,6 @@ import type { AppProps /*, AppContext */ } from "next/app";
 import Head from "next/head";
 import React from "react";
 import { QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 import queryClient from "../graphql/queryClient";
 
 export default function MyApp(props: AppProps): JSX.Element {
@@ -27,7 +26,6 @@ export default function MyApp(props: AppProps): JSX.Element {
       <ChakraProvider>
         <QueryClientProvider client={queryClient}>
           <Component {...pageProps} />
-          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </ChakraProvider>
     </React.Fragment>

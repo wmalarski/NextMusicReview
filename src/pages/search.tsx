@@ -5,6 +5,7 @@ import {
   Hits,
   InstantSearch,
   Pagination,
+  PoweredBy,
   RefinementList,
   SearchBox
 } from "react-instantsearch-dom";
@@ -19,6 +20,7 @@ export default function SearchPage(): JSX.Element {
         <Stack>
           <Configure />
           <SearchBox />
+          <PoweredBy />
           <RefinementList attribute="categories" />
           <Hits hitComponent={AlbumHit} />
           <Pagination />

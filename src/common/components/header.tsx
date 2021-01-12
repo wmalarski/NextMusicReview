@@ -56,6 +56,11 @@ export default function Header(): JSX.Element {
               <Link>Search</Link>
             </NextLink>
           </MenuText>
+          <MenuText>
+            <NextLink href="/search2">
+              <Link>Infinite Search</Link>
+            </NextLink>
+          </MenuText>
         </Box>
 
         <Box

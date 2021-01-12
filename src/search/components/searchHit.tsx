@@ -7,7 +7,7 @@ export interface AlbumHitProps {
   hit: AlbumSearchHit;
 }
 
-export default function AlbumHit(props: AlbumHitProps): JSX.Element {
+export default function SearchHit(props: AlbumHitProps): JSX.Element {
   const { hit } = props;
   const { name, performer, year, id, performerId, imageUrl } = hit;
 

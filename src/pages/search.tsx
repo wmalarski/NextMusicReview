@@ -10,7 +10,7 @@ import {
   SearchBox
 } from "react-instantsearch-dom";
 import Layout from "../common/components/layout";
-import AlbumHit from "../search/components/searchHit";
+import SearchHit from "../search/components/searchHit";
 import searchClient from "../search/searchClient";
 
 export default function SearchPage(): JSX.Element {
@@ -22,7 +22,7 @@ export default function SearchPage(): JSX.Element {
           <SearchBox />
           <PoweredBy />
           <RefinementList attribute="categories" />
-          <Hits hitComponent={AlbumHit} />
+          <Hits hitComponent={SearchHit} />
           <Pagination />
         </Stack>
       </InstantSearch>

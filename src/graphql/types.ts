@@ -17,11 +17,15 @@ export type Scalars = {
   Decimal: any;
 };
 
+
+
+
 export type Query = {
   node?: Maybe<Node>;
   performers?: Maybe<PerformerConnection>;
   performer: Performer;
   albums?: Maybe<AlbumConnection>;
+  search?: Maybe<AlbumConnection>;
   randomAlbums: Array<Album>;
   myRandomAlbums: Array<Album>;
   album: Album;
@@ -58,6 +62,17 @@ export type QueryAlbumsArgs = {
   after?: Maybe<Scalars['String']>;
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<Scalars['String']>;
+  where?: Maybe<AlbumFilterInput>;
+  order?: Maybe<Array<AlbumSortInput>>;
+};
+
+
+export type QuerySearchArgs = {
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  query: Scalars['String'];
   where?: Maybe<AlbumFilterInput>;
   order?: Maybe<Array<AlbumSortInput>>;
 };
@@ -672,7 +687,7 @@ export type PerformerDetailsQuery = { performer: (
     & PerformerDetailsFragment
   ) };
 
-export type PerformerDetailsFragment = Pick<Performer, 'id' | 'name' | 'mBid'>;
+export type PerformerDetailsFragment = Pick<Performer, 'id' | 'name'>;
 
 export type UpdatePerformerMutationVariables = Exact<{
   input: UpdatePerformerInput;
@@ -702,6 +717,15 @@ export type ReviewsQuery = { reviews?: Maybe<{ pageInfo: Pick<PageInfo, 'endCurs
       & ReviewListItemFragment
     )>> }> };
 
+export type AlbumSearchQueryVariables = Exact<{
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  query: Scalars['String'];
+}>;
+
+
+export type AlbumSearchQuery = { search?: Maybe<{ pageInfo: Pick<PageInfo, 'hasNextPage' | 'endCursor'>, nodes?: Maybe<Array<AlbumGridItemFragment>> }> };
+
 export const AlbumGridItemFragmentDoc = `
     fragment AlbumGridItem on Album {
   id
@@ -724,7 +748,6 @@ export const PerformerDetailsFragmentDoc = `
     fragment PerformerDetails on Performer {
   id
   name
-  mBid
 }
     `;
 export const ReviewListItemFragmentDoc = `
@@ -912,5 +935,24 @@ export const useReviewsQuery = (variables?: ReviewsQueryVariables, options?: Use
   useQuery<ReviewsQuery>(
     ['Reviews', variables],
     fetcher<ReviewsQuery, ReviewsQueryVariables>(ReviewsDocument, variables),
+    options
+  );
+export const AlbumSearchDocument = `
+    query AlbumSearch($first: Int, $after: String, $query: String!) {
+  search(first: $first, after: $after, query: $query) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      ...AlbumGridItem
+    }
+  }
+}
+    ${AlbumGridItemFragmentDoc}`;
+export const useAlbumSearchQuery = (variables: AlbumSearchQueryVariables, options?: UseQueryOptions<AlbumSearchQuery>) => 
+  useQuery<AlbumSearchQuery>(
+    ['AlbumSearch', variables],
+    fetcher<AlbumSearchQuery, AlbumSearchQueryVariables>(AlbumSearchDocument, variables),
     options
   );

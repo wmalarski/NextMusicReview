@@ -4,3 +4,4 @@ package-lock.json
 public
 node_modules
 src/graphql/types.ts
+tests/setupAfterEnv.js

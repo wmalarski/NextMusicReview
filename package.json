@@ -8,7 +8,9 @@
     "start": "next start",
     "prettier": "prettier --config .prettierrc 'src/**/*.(ts|tsx)' --write",
     "lint": "eslint . --fix --ext .tsx,.ts",
-    "codegen": "graphql-codegen --config codegen.yml;sed -i 's/QueryConfig/UseQueryOptions/g' src/graphql/types.ts; sed -i 's/MutationConfig/UseMutationOptions/g' src/graphql/types.ts"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^0.16.0",
@@ -27,10 +29,16 @@
     "react-query": "^3.5.12"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
     "@graphql-codegen/cli": "^1.19.4",
     "@graphql-codegen/typescript": "^1.20.0",
     "@graphql-codegen/typescript-operations": "^1.17.12",
     "@graphql-codegen/typescript-react-query": "^1.0.0",
+    "@testing-library/react-hooks": "^5.0.0",
+    "@types/enzyme": "^3.10.8",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.167",
     "@types/node": "^14.14.20",
     "@types/react": "^16.14.2",
@@ -38,6 +46,9 @@
     "@types/react-instantsearch-dom": "^6.8.0",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
+    "babel-jest": "^26.6.3",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
     "eslint": "^7.17.0",
     "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-import": "^2.22.1",
@@ -47,12 +58,36 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^4.3.7",
+    "jest": "^26.6.3",
     "prettier": "^2.2.1",
+    "react-test-renderer": "^16.14.0",
+    "ts-jest": "^26.4.4",
     "typescript": "^4.1.2"
   },
   "husky": {
     "hooks": {
       "pre-commit": "npm run prettier && npm run lint"
+    }
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.(ts|tsx)"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "./.next/",
+      "./node_modules/",
+      "./__tests__/utils.ts"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.jest.json"
+      }
     }
   }
 }

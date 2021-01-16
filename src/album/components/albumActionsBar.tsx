@@ -26,6 +26,7 @@ export default function AlbumActionsBar(
   return (
     <HStack>
       <Button
+        id="youtube-button"
         leftIcon={<SearchIcon />}
         onClick={() => {
           if (typeof window === "undefined") return;

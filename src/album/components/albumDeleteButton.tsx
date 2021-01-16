@@ -25,6 +25,7 @@ export default function AlbumDeleteButton(
       onSuccess(data) {
         if (!data.deleteAlbum.success) return;
         const path = performer ? `/performers/${performer.id}` : "/";
+        console.log("onSuccess", performer, path, router.push);
         router.push(path);
       }
     }

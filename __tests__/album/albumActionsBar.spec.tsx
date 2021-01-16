@@ -1,52 +1,52 @@
-import { mount } from "enzyme";
+import { ReactWrapper } from "enzyme";
 import React from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
 import AlbumActionsBar, {
   AlbumActionsBarProps
 } from "../../src/album/components/albumActionsBar";
-import { waitForComponentToPaint } from "../utils";
+import { waitForComponentToPaint, withRouterContext } from "../utils";
 
-function getAlbumActionsBar(
-  props: Partial<AlbumActionsBarProps> = {}
-): JSX.Element {
-  const queryClient = new QueryClient();
-  const defaultProps: AlbumActionsBarProps = {
-    album: {
-      id: "id",
-      mBid: "mBid",
-      name: "name",
-      year: 1999,
-      details: {
-        image: [
-          {
-            size: "small",
-            url: "url"
-          }
-        ]
+function mountAlbumActionsBar(): ReactWrapper<AlbumActionsBarProps, any> {
+  return withRouterContext<AlbumActionsBarProps>(
+    props => <AlbumActionsBar {...props} />,
+    {
+      album: {
+        id: "id",
+        mBid: "mBid",
+        name: "name",
+        year: 1999,
+        details: {
+          image: [
+            {
+              size: "small",
+              url: "url"
+            }
+          ]
+        }
       }
     }
-  };
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AlbumActionsBar {...{ ...defaultProps, ...props }} />
-    </QueryClientProvider>
   );
 }
 
-/** @test {Title Component} */
 describe("AlbumActionsBar Component", () => {
   it("should render without crashing", () => {
-    const wrapper = mount(getAlbumActionsBar());
+    const wrapper = mountAlbumActionsBar();
     waitForComponentToPaint(wrapper);
     expect(wrapper.find("button")).toHaveLength(10);
   });
 
   it("have Youtube button", () => {
-    const wrapper = mount(getAlbumActionsBar());
+    // given
+    global.open = jest.fn();
+
+    const wrapper = mountAlbumActionsBar();
     waitForComponentToPaint(wrapper);
     const chakraButton = wrapper.find("#youtube-button");
     const button = chakraButton.find("button");
-    console.log("button", button, chakraButton.children());
-    // expect(button).toHaveLength(7);
+
+    // when
+    button.simulate("click");
+
+    // expect
+    expect(global.open).toBeCalled();
   });
 });

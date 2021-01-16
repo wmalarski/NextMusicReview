@@ -1,14 +1,11 @@
+import { GRAPHQL_ENDPOINT } from "./constants";
+
 export function fetcher<TData, TVariables>(
   query: string,
   variables?: TVariables
-) {
+): () => Promise<TData> {
   return async (): Promise<TData> => {
-    const url =
-      typeof window === "undefined"
-        ? "https://next-music-rating.azurewebsites.net/graphql"
-        : `${window.location.origin}/api/graphql`;
-
-    const res = await fetch(url, {
+    const res = await fetch(GRAPHQL_ENDPOINT, {
       method: "POST",
       body: JSON.stringify({ query, variables }),
       headers: {

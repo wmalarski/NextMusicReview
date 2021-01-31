@@ -707,7 +707,7 @@ export type ReviewListItemFragment = Pick<
 export type ReviewsQueryVariables = Exact<{
   after?: Maybe<Scalars["String"]>;
   first?: Maybe<Scalars["Int"]>;
-  order?: Maybe<Array<ReviewSortInput>>;
+  order?: Maybe<Array<ReviewSortInput> | ReviewSortInput>;
 }>;
 
 export type ReviewsQuery = {
@@ -778,11 +778,14 @@ export const AlbumDetailsDocument = `
   }
 }
     `;
-export const useAlbumDetailsQuery = (
+export const useAlbumDetailsQuery = <
+  TData = AlbumDetailsQuery,
+  TError = unknown
+>(
   variables: AlbumDetailsQueryVariables,
-  options?: UseQueryOptions<AlbumDetailsQuery>
+  options?: UseQueryOptions<AlbumDetailsQuery, TError, TData>
 ) =>
-  useQuery<AlbumDetailsQuery>(
+  useQuery<AlbumDetailsQuery, TError, TData>(
     ["AlbumDetails", variables],
     fetcher<AlbumDetailsQuery, AlbumDetailsQueryVariables>(
       AlbumDetailsDocument,
@@ -803,11 +806,14 @@ export const AlbumReviewsDocument = `
 }
     ${AlbumGridItemFragmentDoc}
 ${ReviewListItemFragmentDoc}`;
-export const useAlbumReviewsQuery = (
+export const useAlbumReviewsQuery = <
+  TData = AlbumReviewsQuery,
+  TError = unknown
+>(
   variables: AlbumReviewsQueryVariables,
-  options?: UseQueryOptions<AlbumReviewsQuery>
+  options?: UseQueryOptions<AlbumReviewsQuery, TError, TData>
 ) =>
-  useQuery<AlbumReviewsQuery>(
+  useQuery<AlbumReviewsQuery, TError, TData>(
     ["AlbumReviews", variables],
     fetcher<AlbumReviewsQuery, AlbumReviewsQueryVariables>(
       AlbumReviewsDocument,
@@ -826,19 +832,25 @@ export const DeleteAlbumDocument = `
   }
 }
     `;
-export const useDeleteAlbumMutation = (
-  variables: DeleteAlbumMutationVariables,
+export const useDeleteAlbumMutation = <TError = unknown, TContext = unknown>(
   options?: UseMutationOptions<
     DeleteAlbumMutation,
-    unknown,
-    DeleteAlbumMutationVariables
+    TError,
+    DeleteAlbumMutationVariables,
+    TContext
   >
 ) =>
-  useMutation<DeleteAlbumMutation, unknown, DeleteAlbumMutationVariables>(
-    fetcher<DeleteAlbumMutation, DeleteAlbumMutationVariables>(
-      DeleteAlbumDocument,
-      variables
-    ),
+  useMutation<
+    DeleteAlbumMutation,
+    TError,
+    DeleteAlbumMutationVariables,
+    TContext
+  >(
+    (variables?: DeleteAlbumMutationVariables) =>
+      fetcher<DeleteAlbumMutation, DeleteAlbumMutationVariables>(
+        DeleteAlbumDocument,
+        variables
+      )(),
     options
   );
 export const UpdateAlbumDocument = `
@@ -850,19 +862,25 @@ export const UpdateAlbumDocument = `
   }
 }
     ${AlbumGridItemFragmentDoc}`;
-export const useUpdateAlbumMutation = (
-  variables: UpdateAlbumMutationVariables,
+export const useUpdateAlbumMutation = <TError = unknown, TContext = unknown>(
   options?: UseMutationOptions<
     UpdateAlbumMutation,
-    unknown,
-    UpdateAlbumMutationVariables
+    TError,
+    UpdateAlbumMutationVariables,
+    TContext
   >
 ) =>
-  useMutation<UpdateAlbumMutation, unknown, UpdateAlbumMutationVariables>(
-    fetcher<UpdateAlbumMutation, UpdateAlbumMutationVariables>(
-      UpdateAlbumDocument,
-      variables
-    ),
+  useMutation<
+    UpdateAlbumMutation,
+    TError,
+    UpdateAlbumMutationVariables,
+    TContext
+  >(
+    (variables?: UpdateAlbumMutationVariables) =>
+      fetcher<UpdateAlbumMutation, UpdateAlbumMutationVariables>(
+        UpdateAlbumDocument,
+        variables
+      )(),
     options
   );
 export const RandomAlbumsDocument = `
@@ -872,11 +890,14 @@ export const RandomAlbumsDocument = `
   }
 }
     ${AlbumGridItemFragmentDoc}`;
-export const useRandomAlbumsQuery = (
+export const useRandomAlbumsQuery = <
+  TData = RandomAlbumsQuery,
+  TError = unknown
+>(
   variables: RandomAlbumsQueryVariables,
-  options?: UseQueryOptions<RandomAlbumsQuery>
+  options?: UseQueryOptions<RandomAlbumsQuery, TError, TData>
 ) =>
-  useQuery<RandomAlbumsQuery>(
+  useQuery<RandomAlbumsQuery, TError, TData>(
     ["RandomAlbums", variables],
     fetcher<RandomAlbumsQuery, RandomAlbumsQueryVariables>(
       RandomAlbumsDocument,
@@ -895,23 +916,28 @@ export const DeletePerformerDocument = `
   }
 }
     `;
-export const useDeletePerformerMutation = (
-  variables: DeletePerformerMutationVariables,
+export const useDeletePerformerMutation = <
+  TError = unknown,
+  TContext = unknown
+>(
   options?: UseMutationOptions<
     DeletePerformerMutation,
-    unknown,
-    DeletePerformerMutationVariables
+    TError,
+    DeletePerformerMutationVariables,
+    TContext
   >
 ) =>
   useMutation<
     DeletePerformerMutation,
-    unknown,
-    DeletePerformerMutationVariables
+    TError,
+    DeletePerformerMutationVariables,
+    TContext
   >(
-    fetcher<DeletePerformerMutation, DeletePerformerMutationVariables>(
-      DeletePerformerDocument,
-      variables
-    ),
+    (variables?: DeletePerformerMutationVariables) =>
+      fetcher<DeletePerformerMutation, DeletePerformerMutationVariables>(
+        DeletePerformerDocument,
+        variables
+      )(),
     options
   );
 export const PerformerDetailsDocument = `
@@ -934,11 +960,14 @@ export const PerformerDetailsDocument = `
 }
     ${PerformerDetailsFragmentDoc}
 ${AlbumGridItemFragmentDoc}`;
-export const usePerformerDetailsQuery = (
+export const usePerformerDetailsQuery = <
+  TData = PerformerDetailsQuery,
+  TError = unknown
+>(
   variables: PerformerDetailsQueryVariables,
-  options?: UseQueryOptions<PerformerDetailsQuery>
+  options?: UseQueryOptions<PerformerDetailsQuery, TError, TData>
 ) =>
-  useQuery<PerformerDetailsQuery>(
+  useQuery<PerformerDetailsQuery, TError, TData>(
     ["PerformerDetails", variables],
     fetcher<PerformerDetailsQuery, PerformerDetailsQueryVariables>(
       PerformerDetailsDocument,
@@ -959,23 +988,28 @@ export const UpdatePerformerDocument = `
   }
 }
     ${PerformerDetailsFragmentDoc}`;
-export const useUpdatePerformerMutation = (
-  variables: UpdatePerformerMutationVariables,
+export const useUpdatePerformerMutation = <
+  TError = unknown,
+  TContext = unknown
+>(
   options?: UseMutationOptions<
     UpdatePerformerMutation,
-    unknown,
-    UpdatePerformerMutationVariables
+    TError,
+    UpdatePerformerMutationVariables,
+    TContext
   >
 ) =>
   useMutation<
     UpdatePerformerMutation,
-    unknown,
-    UpdatePerformerMutationVariables
+    TError,
+    UpdatePerformerMutationVariables,
+    TContext
   >(
-    fetcher<UpdatePerformerMutation, UpdatePerformerMutationVariables>(
-      UpdatePerformerDocument,
-      variables
-    ),
+    (variables?: UpdatePerformerMutationVariables) =>
+      fetcher<UpdatePerformerMutation, UpdatePerformerMutationVariables>(
+        UpdatePerformerDocument,
+        variables
+      )(),
     options
   );
 export const CreateReviewDocument = `
@@ -987,19 +1021,25 @@ export const CreateReviewDocument = `
   }
 }
     ${ReviewListItemFragmentDoc}`;
-export const useCreateReviewMutation = (
-  variables: CreateReviewMutationVariables,
+export const useCreateReviewMutation = <TError = unknown, TContext = unknown>(
   options?: UseMutationOptions<
     CreateReviewMutation,
-    unknown,
-    CreateReviewMutationVariables
+    TError,
+    CreateReviewMutationVariables,
+    TContext
   >
 ) =>
-  useMutation<CreateReviewMutation, unknown, CreateReviewMutationVariables>(
-    fetcher<CreateReviewMutation, CreateReviewMutationVariables>(
-      CreateReviewDocument,
-      variables
-    ),
+  useMutation<
+    CreateReviewMutation,
+    TError,
+    CreateReviewMutationVariables,
+    TContext
+  >(
+    (variables?: CreateReviewMutationVariables) =>
+      fetcher<CreateReviewMutation, CreateReviewMutationVariables>(
+        CreateReviewDocument,
+        variables
+      )(),
     options
   );
 export const ReviewsDocument = `
@@ -1019,11 +1059,11 @@ export const ReviewsDocument = `
 }
     ${ReviewListItemFragmentDoc}
 ${AlbumGridItemFragmentDoc}`;
-export const useReviewsQuery = (
+export const useReviewsQuery = <TData = ReviewsQuery, TError = unknown>(
   variables?: ReviewsQueryVariables,
-  options?: UseQueryOptions<ReviewsQuery>
+  options?: UseQueryOptions<ReviewsQuery, TError, TData>
 ) =>
-  useQuery<ReviewsQuery>(
+  useQuery<ReviewsQuery, TError, TData>(
     ["Reviews", variables],
     fetcher<ReviewsQuery, ReviewsQueryVariables>(ReviewsDocument, variables),
     options
@@ -1041,11 +1081,11 @@ export const AlbumSearchDocument = `
   }
 }
     ${AlbumGridItemFragmentDoc}`;
-export const useAlbumSearchQuery = (
+export const useAlbumSearchQuery = <TData = AlbumSearchQuery, TError = unknown>(
   variables: AlbumSearchQueryVariables,
-  options?: UseQueryOptions<AlbumSearchQuery>
+  options?: UseQueryOptions<AlbumSearchQuery, TError, TData>
 ) =>
-  useQuery<AlbumSearchQuery>(
+  useQuery<AlbumSearchQuery, TError, TData>(
     ["AlbumSearch", variables],
     fetcher<AlbumSearchQuery, AlbumSearchQueryVariables>(
       AlbumSearchDocument,

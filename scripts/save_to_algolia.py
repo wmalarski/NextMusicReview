@@ -36,7 +36,7 @@ def fetch_albums():
           }
         }
     """)
-    transport = RequestsHTTPTransport("https://next-music-rating.azurewebsites.net/graphql/")
+    transport = RequestsHTTPTransport(os.getenv("API_ENDPOINT"))
     client = Client(transport=transport, fetch_schema_from_transport=True)
 
     has_next_page = True

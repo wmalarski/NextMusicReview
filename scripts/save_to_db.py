@@ -37,7 +37,6 @@ def fetch_jwt_token() -> str:
 
 def save_to_db(performers: List, auth_token: str):
     transport = RequestsHTTPTransport(
-        # url="https://next-music-rating.azurewebsites.net/graphql/",
         url="http://localhost:5000/graphql/",
         headers={'Authorization': auth_token}
     )

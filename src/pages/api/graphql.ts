@@ -1,16 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { AZURE_ENDPOINT } from "../../graphql/constants";
+import { REMOTE_ENDPOINT } from "../../graphql/constants";
 import getAccessToken from "../../users/getAccessToken";
 
 export default async function graphql(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  console.log("graphql API");
-
   const accessToken = await getAccessToken(req, res);
 
-  const result = await fetch(AZURE_ENDPOINT, {
+  const result = await fetch(REMOTE_ENDPOINT, {
     method: "POST",
     body: JSON.stringify(req.body),
     headers: {

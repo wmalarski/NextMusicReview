@@ -36,33 +36,28 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
 
   const toast = useToast();
 
-  const { mutate, isLoading } = useCreateReviewMutation(
-    {
-      input: { album: albumId, rating, text }
+  const { mutate, isLoading } = useCreateReviewMutation({
+    onSuccess() {
+      queryClient.invalidateQueries(["AlbumReviews", { id: albumId }]);
+      onCancel();
+      toast({
+        description: "Review added",
+        isClosable: true,
+        position: "bottom",
+        status: "success",
+        title: "Success"
+      });
     },
-    {
-      onSuccess() {
-        queryClient.invalidateQueries(["AlbumReviews", { id: albumId }]);
-        onCancel();
-        toast({
-          description: "Review added",
-          isClosable: true,
-          position: "bottom",
-          status: "success",
-          title: "Success"
-        });
-      },
-      onError(error) {
-        toast({
-          description: String(error),
-          isClosable: true,
-          position: "bottom",
-          status: "error",
-          title: "Error"
-        });
-      }
+    onError(error) {
+      toast({
+        description: String(error),
+        isClosable: true,
+        position: "bottom",
+        status: "error",
+        title: "Error"
+      });
     }
-  );
+  });
 
   return (
     <form
@@ -77,10 +72,8 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
           id="review-text"
           ref={firstFieldRef}
           defaultValue=""
-          inputProps={{
-            value: text,
-            onChange: event => setText(event.target.value)
-          }}
+          value={text}
+          onChange={setText}
         />
         <FormControl>
           <FormLabel htmlFor={"slider-rating"}>{`Rating ${rating}`}</FormLabel>

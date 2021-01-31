@@ -19,17 +19,14 @@ export default function AlbumDeleteButton(
 
   const router = useRouter();
 
-  const { mutate, isLoading } = useDeleteAlbumMutation(
-    { input: { id } },
-    {
-      onSuccess(data) {
-        if (!data.deleteAlbum.success) return;
-        const path = performer ? `/performers/${performer.id}` : "/";
-        console.log("onSuccess", performer, path, router.push);
-        router.push(path);
-      }
+  const { mutate, isLoading } = useDeleteAlbumMutation({
+    onSuccess(data) {
+      if (!data.deleteAlbum.success) return;
+      const path = performer ? `/performers/${performer.id}` : "/";
+      console.log("onSuccess", performer, path, router.push);
+      router.push(path);
     }
-  );
+  });
 
   return (
     <Button

@@ -31,51 +31,46 @@ export default function PerformerUpdateForm(
 
   const toast = useToast();
 
-  const { mutate, isLoading } = useUpdatePerformerMutation(
-    {
-      input: { id, name }
-    },
-    {
-      onMutate: async variables => {
-        await queryClient.cancelQueries(key);
-        const previous = queryClient.getQueryData<PerformerDetailsQuery>(key);
-        queryClient.setQueryData<PerformerDetailsQuery | undefined>(
-          key,
-          old =>
-            old && {
-              performer: {
-                ...old.performer,
-                name: variables.input.name
-              }
+  const { mutate, isLoading } = useUpdatePerformerMutation({
+    onMutate: async variables => {
+      await queryClient.cancelQueries(key);
+      const previous = queryClient.getQueryData<PerformerDetailsQuery>(key);
+      queryClient.setQueryData<PerformerDetailsQuery | undefined>(
+        key,
+        old =>
+          old && {
+            performer: {
+              ...old.performer,
+              name: variables.input.name
             }
-        );
-        return { previous };
-      },
-      onSuccess() {
-        onCancel();
-        toast({
-          description: "Performer updated",
-          isClosable: true,
-          position: "bottom",
-          status: "success",
-          title: "Success"
-        });
-      },
-      onError(error, variables, context: any) {
-        queryClient.setQueryData(key, context.previous);
-        toast({
-          description: String(error),
-          isClosable: true,
-          position: "bottom",
-          status: "error",
-          title: "Save not completed"
-        });
-      },
-      onSettled() {
-        queryClient.invalidateQueries(key);
-      }
+          }
+      );
+      return { previous };
+    },
+    onSuccess() {
+      onCancel();
+      toast({
+        description: "Performer updated",
+        isClosable: true,
+        position: "bottom",
+        status: "success",
+        title: "Success"
+      });
+    },
+    onError(error, variables, context: any) {
+      queryClient.setQueryData(key, context.previous);
+      toast({
+        description: String(error),
+        isClosable: true,
+        position: "bottom",
+        status: "error",
+        title: "Save not completed"
+      });
+    },
+    onSettled() {
+      queryClient.invalidateQueries(key);
     }
-  );
+  });
 
   return (
     <form
@@ -90,10 +85,8 @@ export default function PerformerUpdateForm(
           id="performer-name"
           ref={firstFieldRef}
           defaultValue=""
-          inputProps={{
-            value: name,
-            onChange: event => setName(event.target.value)
-          }}
+          value={name}
+          onChange={setName}
         />
         <ButtonGroup d="flex" justifyContent="flex-end">
           <Button isLoading={isLoading} variant="outline" onClick={onCancel}>

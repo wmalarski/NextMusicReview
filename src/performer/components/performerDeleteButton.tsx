@@ -19,15 +19,12 @@ export default function PerformerDeleteButton(
 
   const router = useRouter();
 
-  const { mutate, isLoading } = useDeletePerformerMutation(
-    { input: { id } },
-    {
-      onSuccess(data) {
-        if (!data.deletePerformer.success) return;
-        router.push("/");
-      }
+  const { mutate, isLoading } = useDeletePerformerMutation({
+    onSuccess(data) {
+      if (!data.deletePerformer.success) return;
+      router.push("/");
     }
-  );
+  });
 
   return (
     <Button

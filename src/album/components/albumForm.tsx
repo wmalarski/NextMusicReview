@@ -43,52 +43,47 @@ export default function AlbumForm(props: AlbumFormProps): JSX.Element {
 
   const toast = useToast();
 
-  const { mutate, isLoading } = useUpdateAlbumMutation(
-    {
-      input: { ...input, year, name }
-    },
-    {
-      onMutate: async variables => {
-        await queryClient.cancelQueries(queryKey);
-        const previous = queryClient.getQueryData<AlbumReviewsQuery>(queryKey);
-        queryClient.setQueryData<AlbumReviewsQuery | undefined>(
-          queryKey,
-          old =>
-            old && {
-              album: {
-                ...old.album,
-                name: variables.input.name,
-                year: variables.input.year
-              }
+  const { mutate, isLoading } = useUpdateAlbumMutation({
+    onMutate: async variables => {
+      await queryClient.cancelQueries(queryKey);
+      const previous = queryClient.getQueryData<AlbumReviewsQuery>(queryKey);
+      queryClient.setQueryData<AlbumReviewsQuery | undefined>(
+        queryKey,
+        old =>
+          old && {
+            album: {
+              ...old.album,
+              name: variables.input.name,
+              year: variables.input.year
             }
-        );
-        return { previous };
-      },
-      onSuccess() {
-        onCancel();
-        toast({
-          description: "Album updated",
-          isClosable: true,
-          position: "bottom",
-          status: "success",
-          title: "Success"
-        });
-      },
-      onError(error, variables, context: any) {
-        queryClient.setQueryData(queryKey, context.previous);
-        toast({
-          description: String(error),
-          isClosable: true,
-          position: "bottom",
-          status: "error",
-          title: "Save not completed"
-        });
-      },
-      onSettled() {
-        queryClient.invalidateQueries(queryKey);
-      }
+          }
+      );
+      return { previous };
+    },
+    onSuccess() {
+      onCancel();
+      toast({
+        description: "Album updated",
+        isClosable: true,
+        position: "bottom",
+        status: "success",
+        title: "Success"
+      });
+    },
+    onError(error, variables, context: any) {
+      queryClient.setQueryData(queryKey, context.previous);
+      toast({
+        description: String(error),
+        isClosable: true,
+        position: "bottom",
+        status: "error",
+        title: "Save not completed"
+      });
+    },
+    onSettled() {
+      queryClient.invalidateQueries(queryKey);
     }
-  );
+  });
 
   return (
     <form
@@ -103,10 +98,8 @@ export default function AlbumForm(props: AlbumFormProps): JSX.Element {
           id="album-name"
           ref={firstFieldRef}
           defaultValue=""
-          inputProps={{
-            value: name,
-            onChange: event => setName(event.target.value)
-          }}
+          value={name}
+          onChange={setName}
         />
         <FormControl>
           <FormLabel htmlFor={"slider-year"}>{`Year: ${year}`}</FormLabel>

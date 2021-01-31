@@ -1,5 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import { AppProps /*, AppContext */ } from "next/app";
+import type { AppProps /*, AppContext */ } from "next/app";
 import Head from "next/head";
 import React from "react";
 import { QueryClientProvider } from "react-query";

@@ -1,12 +1,15 @@
+// import getAccessToken from "../../users/getAccessToken";
+import { getAccessToken } from "@auth0/nextjs-auth0";
 import { NextApiRequest, NextApiResponse } from "next";
 import { REMOTE_ENDPOINT } from "../../graphql/constants";
-import getAccessToken from "../../users/getAccessToken";
 
 export default async function graphql(
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> {
-  const accessToken = await getAccessToken(req, res);
+  const { accessToken } = await getAccessToken(req, res);
+
+  console.log("accessToken", accessToken);
 
   const result = await fetch(REMOTE_ENDPOINT, {
     method: "POST",

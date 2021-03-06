@@ -1,3 +1,4 @@
+import { UserProvider } from "@auth0/nextjs-auth0";
 import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps /*, AppContext */ } from "next/app";
 import Head from "next/head";
@@ -23,11 +24,13 @@ export default function MyApp(props: AppProps): JSX.Element {
           crossOrigin="anonymous"
         />
       </Head>
-      <ChakraProvider>
-        <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
-        </QueryClientProvider>
-      </ChakraProvider>
+      <UserProvider>
+        <ChakraProvider>
+          <QueryClientProvider client={queryClient}>
+            <Component {...pageProps} />
+          </QueryClientProvider>
+        </ChakraProvider>
+      </UserProvider>
     </React.Fragment>
   );
 }

@@ -13,13 +13,24 @@ import { useRouter } from "next/router";
 import React from "react";
 import MenuText from "../../common/components/menuText";
 import useMeQuery from "../queries/useMeQuery";
+import { LoginPagePathKey } from "../types";
 
 export default function UserHeader(): JSX.Element {
   const router = useRouter();
 
   const { data: meData } = useMeQuery();
 
-  if (!meData) return <Link href="/api/login">Login</Link>;
+  if (!meData)
+    return (
+      <Link
+        onClick={() => {
+          router.push("/api/login");
+          localStorage.setItem(LoginPagePathKey, router.asPath);
+        }}
+      >
+        Login
+      </Link>
+    );
 
   const { picture, name } = meData;
 

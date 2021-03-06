@@ -1,3 +1,5 @@
+export const LoginPagePathKey = "login_path";
+
 export interface UserAuth {
   name: string;
   given_name: string;

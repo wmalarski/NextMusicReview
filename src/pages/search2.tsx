@@ -13,7 +13,6 @@ export default function InfiniteSearch(): JSX.Element {
     data,
     isLoading,
     search,
-    refetch,
     fetchNextPage,
     setSearch
   } = useAlbumSearchInfiniteQuery();

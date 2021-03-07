@@ -1,8 +1,10 @@
 import { Button, Stack } from "@chakra-ui/react";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import AlbumGrid from "../album/components/albumGrid";
 import Layout from "../common/components/layout";
 import { useRandomAlbumsQuery } from "../graphql/types";
+import { LoginPagePathKey } from "../users/types";
 
 const AlbumCount = 20;
 
@@ -17,6 +19,15 @@ export default function HomePage(): JSX.Element {
       refetchOnReconnect: false
     }
   );
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const loginPath = localStorage.getItem(LoginPagePathKey);
+    if (!loginPath) return;
+    localStorage.removeItem(LoginPagePathKey);
+    router.push(loginPath);
+  }, [router]);
 
   return (
     <Layout container>

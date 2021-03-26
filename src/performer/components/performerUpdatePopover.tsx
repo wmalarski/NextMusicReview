@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
   useDisclosure
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React from "react";
 import { PerformerDetailsFragment } from "../../graphql/types";
 import PerformerUpdateForm from "./performerUpdateForm";
 
@@ -22,7 +22,7 @@ export default function PerformerUpdatePopover(
   const { performer } = props;
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const firstFieldRef = useRef<HTMLInputElement>(null);
+  const firstFieldRef = React.useRef<HTMLInputElement>(null);
 
   return (
     <Popover

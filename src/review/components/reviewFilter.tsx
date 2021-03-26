@@ -8,7 +8,7 @@ import {
   Stack,
   Text
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { ReviewSortInput, SortEnumType } from "../../graphql/types";
 import { ReviewFilterState } from "../types";
 
@@ -20,11 +20,13 @@ export interface ReviewFilterProps {
 export default function ReviewFilter(props: ReviewFilterProps): JSX.Element {
   const { filter, setFilter } = props;
 
-  const [key, setKey] = useState<keyof ReviewSortInput | null>(() => {
+  const [key, setKey] = React.useState<keyof ReviewSortInput | null>(() => {
     const key = Object.keys(filter.sort)[0];
     return key ? (key as keyof ReviewSortInput) : null;
   });
-  const [direction, setDirection] = useState<SortEnumType>(SortEnumType.Asc);
+  const [direction, setDirection] = React.useState<SortEnumType>(
+    SortEnumType.Asc
+  );
 
   return (
     <form

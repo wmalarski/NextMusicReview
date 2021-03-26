@@ -10,12 +10,12 @@ import {
   useColorMode
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import UserHeader from "../../users/components/userHeader";
 import MenuText from "./menuText";
 
 export default function Header(): JSX.Element {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = React.useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (

@@ -1,22 +1,11 @@
-import { Stack } from "@chakra-ui/react";
 import React from "react";
-import {
-  Configure,
-  Hits,
-  InstantSearch,
-  Pagination,
-  PoweredBy,
-  RefinementList,
-  SearchBox
-} from "react-instantsearch-dom";
 import Layout from "../common/components/layout";
-import SearchHit from "../search/components/searchHit";
-import searchClient from "../search/searchClient";
 
 export default function SearchPage(): JSX.Element {
   return (
     <Layout container>
-      <InstantSearch searchClient={searchClient} indexName="dev_reviews">
+      <p></p>
+      {/* <InstantSearch searchClient={searchClient} indexName="dev_reviews">
         <Stack>
           <Configure />
           <SearchBox />
@@ -25,7 +14,7 @@ export default function SearchPage(): JSX.Element {
           <Hits hitComponent={SearchHit} />
           <Pagination />
         </Stack>
-      </InstantSearch>
+      </InstantSearch> */}
     </Layout>
   );
 }

@@ -1,8 +1,8 @@
 import { Box, Heading, Skeleton, Stack } from "@chakra-ui/react";
-import compact from "lodash/compact";
 import React from "react";
 import AlbumGrid from "../../album/components/albumGrid";
 import WikiText from "../../common/components/wikiText";
+import { compact } from "../../common/functions";
 import { PerformerDetailsQuery } from "../../graphql/types";
 import PerformerActionsBar from "./performerActionsBar";
 

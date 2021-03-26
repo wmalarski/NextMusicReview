@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
   useDisclosure
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React from "react";
 import { AlbumGridItemFragment } from "../../graphql/types";
 import AlbumForm from "./albumForm";
 
@@ -20,7 +20,7 @@ export default function AlbumPopover(props: AlbumPopoverProps): JSX.Element {
   const { album } = props;
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const firstFieldRef = useRef<HTMLInputElement>(null);
+  const firstFieldRef = React.useRef<HTMLInputElement>(null);
 
   return (
     <Popover

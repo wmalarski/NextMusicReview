@@ -1,7 +1,7 @@
 import { Skeleton, Stack, Text } from "@chakra-ui/react";
-import range from "lodash/range";
 import React from "react";
 import { Wiki } from "../../graphql/types";
+import { range } from "../functions";
 
 export interface WikiTextProps {
   isLoading: boolean;

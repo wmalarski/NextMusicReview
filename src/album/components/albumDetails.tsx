@@ -1,8 +1,8 @@
 import { Box, Heading, HStack, Image, Link, Stack } from "@chakra-ui/react";
-import compact from "lodash/compact";
 import NextLink from "next/link";
 import React from "react";
 import WikiText from "../../common/components/wikiText";
+import { compact } from "../../common/functions";
 import { AlbumDetailsQuery, AlbumReviewsQuery } from "../../graphql/types";
 import ReviewList from "../../review/components/reviewList";
 import AlbumActionsBar from "./albumActionsBar";

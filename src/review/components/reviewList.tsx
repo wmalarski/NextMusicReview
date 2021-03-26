@@ -1,6 +1,6 @@
 import { Box, Skeleton, Stack } from "@chakra-ui/react";
-import range from "lodash/range";
 import React from "react";
+import { range } from "../../common/functions";
 import { AlbumGridItemFragment } from "../../graphql/types";
 import { ReviewListItemArgs } from "../types";
 import ReviewListItem from "./reviewListItem";

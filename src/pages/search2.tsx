@@ -1,8 +1,8 @@
 import { Button, Stack } from "@chakra-ui/react";
-import compact from "lodash/compact";
-import React, { useMemo } from "react";
+import React from "react";
 import AlbumGrid from "../album/components/albumGrid";
 import Layout from "../common/components/layout";
+import { compact } from "../common/functions";
 import SearchInput from "../search/components/searchInput";
 import useAlbumSearchInfiniteQuery from "../search/queries/useAlbumsInfiniteQuery";
 
@@ -17,7 +17,7 @@ export default function InfiniteSearch(): JSX.Element {
     setSearch
   } = useAlbumSearchInfiniteQuery();
 
-  const albums = useMemo(
+  const albums = React.useMemo(
     () => compact(data?.pages.flatMap(page => page.search?.nodes)),
     [data?.pages]
   );

@@ -10,7 +10,7 @@ import {
   Stack,
   useToast
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { useQueryClient } from "react-query";
 import TextInput from "../../common/components/textInput";
 import {
@@ -36,8 +36,8 @@ export default function AlbumForm(props: AlbumFormProps): JSX.Element {
 
   const queryClient = useQueryClient();
 
-  const [name, setName] = useState<string>(initName);
-  const [year, setYear] = useState<number>(initYear);
+  const [name, setName] = React.useState<string>(initName);
+  const [year, setYear] = React.useState<number>(initYear);
   const input = { id, mBid, performer: performer?.id ?? "" };
   const queryKey = ["AlbumReviews", { id }];
 

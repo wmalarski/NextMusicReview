@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import React from "react";
 
 export interface AlbumSearchHit {
   id: string;
@@ -12,5 +12,5 @@ export interface AlbumSearchHit {
 
 export interface SearchProps {
   search: string;
-  setSearch: Dispatch<SetStateAction<string>>;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
 }

@@ -1,9 +1,9 @@
 import { SimpleGrid, Skeleton } from "@chakra-ui/react";
-import { range } from "lodash";
 import React from "react";
 import AlbumDrawer from "../../album/components/albumDrawer";
 import AlbumGridItem from "../../album/components/albumGridItem";
 import Card from "../../common/components/card";
+import { range } from "../../common/functions";
 import { AlbumGridItemFragment } from "../../graphql/types";
 
 export interface AlbumGridProps {

@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
   useDisclosure
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React from "react";
 import { AlbumGridItemFragment } from "../../graphql/types";
 import ReviewForm from "./reviewForm";
 
@@ -21,7 +21,7 @@ export default function ReviewPopover(props: ReviewPopoverProps): JSX.Element {
   const { id } = album;
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const firstFieldRef = useRef<HTMLInputElement>(null);
+  const firstFieldRef = React.useRef<HTMLInputElement>(null);
 
   return (
     <Popover

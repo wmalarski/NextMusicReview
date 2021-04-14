@@ -10,7 +10,7 @@ import {
   Stack,
   useToast
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { useQueryClient } from "react-query";
 import TextInput from "../../common/components/textInput";
 import { useCreateReviewMutation } from "../../graphql/types";
@@ -31,8 +31,8 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
 
   const queryClient = useQueryClient();
 
-  const [text, setText] = useState<string>("");
-  const [rating, setRating] = useState<number>(5);
+  const [text, setText] = React.useState<string>("");
+  const [rating, setRating] = React.useState<number>(5);
 
   const toast = useToast();
 
@@ -84,7 +84,10 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
             max={10}
             step={0.1}
             value={rating}
-            onChange={setRating}
+            onChange={val => {
+              console.log("setRating", val);
+              setRating(val);
+            }}
           >
             <SliderTrack>
               <SliderFilledTrack />

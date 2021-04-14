@@ -4,6 +4,7 @@ import type { AppProps /*, AppContext */ } from "next/app";
 import Head from "next/head";
 import React from "react";
 import { QueryClientProvider } from "react-query";
+import theme from "../common/styles/theme";
 import queryClient from "../graphql/queryClient";
 
 export default function MyApp(props: AppProps): JSX.Element {
@@ -25,7 +26,7 @@ export default function MyApp(props: AppProps): JSX.Element {
         />
       </Head>
       <UserProvider>
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
           <QueryClientProvider client={queryClient}>
             <Component {...pageProps} />
           </QueryClientProvider>

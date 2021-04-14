@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import {
   QueryFunction,
   QueryFunctionContext,
@@ -32,7 +32,7 @@ const fetchAlbumSearch: QueryFunction<AlbumSearchQuery> = ({
   })();
 
 export default function useAlbumSearchInfiniteQuery(): UseAlbumSearchInfiniteQueryResult {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = React.useState<string>("");
 
   return {
     search,

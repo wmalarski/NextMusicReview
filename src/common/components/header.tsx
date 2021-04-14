@@ -5,17 +5,17 @@ import {
   Divider,
   Flex,
   Heading,
-  HStack,
   Link,
+  Stack,
   useColorMode
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import UserHeader from "../../users/components/userHeader";
 import MenuText from "./menuText";
 
 export default function Header(): JSX.Element {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = React.useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
@@ -26,9 +26,10 @@ export default function Header(): JSX.Element {
         justify="space-between"
         wrap="wrap"
         padding="1.5rem"
+        shadow="lg"
       >
         <Flex align="center" mr={5}>
-          <Heading as="h1" size="md" letterSpacing={"-.1rem"}>
+          <Heading as="h1" size="lg" letterSpacing={"-.1rem"} variant="primary">
             <NextLink href="/">Next Music Review</NextLink>
           </Heading>
         </Flex>
@@ -61,25 +62,23 @@ export default function Header(): JSX.Element {
               <Link>Search</Link>
             </NextLink>
           </MenuText>
+          <Button onClick={toggleColorMode} size="sm">
+            Toggle {colorMode === "light" ? "Dark" : "Light"}
+          </Button>
         </Box>
 
-        <Box
-          display={{ base: show ? "block" : "none", md: "block" }}
-          mt={{ base: 4, md: 0 }}
+        <Stack
+          display={{ base: show ? "flex" : "none", md: "block" }}
+          direction={{ base: "column", md: "row" }}
         >
-          <HStack>
-            <Button onClick={toggleColorMode}>
-              Toggle {colorMode === "light" ? "Dark" : "Light"}
-            </Button>
-            <Link href="https://www.linkedin.com/in/wojciech-malarski-4a1473168/">
-              LinkedIn
-            </Link>
-            <Link href="https://github.com/wmalarski/NextMusicReview">
-              GitHub
-            </Link>
-            <UserHeader />
-          </HStack>
-        </Box>
+          <Link href="https://www.linkedin.com/in/wojciech-malarski-4a1473168/">
+            LinkedIn
+          </Link>
+          <Link href="https://github.com/wmalarski/NextMusicReview">
+            GitHub
+          </Link>
+          <UserHeader />
+        </Stack>
       </Flex>
       <Divider height="1px" />
     </Box>

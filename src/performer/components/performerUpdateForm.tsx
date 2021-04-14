@@ -1,5 +1,5 @@
 import { Button, ButtonGroup, Stack, useToast } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import { useQueryClient } from "react-query";
 import TextInput from "../../common/components/textInput";
 import {
@@ -26,7 +26,7 @@ export default function PerformerUpdateForm(
 
   const queryClient = useQueryClient();
 
-  const [name, setName] = useState<string>(initName);
+  const [name, setName] = React.useState<string>(initName);
   const key = ["PerformerDetails", { id }];
 
   const toast = useToast();

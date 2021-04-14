@@ -28,7 +28,7 @@ export default function ReviewListItem(
   const image = details?.image.find(img => img.size === "large");
 
   return (
-    <Card>
+    <Card alignItems="start">
       <HStack>
         <Box>
           {showImage && (
@@ -38,7 +38,7 @@ export default function ReviewListItem(
           )}
         </Box>
         <Stack flexGrow={1}>
-          <Heading as="h2" size="lg">
+          <Heading as="h2" size="lg" variant="primary">
             <NextLink href={`/albums/${id}`}>
               <Link>{name}</Link>
             </NextLink>

@@ -84,7 +84,10 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
             max={10}
             step={0.1}
             value={rating}
-            onChange={setRating}
+            onChange={val => {
+              console.log("setRating", val);
+              setRating(val);
+            }}
           >
             <SliderTrack>
               <SliderFilledTrack />

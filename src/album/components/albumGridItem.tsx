@@ -3,7 +3,8 @@ import {
   Image as ChakraImage,
   Link,
   Stack,
-  Text
+  Text,
+  useColorModeValue
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
@@ -22,23 +23,25 @@ export default function AlbumGridItem(props: AlbumGridItemProps): JSX.Element {
 
   const image = details?.image.find(img => img.size === "large");
 
+  const hoverStyle = useColorModeValue("lightHover", "darkHover");
+
   return (
     <Card
-      _hover={{ borderColor: "teal.500" }}
+      _hover={{ layerStyle: hoverStyle }}
       onClick={() => setSelectedId(curr => (curr === id ? null : id))}
     >
-      <Stack>
+      <Stack alignItems="center">
         <Center>
           {image?.url && (
             <ChakraImage height={imageHeight} src={image.url} alt={name} />
           )}
         </Center>
-        <Text fontSize="md">
+        <Text variant="primary" fontSize="lg" textAlign="center">
           <NextLink href={`/albums/${id}`}>
             <Link>{name}</Link>
           </NextLink>
         </Text>
-        <Text fontSize="sm">
+        <Text fontSize="sm" textAlign="center">
           <NextLink href={`/performers/${performer?.id}`}>
             <Link>{performer?.name}</Link>
           </NextLink>

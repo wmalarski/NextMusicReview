@@ -10,18 +10,21 @@ export interface WikiTextProps {
 
 export default function WikiText(props: WikiTextProps): JSX.Element {
   const { isLoading, wiki } = props;
+
   return (
     <Stack>
       {!isLoading ? (
-        <Stack>
+        <Stack spacing={5}>
           <Text
-            fontSize="md"
+            lineHeight="tall"
+            fontSize="lg"
             dangerouslySetInnerHTML={{
               __html: wiki?.summary ?? ""
             }}
           />
           <Text
-            fontSize="sm"
+            lineHeight="taller"
+            fontSize="md"
             dangerouslySetInnerHTML={{
               __html: wiki?.content ?? ""
             }}

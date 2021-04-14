@@ -4,11 +4,13 @@ import React from "react";
 export default function Card(props: BoxProps): JSX.Element {
   return (
     <Box
+      display="flex"
+      flexDirection="column"
       alignItems="center"
-      borderColor="gray.100"
       borderWidth="2px"
-      padding="20px"
-      spacing="20px"
+      padding="1rem"
+      borderRadius="1rem"
+      shadow="md"
       {...props}
     />
   );

@@ -1,4 +1,4 @@
-import { Box, Heading, Skeleton, Stack } from "@chakra-ui/react";
+import { Box, Container, Heading, Skeleton, Stack } from "@chakra-ui/react";
 import React from "react";
 import AlbumGrid from "../../album/components/albumGrid";
 import WikiText from "../../common/components/wikiText";
@@ -21,26 +21,28 @@ export default function PerformerDetails(
   const isLoading = !query;
 
   return (
-    <Stack>
-      <Box alignItems="center" flexGrow={1}>
-        {isLoading ? (
-          <Skeleton size="lg" />
-        ) : (
-          <Heading as="h2" size="lg">
-            {name}
-          </Heading>
-        )}
-      </Box>
-      {performer && <PerformerActionsBar performer={performer} />}
-      <WikiText isLoading={isLoading} wiki={details?.bio} />
-      <Heading as="h4" size="md">
-        Albums
-      </Heading>
-      <AlbumGrid
-        albums={compact(albums?.nodes)}
-        isLoading={isLoading}
-        defaultCount={albums?.nodes?.length ?? 5}
-      />
-    </Stack>
+    <Container maxW="2xl">
+      <Stack spacing={10}>
+        <Box alignItems="center" flexGrow={1}>
+          {isLoading ? (
+            <Skeleton size="lg" />
+          ) : (
+            <Heading as="h2" size="lg" variant="primary">
+              {name}
+            </Heading>
+          )}
+        </Box>
+        {performer && <PerformerActionsBar performer={performer} />}
+        <WikiText isLoading={isLoading} wiki={details?.bio} />
+        <Heading as="h4" size="md">
+          Albums
+        </Heading>
+        <AlbumGrid
+          albums={compact(albums?.nodes)}
+          isLoading={isLoading}
+          defaultCount={albums?.nodes?.length ?? 5}
+        />
+      </Stack>
+    </Container>
   );
 }

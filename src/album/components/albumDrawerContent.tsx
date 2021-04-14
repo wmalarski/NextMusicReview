@@ -31,9 +31,11 @@ export default function AlbumDrawerContent(
   return (
     <>
       <DrawerHeader>
-        <NextLink href={`/albums/${id}`}>
-          <Link>{name}</Link>
-        </NextLink>
+        <Heading size="lg" variant="primary">
+          <NextLink href={`/albums/${id}`}>
+            <Link>{name}</Link>
+          </NextLink>
+        </Heading>
         <Heading as="h5" size="sm">
           <NextLink href={`/performers/${performer?.id}`}>
             <Link>{performer?.name}</Link>
@@ -47,7 +49,7 @@ export default function AlbumDrawerContent(
       </DrawerHeader>
 
       <DrawerBody>
-        <Stack>
+        <Stack spacing={10}>
           {image?.url && <Image src={image.url} alt={name} />}
           <WikiText isLoading={isLoading} wiki={data?.album.details?.wiki} />
         </Stack>

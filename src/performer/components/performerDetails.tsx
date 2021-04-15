@@ -32,7 +32,11 @@ export default function PerformerDetails(
             </Heading>
           )}
         </Box>
-        {performer && <PerformerActionsBar performer={performer} />}
+        {performer && (
+          <Stack w="100%" direction={{ base: "column", md: "row" }}>
+            <PerformerActionsBar performer={performer} />
+          </Stack>
+        )}
         <WikiText isLoading={isLoading} wiki={details?.bio} />
         <Heading as="h4" size="md">
           Albums

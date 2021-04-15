@@ -1,4 +1,3 @@
-import { HStack } from "@chakra-ui/react";
 import React from "react";
 import { PerformerDetailsFragment } from "../../graphql/types";
 import PerformerDeleteButton from "./performerDeleteButton";
@@ -16,9 +15,9 @@ export default function PerformerActionsBar(
   if (!performer) return null;
 
   return (
-    <HStack>
+    <>
       <PerformerDeleteButton performer={performer} />
       <PerformerUpdatePopover performer={performer} />
-    </HStack>
+    </>
   );
 }

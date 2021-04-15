@@ -1,5 +1,5 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import { Button, HStack } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import React from "react";
 import { AlbumGridItemFragment } from "../../graphql/types";
 import ReviewPopover from "../../review/components/reviewPopover";
@@ -24,7 +24,7 @@ export default function AlbumActionsBar(
   if (!album) return null;
 
   return (
-    <HStack>
+    <>
       <Button
         id="youtube-button"
         leftIcon={<SearchIcon />}
@@ -38,6 +38,6 @@ export default function AlbumActionsBar(
       <AlbumDeleteButton album={album} />
       <AlbumPopover album={album} />
       <ReviewPopover album={album} />
-    </HStack>
+    </>
   );
 }

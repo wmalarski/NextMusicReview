@@ -5,7 +5,7 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerOverlay,
-  HStack
+  Stack
 } from "@chakra-ui/react";
 import React from "react";
 import { AlbumGridItemFragment } from "../../graphql/types";
@@ -33,7 +33,7 @@ export default function AlbumDrawer(props: AlbumDrawerProps): JSX.Element {
             <DrawerCloseButton />
             <AlbumDrawerContent album={selectedAlbum} />
             <DrawerFooter>
-              <HStack>
+              <Stack w="100%" direction={{ base: "column", md: "row" }}>
                 <AlbumActionsBar album={selectedAlbum} />
                 <Button
                   variant="outline"
@@ -42,7 +42,7 @@ export default function AlbumDrawer(props: AlbumDrawerProps): JSX.Element {
                 >
                   Cancel
                 </Button>
-              </HStack>
+              </Stack>
             </DrawerFooter>
           </DrawerContent>
         )}

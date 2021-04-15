@@ -20,7 +20,6 @@ export default function AlbumEditAccordion(
   return (
     <>
       <Button
-        w="100%"
         leftIcon={<EditIcon />}
         onClick={() => (isOpen ? onClose() : onOpen())}
       >

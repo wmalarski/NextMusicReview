@@ -20,7 +20,6 @@ export default function PerformerUpdateAccordion(
   return (
     <>
       <Button
-        w="100%"
         leftIcon={<EditIcon />}
         onClick={() => (isOpen ? onClose() : onOpen())}
       >

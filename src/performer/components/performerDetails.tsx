@@ -33,7 +33,7 @@ export default function PerformerDetails(
           )}
         </Box>
         {performer && (
-          <Stack w="100%" direction={{ base: "column", md: "row" }}>
+          <Stack direction={{ base: "column", md: "row" }}>
             <PerformerActionsBar performer={performer} />
           </Stack>
         )}

@@ -50,7 +50,7 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
             </Heading>
           </Box>
         </HStack>
-        <Stack w="100%" direction={{ base: "column", md: "row" }}>
+        <Stack direction={{ base: "column", md: "row" }}>
           <AlbumActionsBar album={album} />
         </Stack>
         <WikiText isLoading={isLoading} wiki={wiki} />

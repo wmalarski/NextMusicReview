@@ -14,7 +14,7 @@ import { ReviewFilterState } from "../types";
 
 export type FetchReviewsKey = ["reviews", ReviewFilterState];
 
-const fetchReviews: QueryFunction<ReviewsQuery> = ({
+const fetchReviews: QueryFunction<ReviewsQuery, FetchReviewsKey> = ({
   pageParam,
   queryKey
 }: QueryFunctionContext<FetchReviewsKey, string>) =>
@@ -27,7 +27,7 @@ const fetchReviews: QueryFunction<ReviewsQuery> = ({
 export default function useReviewsInfiniteQuery(
   filter: ReviewFilterState
 ): UseInfiniteQueryResult<ReviewsQuery, Error> {
-  return useInfiniteQuery<ReviewsQuery, Error, ReviewsQuery>(
+  return useInfiniteQuery<ReviewsQuery, Error, ReviewsQuery, FetchReviewsKey>(
     ["reviews", filter],
     fetchReviews,
     {

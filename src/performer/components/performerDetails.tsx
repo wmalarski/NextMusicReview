@@ -4,6 +4,7 @@ import AlbumGrid from "../../album/components/albumGrid";
 import WikiText from "../../common/components/wikiText";
 import { compact } from "../../common/functions";
 import { PerformerDetailsQuery } from "../../graphql/types";
+import ReviewAlbumsList from "../../review/components/reviewAlbumsList";
 import PerformerActionsBar from "./performerActionsBar";
 
 export interface PerformerDetailsProps {
@@ -20,6 +21,17 @@ export default function PerformerDetails(
   const { details, name, albums } = performer ?? {};
   const isLoading = !query;
 
+  const albumReviews = React.useMemo(
+    () =>
+      compact(
+        albums?.nodes?.flatMap(
+          album =>
+            album?.reviews?.nodes?.map(review => ({ album, review })) ?? []
+        )
+      ),
+    [albums?.nodes]
+  );
+
   return (
     <Container maxW="2xl">
       <Stack spacing={10}>
@@ -32,13 +44,22 @@ export default function PerformerDetails(
             </Heading>
           )}
         </Box>
-        {performer && <PerformerActionsBar performer={performer} />}
+        {performer && (
+          <Stack direction={{ base: "column", md: "row" }}>
+            <PerformerActionsBar performer={performer} />
+          </Stack>
+        )}
         <WikiText isLoading={isLoading} wiki={details?.bio} />
-        <Heading as="h4" size="md">
-          Albums
-        </Heading>
+        <Heading size="lg">Albums</Heading>
         <AlbumGrid
           albums={compact(albums?.nodes)}
+          isLoading={isLoading}
+          defaultCount={albums?.nodes?.length ?? 5}
+        />
+        <Heading size="lg">Reviews</Heading>
+        <ReviewAlbumsList
+          showImage
+          pairs={albumReviews}
           isLoading={isLoading}
           defaultCount={albums?.nodes?.length ?? 5}
         />

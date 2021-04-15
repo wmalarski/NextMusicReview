@@ -21,7 +21,10 @@ export type UseAlbumSearchInfiniteQueryResult = UseInfiniteQueryResult<
 > &
   SearchProps;
 
-const fetchAlbumSearch: QueryFunction<AlbumSearchQuery> = ({
+const fetchAlbumSearch: QueryFunction<
+  AlbumSearchQuery,
+  FetchAlbumSearchKey
+> = ({
   pageParam,
   queryKey
 }: QueryFunctionContext<FetchAlbumSearchKey, string>) =>
@@ -37,16 +40,17 @@ export default function useAlbumSearchInfiniteQuery(): UseAlbumSearchInfiniteQue
   return {
     search,
     setSearch,
-    ...useInfiniteQuery<AlbumSearchQuery, Error, AlbumSearchQuery>(
-      ["search", search],
-      fetchAlbumSearch,
-      {
-        getNextPageParam: lastPage => {
-          const { endCursor, hasNextPage } = lastPage.search?.pageInfo ?? {};
-          if (!hasNextPage) return null;
-          return endCursor;
-        }
+    ...useInfiniteQuery<
+      AlbumSearchQuery,
+      Error,
+      AlbumSearchQuery,
+      FetchAlbumSearchKey
+    >(["search", search], fetchAlbumSearch, {
+      getNextPageParam: lastPage => {
+        const { endCursor, hasNextPage } = lastPage.search?.pageInfo ?? {};
+        if (!hasNextPage) return null;
+        return endCursor;
       }
-    )
+    })
   };
 }

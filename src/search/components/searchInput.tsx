@@ -17,9 +17,11 @@ export interface SearchArgs {
 export default function SearchInput(props: SearchProps): JSX.Element {
   const { search, setSearch } = props;
 
-  const { register, handleSubmit, formState, errors } = useForm<SearchArgs>({
+  const { register, handleSubmit, formState } = useForm<SearchArgs>({
     defaultValues: { search }
   });
+  const { errors } = formState;
+
   const onSubmit = (args: SearchArgs): void => setSearch(args.search);
 
   return (
@@ -27,7 +29,7 @@ export default function SearchInput(props: SearchProps): JSX.Element {
       <HStack>
         <FormControl isInvalid={!!errors.search}>
           <FormLabel htmlFor="search">Search</FormLabel>
-          <Input name="search" placeholder="Search" ref={register} />
+          <Input placeholder="Search" {...register("search")} />
           <FormErrorMessage>
             {errors.search && errors?.search?.message}
           </FormErrorMessage>

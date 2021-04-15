@@ -38,12 +38,24 @@ export default function AlbumGridItem(props: AlbumGridItemProps): JSX.Element {
         </Center>
         <Text variant="primary" fontSize="lg" textAlign="center">
           <NextLink href={`/albums/${id}`}>
-            <Link>{name}</Link>
+            <Link
+              onClick={event => {
+                event.stopPropagation();
+              }}
+            >
+              {name}
+            </Link>
           </NextLink>
         </Text>
         <Text fontSize="sm" textAlign="center">
           <NextLink href={`/performers/${performer?.id}`}>
-            <Link>{performer?.name}</Link>
+            <Link
+              onClick={event => {
+                event.stopPropagation();
+              }}
+            >
+              {performer?.name}
+            </Link>
           </NextLink>
         </Text>
         {year !== 0 && <Text fontSize="xs">{year}</Text>}

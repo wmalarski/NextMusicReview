@@ -1,6 +1,7 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import { Button, useBreakpoint } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import React from "react";
+import useMinWidthQuery from "../../common/hooks/useMinBreakpoint";
 import { AlbumGridItemFragment } from "../../graphql/types";
 import ReviewEditAccordion from "../../review/components/reviewEditButton";
 import ReviewPopover from "../../review/components/reviewPopover";
@@ -23,7 +24,7 @@ export default function AlbumActionsBar(
 ): JSX.Element | null {
   const { album } = props;
 
-  const breakpoint = useBreakpoint();
+  const isMd = useMinWidthQuery("md");
 
   if (!album) return null;
 
@@ -40,7 +41,7 @@ export default function AlbumActionsBar(
         YouTube
       </Button>
       <AlbumDeleteButton album={album} />
-      {breakpoint === "md" ? (
+      {isMd ? (
         <>
           <AlbumPopover album={album} />
           <ReviewPopover album={album} />

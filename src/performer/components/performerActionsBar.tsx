@@ -1,5 +1,5 @@
-import { useBreakpoint } from "@chakra-ui/react";
 import React from "react";
+import useMinWidthQuery from "../../common/hooks/useMinBreakpoint";
 import { PerformerDetailsFragment } from "../../graphql/types";
 import PerformerDeleteButton from "./performerDeleteButton";
 import PerformerUpdateAccordion from "./performerUpdateAccordion";
@@ -14,14 +14,14 @@ export default function PerformerActionsBar(
 ): JSX.Element | null {
   const { performer } = props;
 
-  const breakpoint = useBreakpoint();
+  const isMd = useMinWidthQuery("md");
 
   if (!performer) return null;
 
   return (
     <>
       <PerformerDeleteButton performer={performer} />
-      {breakpoint === "md" ? (
+      {isMd ? (
         <PerformerUpdatePopover performer={performer} />
       ) : (
         <PerformerUpdateAccordion performer={performer} />

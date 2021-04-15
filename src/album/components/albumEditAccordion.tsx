@@ -17,6 +17,8 @@ export default function AlbumEditAccordion(
   const { onOpen, onClose, isOpen } = useDisclosure();
   const firstFieldRef = React.useRef<HTMLInputElement>(null);
 
+  React.useEffect(() => firstFieldRef.current?.focus(), []);
+
   return (
     <>
       <Button

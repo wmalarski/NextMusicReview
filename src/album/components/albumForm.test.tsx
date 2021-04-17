@@ -2,60 +2,11 @@ import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { graphql } from "msw";
-import { setupServer } from "msw/node";
 import React from "react";
 import { QueryClientProvider } from "react-query";
 import queryClient from "../../graphql/queryClient";
-import {
-  UpdateAlbumMutation,
-  UpdateAlbumMutationVariables
-} from "../../graphql/types";
+import server from "../mocks/server";
 import AlbumForm, { AlbumFormProps } from "./albumForm";
-
-export const server = setupServer(
-  graphql.mutation<UpdateAlbumMutation, UpdateAlbumMutationVariables>(
-    "UpdateAlbum",
-    (req, res, ctx) => {
-      const { input } = req.variables;
-
-      if (!sessionStorage.getItem("authorization")) {
-        return res(
-          ctx.errors([
-            {
-              message: "Unauthorized"
-            }
-          ])
-        );
-      }
-
-      return res(
-        ctx.data({
-          updateAlbum: {
-            album: {
-              id: input.id,
-              name: input.name,
-              mBid: input.mBid,
-              performer: {
-                id: input.id,
-                name: "pName"
-              },
-              year: input.year,
-              details: {
-                image: [
-                  {
-                    size: "large",
-                    url: "url"
-                  }
-                ]
-              }
-            }
-          }
-        })
-      );
-    }
-  )
-);
 
 beforeAll(() => server.listen());
 afterEach(() => {

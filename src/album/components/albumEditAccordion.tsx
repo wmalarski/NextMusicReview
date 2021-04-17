@@ -15,9 +15,6 @@ export default function AlbumEditAccordion(
   const { album } = props;
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const firstFieldRef = React.useRef<HTMLInputElement>(null);
-
-  React.useEffect(() => firstFieldRef.current?.focus(), []);
 
   return (
     <>
@@ -29,11 +26,7 @@ export default function AlbumEditAccordion(
       </Button>
       {isOpen && (
         <Card m={3}>
-          <AlbumForm
-            firstFieldRef={firstFieldRef}
-            album={album}
-            onCancel={onClose}
-          />
+          <AlbumForm album={album} onCancel={onClose} />
         </Card>
       )}
     </>

@@ -1,3 +1,4 @@
+import fetch from "isomorphic-fetch";
 import { GRAPHQL_ENDPOINT } from "./constants";
 
 export function fetcher<TData, TVariables>(

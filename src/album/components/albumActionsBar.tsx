@@ -3,7 +3,7 @@ import { Button } from "@chakra-ui/react";
 import React from "react";
 import useMinWidthQuery from "../../common/hooks/useMinBreakpoint";
 import { AlbumGridItemFragment } from "../../graphql/types";
-import ReviewEditAccordion from "../../review/components/reviewEditButton";
+import ReviewEditAccordion from "../../review/components/reviewEditAccordion";
 import ReviewPopover from "../../review/components/reviewPopover";
 import AlbumDeleteButton from "./albumDeleteButton";
 import AlbumEditAccordion from "./albumEditAccordion";

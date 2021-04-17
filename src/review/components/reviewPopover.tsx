@@ -21,12 +21,10 @@ export default function ReviewPopover(props: ReviewPopoverProps): JSX.Element {
   const { id } = album;
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const firstFieldRef = React.useRef<HTMLInputElement>(null);
 
   return (
     <Popover
       isOpen={isOpen}
-      initialFocusRef={firstFieldRef}
       onOpen={onOpen}
       onClose={onClose}
       placement="right"
@@ -38,11 +36,7 @@ export default function ReviewPopover(props: ReviewPopoverProps): JSX.Element {
       <PopoverContent p={5}>
         <PopoverArrow />
         <PopoverCloseButton />
-        <ReviewForm
-          firstFieldRef={firstFieldRef}
-          albumId={id}
-          onCancel={onClose}
-        />
+        <ReviewForm albumId={id} onCancel={onClose} />
       </PopoverContent>
     </Popover>
   );

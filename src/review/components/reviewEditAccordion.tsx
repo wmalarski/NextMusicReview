@@ -16,9 +16,6 @@ export default function ReviewEditAccordion(
   const { id } = album;
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const firstFieldRef = React.useRef<HTMLInputElement>(null);
-
-  React.useEffect(() => firstFieldRef.current?.focus(), []);
 
   return (
     <>
@@ -30,11 +27,7 @@ export default function ReviewEditAccordion(
       </Button>
       {isOpen && (
         <Card m={3}>
-          <ReviewForm
-            firstFieldRef={firstFieldRef}
-            albumId={id}
-            onCancel={onClose}
-          />
+          <ReviewForm albumId={id} onCancel={onClose} />
         </Card>
       )}
     </>

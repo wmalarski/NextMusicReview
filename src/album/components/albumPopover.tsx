@@ -20,12 +20,10 @@ export default function AlbumPopover(props: AlbumPopoverProps): JSX.Element {
   const { album } = props;
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const firstFieldRef = React.useRef<HTMLInputElement>(null);
 
   return (
     <Popover
       isOpen={isOpen}
-      initialFocusRef={firstFieldRef}
       onOpen={onOpen}
       onClose={onClose}
       placement="right"
@@ -37,11 +35,7 @@ export default function AlbumPopover(props: AlbumPopoverProps): JSX.Element {
       <PopoverContent p={5}>
         <PopoverArrow />
         <PopoverCloseButton />
-        <AlbumForm
-          firstFieldRef={firstFieldRef}
-          album={album}
-          onCancel={onClose}
-        />
+        <AlbumForm album={album} onCancel={onClose} />
       </PopoverContent>
     </Popover>
   );

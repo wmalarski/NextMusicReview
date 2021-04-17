@@ -6,7 +6,9 @@ import React from "react";
 import { QueryClientProvider } from "react-query";
 import queryClient from "../../graphql/queryClient";
 import server from "../mocks/server";
-import AlbumForm, { AlbumFormProps } from "./albumForm";
+import PerformerUpdateForm, {
+  PerformerUpdateFormProps
+} from "./performerUpdateForm";
 
 beforeAll(() => server.listen());
 afterEach(() => {
@@ -16,51 +18,39 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-function renderAlbumForm(props: Partial<AlbumFormProps> = {}) {
-  const defaultProps: AlbumFormProps = {
-    album: {
-      id: "aId",
-      mBid: "mbid",
-      name: "name",
-      year: 1999,
-      details: {
-        image: [
-          {
-            size: "large",
-            url: "url"
-          }
-        ]
-      },
-      performer: {
-        id: "pId",
-        name: "performer"
-      }
+function renderPerformerUpdateForm(
+  props: Partial<PerformerUpdateFormProps> = {}
+) {
+  const defaultProps: PerformerUpdateFormProps = {
+    performer: {
+      id: "pid",
+      name: "performer"
     },
     onCancel: () => void 0
   };
   return render(
     <QueryClientProvider client={queryClient}>
-      <AlbumForm {...{ ...defaultProps, ...props }} />
+      <PerformerUpdateForm {...{ ...defaultProps, ...props }} />
     </QueryClientProvider>
   );
 }
 
-describe("<AlbumForm />", () => {
-  test("sends album update mutation", async () => {
+describe("<PerformerUpdateForm />", () => {
+  test("sends performer update mutation", async () => {
     const onCancel = jest.fn();
     sessionStorage.setItem("authorization", "barer ey0");
-    const { findByText } = renderAlbumForm({ onCancel });
+    const { findByText } = renderPerformerUpdateForm({ onCancel });
 
     userEvent.click(await findByText("Save"));
 
     await waitFor(() => expect(onCancel).toBeCalled());
 
-    expect(await findByText("Album updated")).toBeInTheDocument();
+    expect(await findByText("Performer updated")).toBeInTheDocument();
   });
 
-  test("sends unauthorized update mutation", async () => {
+  test("sends unauthorized performer update mutation", async () => {
     const onCancel = jest.fn();
-    const { findByText } = renderAlbumForm({ onCancel });
+    const { findByText } = renderPerformerUpdateForm({ onCancel });
 
     userEvent.click(await findByText("Save"));
 
@@ -69,7 +59,7 @@ describe("<AlbumForm />", () => {
 
   test("cancels edit", async () => {
     const onCancel = jest.fn();
-    const { findByText } = renderAlbumForm({ onCancel });
+    const { findByText } = renderPerformerUpdateForm({ onCancel });
 
     userEvent.click(await findByText("Cancel"));
 

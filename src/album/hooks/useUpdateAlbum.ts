@@ -17,11 +17,11 @@ export default function useUpdateAlbum(
   const { album, onCancel } = props;
   const { id } = album;
 
-  const queryClient = useQueryClient();
-
   const toast = useToast();
 
+  const queryClient = useQueryClient();
   const queryKey: QueryKey = ["AlbumReviews", { id }];
+
   return useUpdateAlbumMutation({
     onMutate: async variables => {
       await queryClient.cancelQueries(queryKey);

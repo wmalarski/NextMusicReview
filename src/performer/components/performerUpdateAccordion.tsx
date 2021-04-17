@@ -15,9 +15,6 @@ export default function PerformerUpdateAccordion(
   const { performer } = props;
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const firstFieldRef = React.useRef<HTMLInputElement>(null);
-
-  React.useEffect(() => firstFieldRef.current?.focus(), []);
 
   return (
     <>
@@ -29,11 +26,7 @@ export default function PerformerUpdateAccordion(
       </Button>
       {isOpen && (
         <Card m={3}>
-          <PerformerUpdateForm
-            firstFieldRef={firstFieldRef}
-            performer={performer}
-            onCancel={onClose}
-          />
+          <PerformerUpdateForm performer={performer} onCancel={onClose} />
         </Card>
       )}
     </>

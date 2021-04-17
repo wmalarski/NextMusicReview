@@ -1,98 +1,72 @@
-import { Button, ButtonGroup, Stack, useToast } from "@chakra-ui/react";
+import { Alert, AlertIcon, Button, ButtonGroup, Stack } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { useQueryClient } from "react-query";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
 import TextInput from "../../common/components/textInput";
-import {
-  PerformerDetailsFragment,
-  PerformerDetailsQuery,
-  useUpdatePerformerMutation
-} from "../../graphql/types";
+import { PerformerDetailsFragment } from "../../graphql/types";
+import usePerformerUpdate from "../hooks/usePerformerUpdate";
 
-export interface PerformerUpdateFormResults {
+export interface PerformerUpdateFormData {
   name: string;
 }
 
+const formSchema = yup.object().shape({
+  name: yup.string().required()
+});
+
 export interface PerformerUpdateFormProps {
   performer: PerformerDetailsFragment;
-  firstFieldRef: React.RefObject<HTMLInputElement>;
   onCancel: () => void;
 }
 
 export default function PerformerUpdateForm(
   props: PerformerUpdateFormProps
 ): JSX.Element {
-  const { performer, firstFieldRef, onCancel } = props;
+  const { performer, onCancel } = props;
   const { name: initName, id } = performer;
 
-  const queryClient = useQueryClient();
-
-  const [name, setName] = React.useState<string>(initName);
-  const key = ["PerformerDetails", { id }];
-
-  const toast = useToast();
-
-  const { mutate, isLoading } = useUpdatePerformerMutation({
-    onMutate: async variables => {
-      await queryClient.cancelQueries(key);
-      const previous = queryClient.getQueryData<PerformerDetailsQuery>(key);
-      queryClient.setQueryData<PerformerDetailsQuery | undefined>(
-        key,
-        old =>
-          old && {
-            performer: {
-              ...old.performer,
-              name: variables.input.name
-            }
-          }
-      );
-      return { previous };
-    },
-    onSuccess() {
-      onCancel();
-      toast({
-        description: "Performer updated",
-        isClosable: true,
-        position: "bottom",
-        status: "success",
-        title: "Success"
-      });
-    },
-    onError(error, variables, context: any) {
-      queryClient.setQueryData(key, context.previous);
-      toast({
-        description: String(error),
-        isClosable: true,
-        position: "bottom",
-        status: "error",
-        title: "Save not completed"
-      });
-    },
-    onSettled() {
-      queryClient.invalidateQueries(key);
-    }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid }
+  } = useForm<PerformerUpdateFormData>({
+    resolver: yupResolver(formSchema),
+    defaultValues: { name: initName },
+    shouldFocusError: true
   });
 
+  const { mutate, isLoading } = usePerformerUpdate({ onCancel, performer });
+
+  const onSubmit = (data: PerformerUpdateFormData): void =>
+    mutate({ input: { id, ...data } });
+
   return (
-    <form
-      onSubmit={event => {
-        event.preventDefault();
-        mutate({ input: { id, name } });
-      }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={4}>
         <TextInput
           label="Name"
           id="performer-name"
-          ref={firstFieldRef}
-          defaultValue=""
-          value={name}
-          onTextChange={setName}
+          defaultValue={initName}
+          {...register("name")}
         />
+        {errors.name && (
+          <Alert status="error">
+            <AlertIcon />
+            {errors.name?.message}
+          </Alert>
+        )}
+
         <ButtonGroup d="flex" justifyContent="flex-end">
           <Button isLoading={isLoading} variant="outline" onClick={onCancel}>
             Cancel
           </Button>
-          <Button isLoading={isLoading} type="submit" colorScheme="gray">
+          <Button
+            disabled={!isValid}
+            isLoading={isLoading}
+            type="submit"
+            colorScheme="gray"
+          >
             Save
           </Button>
         </ButtonGroup>

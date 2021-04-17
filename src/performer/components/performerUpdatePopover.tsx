@@ -22,12 +22,10 @@ export default function PerformerUpdatePopover(
   const { performer } = props;
 
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const firstFieldRef = React.useRef<HTMLInputElement>(null);
 
   return (
     <Popover
       isOpen={isOpen}
-      initialFocusRef={firstFieldRef}
       onOpen={onOpen}
       onClose={onClose}
       placement="right"
@@ -39,11 +37,7 @@ export default function PerformerUpdatePopover(
       <PopoverContent p={5}>
         <PopoverArrow />
         <PopoverCloseButton />
-        <PerformerUpdateForm
-          firstFieldRef={firstFieldRef}
-          performer={performer}
-          onCancel={onClose}
-        />
+        <PerformerUpdateForm performer={performer} onCancel={onClose} />
       </PopoverContent>
     </Popover>
   );

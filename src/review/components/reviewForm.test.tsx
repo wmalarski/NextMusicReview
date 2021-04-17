@@ -6,7 +6,7 @@ import React from "react";
 import { QueryClientProvider } from "react-query";
 import queryClient from "../../graphql/queryClient";
 import server from "../mocks/server";
-import AlbumForm, { AlbumFormProps } from "./albumForm";
+import ReviewForm, { ReviewFormProps } from "./reviewForm";
 
 beforeAll(() => server.listen());
 afterEach(() => {
@@ -16,60 +16,43 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-function renderAlbumForm(props: Partial<AlbumFormProps> = {}) {
-  const defaultProps: AlbumFormProps = {
-    album: {
-      id: "aId",
-      mBid: "mbid",
-      name: "name",
-      year: 1999,
-      details: {
-        image: [
-          {
-            size: "large",
-            url: "url"
-          }
-        ]
-      },
-      performer: {
-        id: "pId",
-        name: "performer"
-      }
-    },
+function renderReviewForm(props: Partial<ReviewFormProps> = {}) {
+  const defaultProps: ReviewFormProps = {
+    albumId: "aaa",
     onCancel: () => void 0
   };
   return render(
     <QueryClientProvider client={queryClient}>
-      <AlbumForm {...{ ...defaultProps, ...props }} />
+      <ReviewForm {...{ ...defaultProps, ...props }} />
     </QueryClientProvider>
   );
 }
 
-describe("<AlbumForm />", () => {
-  test("sends album update mutation", async () => {
+describe("<ReviewForm />", () => {
+  test("sends review create mutation", async () => {
     const onCancel = jest.fn();
     sessionStorage.setItem("authorization", "barer ey0");
-    const { findByText } = renderAlbumForm({ onCancel });
+    const { findByText } = renderReviewForm({ onCancel });
 
     userEvent.click(await findByText("Save"));
 
     await waitFor(() => expect(onCancel).toBeCalled());
 
-    expect(await findByText("Album updated")).toBeInTheDocument();
+    expect(await findByText("Review added")).toBeInTheDocument();
   });
 
-  test("sends unauthorized update mutation", async () => {
+  test("sends unauthorized review create mutation", async () => {
     const onCancel = jest.fn();
-    const { findByText } = renderAlbumForm({ onCancel });
+    const { findByText } = renderReviewForm({ onCancel });
 
     userEvent.click(await findByText("Save"));
 
     expect(await findByText("Save not completed")).toBeInTheDocument();
   });
 
-  test("cancels edit", async () => {
+  test("cancels creation form", async () => {
     const onCancel = jest.fn();
-    const { findByText } = renderAlbumForm({ onCancel });
+    const { findByText } = renderReviewForm({ onCancel });
 
     userEvent.click(await findByText("Cancel"));
 

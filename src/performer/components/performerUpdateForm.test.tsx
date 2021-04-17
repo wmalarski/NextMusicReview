@@ -63,6 +63,6 @@ describe("<PerformerUpdateForm />", () => {
 
     userEvent.click(await findByText("Cancel"));
 
-    expect(onCancel).toBeCalled();
+    expect(onCancel).toBeCalledTimes(1);
   });
 });

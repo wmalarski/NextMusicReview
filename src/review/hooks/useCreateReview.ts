@@ -35,7 +35,7 @@ export default function useCreateReview(
         isClosable: true,
         position: "bottom",
         status: "error",
-        title: "Error"
+        title: "Save not completed"
       });
     }
   });

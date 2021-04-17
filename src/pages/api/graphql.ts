@@ -1,4 +1,5 @@
 // import getAccessToken from "../../users/getAccessToken";
+import fetch from "isomorphic-fetch";
 import { NextApiRequest, NextApiResponse } from "next";
 import { REMOTE_ENDPOINT } from "../../graphql/constants";
 import getApiToken from "../../users/getApiToken";

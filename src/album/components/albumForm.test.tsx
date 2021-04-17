@@ -16,7 +16,7 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
-function renderAlbumGridItem(props: Partial<AlbumFormProps> = {}) {
+function renderAlbumForm(props: Partial<AlbumFormProps> = {}) {
   const defaultProps: AlbumFormProps = {
     album: {
       id: "aId",
@@ -49,7 +49,7 @@ describe("<AlbumForm />", () => {
   test("sends album update mutation", async () => {
     const onCancel = jest.fn();
     sessionStorage.setItem("authorization", "barer ey0");
-    const { findByText } = renderAlbumGridItem({ onCancel });
+    const { findByText } = renderAlbumForm({ onCancel });
 
     userEvent.click(await findByText("Save"));
 
@@ -60,7 +60,7 @@ describe("<AlbumForm />", () => {
 
   test("sends unauthorized update mutation", async () => {
     const onCancel = jest.fn();
-    const { findByText } = renderAlbumGridItem({ onCancel });
+    const { findByText } = renderAlbumForm({ onCancel });
 
     userEvent.click(await findByText("Save"));
 

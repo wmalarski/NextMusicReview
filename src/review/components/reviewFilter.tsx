@@ -33,16 +33,15 @@ export default function ReviewFilter(props: ReviewFilterProps): JSX.Element {
       onSubmit={event => {
         event.preventDefault();
         if (!key) return;
-        setFilter(curr => ({
-          ...curr,
-          sort: { ...curr.sort, [key]: direction }
-        }));
+        setFilter(curr => ({ ...curr, sort: { [key]: direction } }));
       }}
     >
       <HStack>
         <Text>Sort by:</Text>
         <Box>
           <Select
+            id="sort-key-select"
+            title="Select key"
             placeholder="-"
             value={String(key)}
             onChange={event => {

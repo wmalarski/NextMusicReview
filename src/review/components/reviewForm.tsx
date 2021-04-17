@@ -1,106 +1,81 @@
-import {
-  Button,
-  ButtonGroup,
-  FormControl,
-  FormLabel,
-  Slider,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderTrack,
-  Stack,
-  useToast
-} from "@chakra-ui/react";
+import { Alert, AlertIcon, Button, ButtonGroup, Stack } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { useQueryClient } from "react-query";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import StepperInput from "../../common/components/stepperInput";
 import TextInput from "../../common/components/textInput";
-import { useCreateReviewMutation } from "../../graphql/types";
+import useCreateReview from "../hooks/useCreateReview";
 
 export interface ReviewFormResults {
   text: string;
   rating: number;
 }
 
+const formSchema = yup.object().shape({
+  text: yup.string(),
+  rating: yup.number().min(0).max(10).required()
+});
+
 export interface ReviewFormProps {
   albumId: string;
-  firstFieldRef: React.RefObject<HTMLInputElement>;
   onCancel: () => void;
 }
 
 export default function ReviewForm(props: ReviewFormProps): JSX.Element {
-  const { albumId, firstFieldRef, onCancel } = props;
+  const { albumId, onCancel } = props;
 
-  const queryClient = useQueryClient();
-
-  const [text, setText] = React.useState<string>("");
-  const [rating, setRating] = React.useState<number>(5);
-
-  const toast = useToast();
-
-  const { mutate, isLoading } = useCreateReviewMutation({
-    onSuccess() {
-      queryClient.invalidateQueries(["AlbumReviews", { id: albumId }]);
-      onCancel();
-      toast({
-        description: "Review added",
-        isClosable: true,
-        position: "bottom",
-        status: "success",
-        title: "Success"
-      });
-    },
-    onError(error) {
-      toast({
-        description: String(error),
-        isClosable: true,
-        position: "bottom",
-        status: "error",
-        title: "Error"
-      });
-    }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid }
+  } = useForm<ReviewFormResults>({
+    resolver: yupResolver(formSchema),
+    defaultValues: { text: "", rating: 5 },
+    shouldFocusError: true
   });
 
+  const { mutate, isLoading } = useCreateReview({ albumId, onCancel });
+
+  const onSubmit = (data: ReviewFormResults): void =>
+    mutate({ input: { album: albumId, ...data } });
+
   return (
-    <form
-      onSubmit={event => {
-        event.preventDefault();
-        mutate({ input: { album: albumId, text, rating } });
-      }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={4}>
-        <TextInput
-          label="Review"
-          id="review-text"
-          ref={firstFieldRef}
-          defaultValue=""
-          value={text}
-          onTextChange={setText}
+        <TextInput label="Review" id="review-text" {...register("text")} />
+        {errors.text && (
+          <Alert status="error">
+            <AlertIcon />
+            {errors.text.message}
+          </Alert>
+        )}
+
+        <StepperInput
+          step={0.1}
+          min={0}
+          max={10}
+          label="Rating"
+          id="rating-value"
+          inputProps={register("rating")}
         />
-        <FormControl>
-          <FormLabel htmlFor={"slider-rating"}>{`Rating ${rating}`}</FormLabel>
-          <Slider
-            id="slider-rating"
-            aria-label="slider-rating"
-            min={0}
-            max={10}
-            step={0.1}
-            value={rating}
-            onChange={val => {
-              console.log("setRating", val);
-              setRating(val);
-            }}
-          >
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
-        </FormControl>
+        {errors.rating && (
+          <Alert status="error">
+            <AlertIcon />
+            {errors.rating.message}
+          </Alert>
+        )}
 
         <ButtonGroup d="flex" justifyContent="flex-end">
           <Button isLoading={isLoading} variant="outline" onClick={onCancel}>
             Cancel
           </Button>
-          <Button isLoading={isLoading} type="submit" colorScheme="gray">
+          <Button
+            disabled={!isValid}
+            isLoading={isLoading}
+            type="submit"
+            colorScheme="gray"
+          >
             Save
           </Button>
         </ButtonGroup>

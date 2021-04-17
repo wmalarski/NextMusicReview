@@ -3,6 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import StepperInput from "../../common/components/stepperInput";
 import TextInput from "../../common/components/textInput";
 import { AlbumGridItemFragment } from "../../graphql/types";
 import useUpdateAlbum from "../hooks/useUpdateAlbum";
@@ -57,12 +58,13 @@ export default function AlbumForm(props: AlbumFormProps): JSX.Element {
           </Alert>
         )}
 
-        <TextInput
+        <StepperInput
           label="Year"
-          type="number"
           id="album-year"
+          min={1950}
+          max={2025}
           defaultValue={initYear}
-          {...register("year")}
+          inputProps={register("year")}
         />
         {errors.year && (
           <Alert status="error">

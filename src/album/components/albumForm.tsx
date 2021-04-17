@@ -1,129 +1,86 @@
-import {
-  Button,
-  ButtonGroup,
-  FormControl,
-  FormLabel,
-  Slider,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderTrack,
-  Stack,
-  useToast
-} from "@chakra-ui/react";
+import { Alert, AlertIcon, Button, ButtonGroup, Stack } from "@chakra-ui/react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
-import { useQueryClient } from "react-query";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
 import TextInput from "../../common/components/textInput";
-import {
-  AlbumGridItemFragment,
-  AlbumReviewsQuery,
-  useUpdateAlbumMutation
-} from "../../graphql/types";
+import { AlbumGridItemFragment } from "../../graphql/types";
+import useUpdateAlbum from "../hooks/useUpdateAlbum";
 
-export interface AlbumFormResults {
-  text: string;
-  rating: number;
+export interface AlbumFormData {
+  name: string;
+  year: number;
 }
+
+const formSchema = yup.object().shape({
+  name: yup.string().required(),
+  year: yup.number().integer().required().min(1950).max(2025)
+});
 
 export interface AlbumFormProps {
   album: AlbumGridItemFragment;
-  firstFieldRef: React.RefObject<HTMLInputElement>;
   onCancel: () => void;
 }
 
 export default function AlbumForm(props: AlbumFormProps): JSX.Element {
-  const { album, firstFieldRef, onCancel } = props;
+  const { album, onCancel } = props;
   const { id, name: initName, year: initYear, performer, mBid } = album;
 
-  const queryClient = useQueryClient();
-
-  const [name, setName] = React.useState<string>(initName);
-  const [year, setYear] = React.useState<number>(initYear);
-  const input = { id, mBid, performer: performer?.id ?? "" };
-  const queryKey = ["AlbumReviews", { id }];
-
-  const toast = useToast();
-
-  const { mutate, isLoading } = useUpdateAlbumMutation({
-    onMutate: async variables => {
-      await queryClient.cancelQueries(queryKey);
-      const previous = queryClient.getQueryData<AlbumReviewsQuery>(queryKey);
-      queryClient.setQueryData<AlbumReviewsQuery | undefined>(
-        queryKey,
-        old =>
-          old && {
-            album: {
-              ...old.album,
-              name: variables.input.name,
-              year: variables.input.year
-            }
-          }
-      );
-      return { previous };
-    },
-    onSuccess() {
-      onCancel();
-      toast({
-        description: "Album updated",
-        isClosable: true,
-        position: "bottom",
-        status: "success",
-        title: "Success"
-      });
-    },
-    onError(error, variables, context: any) {
-      queryClient.setQueryData(queryKey, context.previous);
-      toast({
-        description: String(error),
-        isClosable: true,
-        position: "bottom",
-        status: "error",
-        title: "Save not completed"
-      });
-    },
-    onSettled() {
-      queryClient.invalidateQueries(queryKey);
-    }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid }
+  } = useForm<AlbumFormData>({
+    resolver: yupResolver(formSchema),
+    defaultValues: { name: initName, year: initYear },
+    shouldFocusError: true
   });
 
+  const { mutate, isLoading } = useUpdateAlbum({ album, onCancel });
+
+  const onSubmit = (data: AlbumFormData): void =>
+    mutate({ input: { id, mBid, performer: performer?.id ?? "", ...data } });
+
   return (
-    <form
-      onSubmit={event => {
-        event.preventDefault();
-        mutate({ input: { ...input, name, year } });
-      }}
-    >
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={4}>
         <TextInput
           label="Name"
           id="album-name"
-          ref={firstFieldRef}
-          defaultValue=""
-          value={name}
-          onChange={setName}
+          defaultValue={initName}
+          {...register("name")}
         />
-        <FormControl>
-          <FormLabel htmlFor={"slider-year"}>{`Year: ${year}`}</FormLabel>
-          <Slider
-            id="slider-year"
-            aria-label="slider-year"
-            min={1950}
-            max={2025}
-            step={1}
-            value={year}
-            onChange={setYear}
-          >
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
-        </FormControl>
+        {errors.name && (
+          <Alert status="error">
+            <AlertIcon />
+            {errors.name?.message}
+          </Alert>
+        )}
+
+        <TextInput
+          label="Year"
+          type="number"
+          id="album-year"
+          defaultValue={initYear}
+          {...register("year")}
+        />
+        {errors.year && (
+          <Alert status="error">
+            <AlertIcon />
+            {errors.year?.message}
+          </Alert>
+        )}
 
         <ButtonGroup d="flex" justifyContent="flex-end">
           <Button isLoading={isLoading} variant="outline" onClick={onCancel}>
             Cancel
           </Button>
-          <Button isLoading={isLoading} type="submit" colorScheme="gray">
+          <Button
+            disabled={!isValid}
+            isLoading={isLoading}
+            type="submit"
+            colorScheme="gray"
+          >
             Save
           </Button>
         </ButtonGroup>

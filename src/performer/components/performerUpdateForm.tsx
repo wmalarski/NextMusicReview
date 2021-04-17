@@ -86,7 +86,7 @@ export default function PerformerUpdateForm(
           ref={firstFieldRef}
           defaultValue=""
           value={name}
-          onChange={setName}
+          onTextChange={setName}
         />
         <ButtonGroup d="flex" justifyContent="flex-end">
           <Button isLoading={isLoading} variant="outline" onClick={onCancel}>

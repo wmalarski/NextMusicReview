@@ -73,7 +73,7 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
           ref={firstFieldRef}
           defaultValue=""
           value={text}
-          onChange={setText}
+          onTextChange={setText}
         />
         <FormControl>
           <FormLabel htmlFor={"slider-rating"}>{`Rating ${rating}`}</FormLabel>

@@ -1,13 +1,37 @@
 import { graphql } from "msw";
-import { setupServer } from "msw/node";
+import {
+  albumGridItemDefault,
+  reviewListItemDefault
+} from "../../graphql/mocks/defaults";
 import {
   AlbumDetailsQuery,
   AlbumDetailsQueryVariables,
+  AlbumReviewsQuery,
+  AlbumReviewsQueryVariables,
+  DeleteAlbumMutation,
+  DeleteAlbumMutationVariables,
   UpdateAlbumMutation,
   UpdateAlbumMutationVariables
 } from "../../graphql/types";
 
-export default setupServer(
+export default [
+  graphql.query<AlbumReviewsQuery, AlbumReviewsQueryVariables>(
+    "AlbumReviews",
+    (_req, res, ctx) =>
+      res(
+        ctx.data({
+          album: {
+            ...albumGridItemDefault,
+            reviews: {
+              nodes: [
+                { ...reviewListItemDefault, id: "rId1" },
+                { ...reviewListItemDefault, id: "rId2" }
+              ]
+            }
+          }
+        })
+      )
+  ),
   graphql.query<AlbumDetailsQuery, AlbumDetailsQueryVariables>(
     "AlbumDetails",
     (_req, res, ctx) =>
@@ -25,19 +49,22 @@ export default setupServer(
         })
       )
   ),
+  graphql.mutation<DeleteAlbumMutation, DeleteAlbumMutationVariables>(
+    "DeleteAlbum",
+    (_req, res, ctx) => {
+      if (!sessionStorage.getItem("authorization")) {
+        return res(ctx.errors([{ message: "Unauthorized" }]));
+      }
+      return res(ctx.data({ deleteAlbum: { success: true } }));
+    }
+  ),
   graphql.mutation<UpdateAlbumMutation, UpdateAlbumMutationVariables>(
     "UpdateAlbum",
     (req, res, ctx) => {
       const { input } = req.variables;
 
       if (!sessionStorage.getItem("authorization")) {
-        return res(
-          ctx.errors([
-            {
-              message: "Unauthorized"
-            }
-          ])
-        );
+        return res(ctx.errors([{ message: "Unauthorized" }]));
       }
 
       return res(
@@ -66,4 +93,4 @@ export default setupServer(
       );
     }
   )
-);
+];

@@ -31,11 +31,7 @@ export default function useReviewsInfiniteQuery(
     ["reviews", filter],
     fetchReviews,
     {
-      getNextPageParam: lastPage => {
-        const { endCursor, hasNextPage } = lastPage.reviews?.pageInfo ?? {};
-        if (!hasNextPage) return null;
-        return endCursor;
-      }
+      getNextPageParam: lastPage => lastPage.reviews?.pageInfo.endCursor
     }
   );
 }

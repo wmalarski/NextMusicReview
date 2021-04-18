@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import StepperInput from "../../common/components/stepperInput";
 import TextInput from "../../common/components/textInput";
-import useCreateReview from "../hooks/useCreateReview";
+import useCreateReview from "../queries/useCreateReview";
 
 export interface ReviewFormResults {
   text: string;

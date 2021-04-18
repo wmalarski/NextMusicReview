@@ -22,16 +22,32 @@ export default function InfiniteSearch(): JSX.Element {
     [data?.pages]
   );
 
+  const hasNextPage = React.useMemo(() => {
+    const infos = data?.pages.map(page => page.search?.pageInfo.hasNextPage);
+    if (!infos) return false;
+    return infos[infos.length - 1];
+  }, [data?.pages]);
+
   return (
     <Layout container>
       <Stack>
-        <SearchInput search={search} setSearch={setSearch} />
+        <SearchInput
+          isLoading={isLoading}
+          search={search}
+          setSearch={setSearch}
+        />
         <AlbumGrid
           albums={albums}
           defaultCount={AlbumCount}
           isLoading={isLoading}
         />
-        <Button onClick={() => fetchNextPage()}>Fetch More</Button>
+        <Button
+          disabled={!hasNextPage}
+          isLoading={isLoading}
+          onClick={() => fetchNextPage()}
+        >
+          Fetch More
+        </Button>
       </Stack>
     </Layout>
   );

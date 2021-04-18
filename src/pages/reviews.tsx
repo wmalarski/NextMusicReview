@@ -23,6 +23,12 @@ export default function ReviewsPage(): JSX.Element {
   const reviews =
     compact(data?.pages.flatMap(page => page.reviews?.nodes)) ?? [];
 
+  const hasNextPage = React.useMemo(() => {
+    const infos = data?.pages.map(page => page.reviews?.pageInfo.hasNextPage);
+    if (!infos) return false;
+    return infos[infos.length - 1];
+  }, [data?.pages]);
+
   return (
     <Layout container>
       <Stack>
@@ -33,7 +39,11 @@ export default function ReviewsPage(): JSX.Element {
           showImage={true}
           reviews={reviews}
         />
-        <Button isLoading={isFetching} onClick={() => fetchNextPage()}>
+        <Button
+          disabled={!hasNextPage}
+          isLoading={isFetching}
+          onClick={() => fetchNextPage()}
+        >
           Fetch More
         </Button>
       </Stack>

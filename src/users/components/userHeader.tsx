@@ -27,8 +27,8 @@ export default function UserHeader(): JSX.Element | null {
     return (
       <Link
         onClick={() => {
-          router.push("/api/auth/login");
           localStorage.setItem(LoginPagePathKey, router.asPath);
+          router.push("/api/auth/login");
         }}
       >
         Login
@@ -50,7 +50,12 @@ export default function UserHeader(): JSX.Element | null {
               </MenuItem>
             </MenuGroup>
             <MenuGroup title="Session">
-              <MenuItem onClick={() => router.push("/api/auth/logout")}>
+              <MenuItem
+                onClick={() => {
+                  localStorage.setItem(LoginPagePathKey, router.asPath);
+                  router.push("/api/auth/logout");
+                }}
+              >
                 Logout
               </MenuItem>
             </MenuGroup>

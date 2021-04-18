@@ -3,11 +3,34 @@ import { setupServer } from "msw/node";
 import {
   AlbumDetailsQuery,
   AlbumDetailsQueryVariables,
+  AlbumReviewsQuery,
+  AlbumReviewsQueryVariables,
   UpdateAlbumMutation,
   UpdateAlbumMutationVariables
 } from "../../graphql/types";
+import {
+  albumGridItemDefault,
+  reviewListItemDefault
+} from "../../mocks/defaults";
 
 export default setupServer(
+  graphql.query<AlbumReviewsQuery, AlbumReviewsQueryVariables>(
+    "AlbumReviews",
+    (_req, res, ctx) =>
+      res(
+        ctx.data({
+          album: {
+            ...albumGridItemDefault,
+            reviews: {
+              nodes: [
+                { ...reviewListItemDefault, id: "rId1" },
+                { ...reviewListItemDefault, id: "rId2" }
+              ]
+            }
+          }
+        })
+      )
+  ),
   graphql.query<AlbumDetailsQuery, AlbumDetailsQueryVariables>(
     "AlbumDetails",
     (_req, res, ctx) =>

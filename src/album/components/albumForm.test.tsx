@@ -4,6 +4,7 @@ import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { QueryClientProvider } from "react-query";
+import { albumGridItemDefault } from "../../graphql/mocks/defaults";
 import server from "../../graphql/mocks/mockServer";
 import queryClient from "../../graphql/queryClient";
 import AlbumForm, { AlbumFormProps } from "./albumForm";
@@ -18,24 +19,7 @@ afterAll(() => server.close());
 
 function renderAlbumForm(props: Partial<AlbumFormProps> = {}) {
   const defaultProps: AlbumFormProps = {
-    album: {
-      id: "aId",
-      mBid: "mbid",
-      name: "name",
-      year: 1999,
-      details: {
-        image: [
-          {
-            size: "large",
-            url: "url"
-          }
-        ]
-      },
-      performer: {
-        id: "pId",
-        name: "performer"
-      }
-    },
+    album: albumGridItemDefault,
     onCancel: () => void 0
   };
   return render(

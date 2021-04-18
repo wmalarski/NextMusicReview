@@ -55,7 +55,6 @@ export default [
       if (!sessionStorage.getItem("authorization")) {
         return res(ctx.errors([{ message: "Unauthorized" }]));
       }
-
       return res(ctx.data({ deleteAlbum: { success: true } }));
     }
   ),

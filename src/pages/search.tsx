@@ -4,7 +4,7 @@ import Layout from "../common/components/layout";
 export default function SearchPage(): JSX.Element {
   return (
     <Layout container>
-      <p></p>
+      <p>Algolia Search</p>
       {/* <InstantSearch searchClient={searchClient} indexName="dev_reviews">
         <Stack>
           <Configure />

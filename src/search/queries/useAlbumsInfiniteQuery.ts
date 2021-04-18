@@ -11,15 +11,16 @@ import {
   AlbumSearchQuery,
   AlbumSearchQueryVariables
 } from "../../graphql/types";
-import { SearchProps } from "../types";
 
 export type FetchAlbumSearchKey = ["search", string];
 
 export type UseAlbumSearchInfiniteQueryResult = UseInfiniteQueryResult<
   AlbumSearchQuery,
   Error
-> &
-  SearchProps;
+> & {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+};
 
 const fetchAlbumSearch: QueryFunction<
   AlbumSearchQuery,
@@ -46,11 +47,7 @@ export default function useAlbumSearchInfiniteQuery(): UseAlbumSearchInfiniteQue
       AlbumSearchQuery,
       FetchAlbumSearchKey
     >(["search", search], fetchAlbumSearch, {
-      getNextPageParam: lastPage => {
-        const { endCursor, hasNextPage } = lastPage.search?.pageInfo ?? {};
-        if (!hasNextPage) return null;
-        return endCursor;
-      }
+      getNextPageParam: lastPage => lastPage.search?.pageInfo.endCursor
     })
   };
 }

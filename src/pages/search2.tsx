@@ -31,7 +31,11 @@ export default function InfiniteSearch(): JSX.Element {
   return (
     <Layout container>
       <Stack>
-        <SearchInput search={search} setSearch={setSearch} />
+        <SearchInput
+          isLoading={isLoading}
+          search={search}
+          setSearch={setSearch}
+        />
         <AlbumGrid
           albums={albums}
           defaultCount={AlbumCount}

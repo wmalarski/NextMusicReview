@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import TextInput from "../../common/components/textInput";
 import { PerformerDetailsFragment } from "../../graphql/types";
-import usePerformerUpdate from "../hooks/usePerformerUpdate";
+import usePerformerUpdate from "../queries/usePerformerUpdate";
 
 export interface PerformerUpdateFormData {
   name: string;

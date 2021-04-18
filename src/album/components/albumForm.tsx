@@ -6,7 +6,7 @@ import * as yup from "yup";
 import StepperInput from "../../common/components/stepperInput";
 import TextInput from "../../common/components/textInput";
 import { AlbumGridItemFragment } from "../../graphql/types";
-import useUpdateAlbum from "../hooks/useUpdateAlbum";
+import useUpdateAlbum from "../queries/useUpdateAlbum";
 
 export interface AlbumFormData {
   name: string;

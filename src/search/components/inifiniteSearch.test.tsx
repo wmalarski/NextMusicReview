@@ -31,7 +31,7 @@ describe("<InfiniteSearch />", () => {
     const { findByText } = renderInfiniteSearch();
 
     await waitFor(async () =>
-      expect(await findByText("performer")).toBeInTheDocument()
+      expect(await findByText("performerName")).toBeInTheDocument()
     );
 
     expect(await findByText("Random")).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe("<InfiniteSearch />", () => {
     const { findByText, findByRole } = renderInfiniteSearch();
 
     await waitFor(async () =>
-      expect(await findByText("performer")).toBeInTheDocument()
+      expect(await findByText("performerName")).toBeInTheDocument()
     );
 
     userEvent.type(await findByRole("textbox"), "New album");
@@ -57,14 +57,16 @@ describe("<InfiniteSearch />", () => {
     const { findByText, findAllByText } = renderInfiniteSearch();
 
     await waitFor(async () =>
-      expect(await findByText("performer")).toBeInTheDocument()
+      expect(await findByText("performerName")).toBeInTheDocument()
     );
-    expect(await findAllByText("performer")).toHaveLength(1);
+    expect(await findAllByText("performerName")).toHaveLength(1);
 
     userEvent.click(await findByText("Fetch More"));
 
     await waitFor(async () =>
-      expect(await findAllByText("performer")).toHaveLength(2)
+      expect(await findAllByText("performerName")).toHaveLength(2)
     );
+
+    expect(await findByText("Fetch More")).toBeDisabled();
   });
 });

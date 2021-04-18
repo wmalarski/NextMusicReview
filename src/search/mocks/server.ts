@@ -4,6 +4,7 @@ import {
   AlbumSearchQuery,
   AlbumSearchQueryVariables
 } from "../../graphql/types";
+import { albumGridItemDefault } from "../../mocks/defaults";
 
 export default setupServer(
   graphql.query<AlbumSearchQuery, AlbumSearchQueryVariables>(
@@ -12,29 +13,15 @@ export default setupServer(
       res(
         ctx.data({
           search: {
-            pageInfo: {
-              hasNextPage: false,
-              endCursor: "bb"
-            },
+            pageInfo: req.variables.after
+              ? { hasNextPage: false }
+              : { hasNextPage: true, endCursor: "first" },
             nodes: [
               {
-                id: String(Math.random() * 100000),
-                mBid: "mbid",
+                ...albumGridItemDefault,
+                id: req.variables.after ? "first" : "second",
                 name:
-                  req.variables.query === "" ? "Random" : req.variables.query,
-                year: 1999,
-                details: {
-                  image: [
-                    {
-                      size: "large",
-                      url: "aa"
-                    }
-                  ]
-                },
-                performer: {
-                  id: "pId",
-                  name: "performer"
-                }
+                  req.variables.query === "" ? "Random" : req.variables.query
               }
             ]
           }

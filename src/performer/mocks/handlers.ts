@@ -1,17 +1,40 @@
 import { graphql } from "msw";
-import { setupServer } from "msw/node";
 import {
+  albumGridItemDefault,
+  reviewListItemDefault
+} from "../../graphql/mocks/defaults";
+import {
+  DeletePerformerMutation,
+  DeletePerformerMutationVariables,
   PerformerDetailsQuery,
   PerformerDetailsQueryVariables,
   UpdatePerformerMutation,
   UpdatePerformerMutationVariables
 } from "../../graphql/types";
-import {
-  albumGridItemDefault,
-  reviewListItemDefault
-} from "../../mocks/defaults";
 
-export default setupServer(
+export default [
+  graphql.mutation<DeletePerformerMutation, DeletePerformerMutationVariables>(
+    "DeletePerformer",
+    (_req, res, ctx) => {
+      if (!sessionStorage.getItem("authorization")) {
+        return res(
+          ctx.errors([
+            {
+              message: "Unauthorized"
+            }
+          ])
+        );
+      }
+
+      return res(
+        ctx.data({
+          deletePerformer: {
+            success: true
+          }
+        })
+      );
+    }
+  ),
   graphql.mutation<UpdatePerformerMutation, UpdatePerformerMutationVariables>(
     "UpdatePerformer",
     (req, res, ctx) => {
@@ -72,4 +95,4 @@ export default setupServer(
         })
       )
   )
-);
+];

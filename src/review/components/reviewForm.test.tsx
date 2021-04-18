@@ -4,8 +4,8 @@ import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { QueryClientProvider } from "react-query";
+import server from "../../graphql/mocks/mockServer";
 import queryClient from "../../graphql/queryClient";
-import server from "../mocks/server";
 import ReviewForm, { ReviewFormProps } from "./reviewForm";
 
 beforeAll(() => server.listen());

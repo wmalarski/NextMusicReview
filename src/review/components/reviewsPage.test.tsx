@@ -6,9 +6,9 @@ import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { QueryClientProvider } from "react-query";
+import server from "../../graphql/mocks/mockServer";
 import queryClient from "../../graphql/queryClient";
 import ReviewsPage from "../../pages/reviews";
-import server from "../mocks/server";
 
 beforeAll(() => server.listen());
 afterEach(() => {

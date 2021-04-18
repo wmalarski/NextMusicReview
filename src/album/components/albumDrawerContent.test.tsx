@@ -4,8 +4,8 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClientProvider } from "react-query";
+import server from "../../graphql/mocks/mockServer";
 import queryClient from "../../graphql/queryClient";
-import server from "../mocks/server";
 import AlbumDrawerContent, {
   AlbumDrawerContentProps
 } from "./albumDrawerContent";

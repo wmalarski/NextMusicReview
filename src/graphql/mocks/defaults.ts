@@ -1,7 +1,4 @@
-import {
-  AlbumGridItemFragment,
-  ReviewListItemFragment
-} from "../graphql/types";
+import { AlbumGridItemFragment, ReviewListItemFragment } from "../types";
 
 export const albumGridItemDefault: AlbumGridItemFragment = {
   id: "aId",

@@ -1,12 +1,11 @@
 import { graphql } from "msw";
-import { setupServer } from "msw/node";
+import { albumGridItemDefault } from "../../graphql/mocks/defaults";
 import {
   AlbumSearchQuery,
   AlbumSearchQueryVariables
 } from "../../graphql/types";
-import { albumGridItemDefault } from "../../mocks/defaults";
 
-export default setupServer(
+export default [
   graphql.query<AlbumSearchQuery, AlbumSearchQueryVariables>(
     "AlbumSearch",
     (req, res, ctx) =>
@@ -28,4 +27,4 @@ export default setupServer(
         })
       )
   )
-);
+];

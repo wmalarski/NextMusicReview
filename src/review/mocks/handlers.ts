@@ -1,17 +1,16 @@
 import { graphql } from "msw";
-import { setupServer } from "msw/node";
+import {
+  albumGridItemDefault,
+  reviewListItemDefault
+} from "../../graphql/mocks/defaults";
 import {
   CreateReviewMutation,
   CreateReviewMutationVariables,
   ReviewsQuery,
   ReviewsQueryVariables
 } from "../../graphql/types";
-import {
-  albumGridItemDefault,
-  reviewListItemDefault
-} from "../../mocks/defaults";
 
-export default setupServer(
+export default [
   graphql.query<ReviewsQuery, ReviewsQueryVariables>(
     "Reviews",
     (req, res, ctx) =>
@@ -54,4 +53,4 @@ export default setupServer(
       );
     }
   )
-);
+];

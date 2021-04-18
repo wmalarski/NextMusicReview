@@ -1,12 +1,11 @@
 import { graphql } from "msw";
-import { setupServer } from "msw/node";
+import { albumGridItemDefault } from "../../graphql/mocks/defaults";
 import {
   RandomAlbumsQuery,
   RandomAlbumsQueryVariables
 } from "../../graphql/types";
-import { albumGridItemDefault } from "../../mocks/defaults";
 
-export default setupServer(
+export default [
   graphql.query<RandomAlbumsQuery, RandomAlbumsQueryVariables>(
     "RandomAlbums",
     (_req, res, ctx) => {
@@ -26,4 +25,4 @@ export default setupServer(
       );
     }
   )
-);
+];

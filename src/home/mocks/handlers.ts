@@ -1,9 +1,9 @@
 import { graphql } from "msw";
-import { albumGridItemDefault } from "../../graphql/mocks/defaults";
 import {
   RandomAlbumsQuery,
   RandomAlbumsQueryVariables
 } from "../../graphql/types";
+import { albumGridItemDefault } from "../../tests/defaults";
 
 export default [
   graphql.query<RandomAlbumsQuery, RandomAlbumsQueryVariables>(

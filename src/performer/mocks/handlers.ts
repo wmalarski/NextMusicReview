@@ -1,9 +1,5 @@
 import { graphql } from "msw";
 import {
-  albumGridItemDefault,
-  reviewListItemDefault
-} from "../../graphql/mocks/defaults";
-import {
   DeletePerformerMutation,
   DeletePerformerMutationVariables,
   PerformerDetailsQuery,
@@ -11,6 +7,10 @@ import {
   UpdatePerformerMutation,
   UpdatePerformerMutationVariables
 } from "../../graphql/types";
+import {
+  albumGridItemDefault,
+  reviewListItemDefault
+} from "../../tests/defaults";
 
 export default [
   graphql.mutation<DeletePerformerMutation, DeletePerformerMutationVariables>(

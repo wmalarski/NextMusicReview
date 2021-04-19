@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
-import server from "../graphql/mocks/mockServer";
 import queryClient from "../graphql/queryClient";
+import server from "./mockServer";
 
 beforeAll(() => server.listen());
 afterEach(() => {

@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@testing-library/react";
 import React from "react";
+import TestWrapper from "../../tests/components/testWrapper";
 import {
   albumDetailsQueryDefault,
   albumGridItemDefault
-} from "../../graphql/mocks/defaults";
-import TestWrapper from "../../tests/components/testWrapper";
+} from "../../tests/defaults";
 import AlbumDetails, { AlbumDetailsProps } from "./albumDetails";
 
 function renderComponent(props: Partial<AlbumDetailsProps> = {}) {

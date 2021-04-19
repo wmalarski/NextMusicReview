@@ -2,11 +2,11 @@ import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@testing-library/react";
 import React from "react";
+import TestWrapper from "../../tests/components/testWrapper";
 import {
   albumGridItemDefault,
   reviewListItemDefault
-} from "../../graphql/mocks/defaults";
-import TestWrapper from "../../tests/components/testWrapper";
+} from "../../tests/defaults";
 import ReviewListItem, { ReviewListItemProps } from "./reviewListItem";
 
 function renderComponent(props: Partial<ReviewListItemProps> = {}) {

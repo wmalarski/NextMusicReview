@@ -1,10 +1,5 @@
 import { graphql } from "msw";
 import {
-  albumDetailsQueryDefault,
-  albumGridItemDefault,
-  reviewListItemDefault
-} from "../../graphql/mocks/defaults";
-import {
   AlbumDetailsQuery,
   AlbumDetailsQueryVariables,
   AlbumReviewsQuery,
@@ -14,6 +9,11 @@ import {
   UpdateAlbumMutation,
   UpdateAlbumMutationVariables
 } from "../../graphql/types";
+import {
+  albumDetailsQueryDefault,
+  albumGridItemDefault,
+  reviewListItemDefault
+} from "../../tests/defaults";
 
 export default [
   graphql.query<AlbumReviewsQuery, AlbumReviewsQueryVariables>(

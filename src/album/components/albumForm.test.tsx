@@ -3,8 +3,8 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { albumGridItemDefault } from "../../graphql/mocks/defaults";
 import TestWrapper from "../../tests/components/testWrapper";
+import { albumGridItemDefault } from "../../tests/defaults";
 import AlbumForm, { AlbumFormProps } from "./albumForm";
 
 function renderComponent(props: Partial<AlbumFormProps> = {}) {

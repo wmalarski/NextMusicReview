@@ -1,8 +1,8 @@
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { albumGridItemDefault } from "../../graphql/mocks/defaults";
 import TestWrapper from "../../tests/components/testWrapper";
+import { albumGridItemDefault } from "../../tests/defaults";
 import AlbumActionsBar, { AlbumActionsBarProps } from "./albumActionsBar";
 
 jest.mock("@chakra-ui/media-query", () => ({

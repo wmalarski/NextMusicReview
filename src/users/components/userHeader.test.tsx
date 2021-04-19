@@ -5,7 +5,7 @@ import { render } from "@testing-library/react";
 import React from "react";
 import UserHeader from "./userHeader";
 
-function renderUserHeader(
+function renderComponent(
   props: Partial<Parameters<typeof UserProvider>[0]> = {}
 ) {
   return render(
@@ -17,14 +17,14 @@ function renderUserHeader(
 
 describe("<UserHeader />", () => {
   test("should request fail", async () => {
-    const { findByText } = renderUserHeader();
+    const { findByText } = renderComponent();
     expect(
       await findByText("The request to /api/auth/me failed")
     ).toBeInTheDocument();
   });
 
   test("should user be visible", async () => {
-    const { findByText } = renderUserHeader({
+    const { findByText } = renderComponent({
       user: {
         name: "UserName"
       }

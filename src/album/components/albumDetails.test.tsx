@@ -1,13 +1,11 @@
-import { ChakraProvider } from "@chakra-ui/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@testing-library/react";
 import React from "react";
-import { QueryClientProvider } from "react-query";
 import {
   albumDetailsQueryDefault,
   albumGridItemDefault
 } from "../../graphql/mocks/defaults";
-import queryClient from "../../graphql/queryClient";
+import TestWrapper from "../../tests/components/testWrapper";
 import AlbumDetails, { AlbumDetailsProps } from "./albumDetails";
 
 function renderComponent(props: Partial<AlbumDetailsProps> = {}) {
@@ -18,11 +16,9 @@ function renderComponent(props: Partial<AlbumDetailsProps> = {}) {
     reviewsQuery: { album: albumGridItemDefault }
   };
   return render(
-    <ChakraProvider>
-      <QueryClientProvider client={queryClient}>
-        <AlbumDetails {...{ ...defaultProps, ...props }} />
-      </QueryClientProvider>
-    </ChakraProvider>
+    <TestWrapper>
+      <AlbumDetails {...{ ...defaultProps, ...props }} />
+    </TestWrapper>
   );
 }
 

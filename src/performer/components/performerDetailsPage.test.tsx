@@ -1,41 +1,24 @@
-import { UserProvider } from "@auth0/nextjs-auth0";
-import { ChakraProvider, theme } from "@chakra-ui/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, waitFor } from "@testing-library/react";
 import React from "react";
-import { QueryClientProvider } from "react-query";
-import server from "../../graphql/mocks/mockServer";
-import queryClient from "../../graphql/queryClient";
 import PerformerDetailsPage, {
   PerformerDetailsPageProps
 } from "../../pages/performers/[id]";
+import TestWrapper from "../../tests/components/testWrapper";
 
-beforeAll(() => server.listen());
-afterEach(() => {
-  server.resetHandlers();
-  queryClient.clear();
-});
-afterAll(() => server.close());
-
-function renderPerformerDetailsPage(
-  props: Partial<PerformerDetailsPageProps> = {}
-) {
+function renderComponent(props: Partial<PerformerDetailsPageProps> = {}) {
   const defaultProps: PerformerDetailsPageProps = { id: "pId" };
   return render(
-    <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <ChakraProvider theme={theme}>
-          <PerformerDetailsPage {...{ ...defaultProps, ...props }} />
-        </ChakraProvider>
-      </UserProvider>
-    </QueryClientProvider>
+    <TestWrapper>
+      <PerformerDetailsPage {...{ ...defaultProps, ...props }} />
+    </TestWrapper>
   );
 }
 
 describe("<PerformerDetailsPage />", () => {
-  test("shows wiki, albums and reviews", async () => {
-    const { findByText, findAllByText } = renderPerformerDetailsPage();
+  test("should show wiki, albums and reviews", async () => {
+    const { findByText, findAllByText } = renderComponent();
 
     await waitFor(async () =>
       expect(await findByText("content")).toBeInTheDocument()

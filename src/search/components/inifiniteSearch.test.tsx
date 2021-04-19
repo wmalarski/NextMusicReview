@@ -1,34 +1,22 @@
-import { UserProvider } from "@auth0/nextjs-auth0";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { QueryClientProvider } from "react-query";
-import server from "../../graphql/mocks/mockServer";
-import queryClient from "../../graphql/queryClient";
 import InfiniteSearch from "../../pages/search2";
+import TestWrapper from "../../tests/components/testWrapper";
 
-beforeAll(() => server.listen());
-afterEach(() => {
-  server.resetHandlers();
-  queryClient.clear();
-});
-afterAll(() => server.close());
-
-function renderInfiniteSearch() {
+function renderComponent() {
   return render(
-    <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <InfiniteSearch />
-      </UserProvider>
-    </QueryClientProvider>
+    <TestWrapper>
+      <InfiniteSearch />
+    </TestWrapper>
   );
 }
 
 describe("<InfiniteSearch />", () => {
-  test("check query and visibility", async () => {
-    const { findByText } = renderInfiniteSearch();
+  test("should check query and visibility", async () => {
+    const { findByText } = renderComponent();
 
     await waitFor(async () =>
       expect(await findByText("performerName")).toBeInTheDocument()
@@ -38,8 +26,8 @@ describe("<InfiniteSearch />", () => {
     expect(await findByText("1999")).toBeInTheDocument();
   });
 
-  test("search box and query submit", async () => {
-    const { findByText, findByRole } = renderInfiniteSearch();
+  test("should search box and query submit", async () => {
+    const { findByText, findByRole } = renderComponent();
 
     await waitFor(async () =>
       expect(await findByText("performerName")).toBeInTheDocument()
@@ -53,8 +41,8 @@ describe("<InfiniteSearch />", () => {
     );
   });
 
-  test("fetch more", async () => {
-    const { findByText, findAllByText } = renderInfiniteSearch();
+  test("should fetch more", async () => {
+    const { findByText, findAllByText } = renderComponent();
 
     await waitFor(async () =>
       expect(await findByText("performerName")).toBeInTheDocument()

@@ -1,20 +1,10 @@
-import { ChakraProvider } from "@chakra-ui/react";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { QueryClientProvider } from "react-query";
 import { albumGridItemDefault } from "../../graphql/mocks/defaults";
-import server from "../../graphql/mocks/mockServer";
-import queryClient from "../../graphql/queryClient";
+import TestWrapper from "../../tests/components/testWrapper";
 import AlbumGrid, { AlbumGridProps } from "./albumGrid";
-
-beforeAll(() => server.listen());
-afterEach(() => {
-  server.resetHandlers();
-  queryClient.clear();
-});
-afterAll(() => server.close());
 
 function renderComponent(props: Partial<AlbumGridProps> = {}) {
   const defaultProps: AlbumGridProps = {
@@ -26,11 +16,9 @@ function renderComponent(props: Partial<AlbumGridProps> = {}) {
     ]
   };
   return render(
-    <ChakraProvider>
-      <QueryClientProvider client={queryClient}>
-        <AlbumGrid {...{ ...defaultProps, ...props }} />
-      </QueryClientProvider>
-    </ChakraProvider>
+    <TestWrapper>
+      <AlbumGrid {...{ ...defaultProps, ...props }} />
+    </TestWrapper>
   );
 }
 

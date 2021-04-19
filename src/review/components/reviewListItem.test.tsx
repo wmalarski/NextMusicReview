@@ -6,19 +6,24 @@ import {
   albumGridItemDefault,
   reviewListItemDefault
 } from "../../graphql/mocks/defaults";
+import TestWrapper from "../../tests/components/testWrapper";
 import ReviewListItem, { ReviewListItemProps } from "./reviewListItem";
 
-function renderReviewsPage(props: Partial<ReviewListItemProps> = {}) {
+function renderComponent(props: Partial<ReviewListItemProps> = {}) {
   const defaultProps: ReviewListItemProps = {
     review: { ...reviewListItemDefault, album: albumGridItemDefault },
     showImage: true
   };
-  return render(<ReviewListItem {...{ ...defaultProps, ...props }} />);
+  return render(
+    <TestWrapper>
+      <ReviewListItem {...{ ...defaultProps, ...props }} />
+    </TestWrapper>
+  );
 }
 
 describe("<ReviewListItem />", () => {
   test("shows review", async () => {
-    const { findAllByText } = renderReviewsPage();
+    const { findAllByText } = renderComponent();
 
     expect(await findAllByText("albumName")).toHaveLength(1);
     expect(await findAllByText("performerName")).toHaveLength(1);
@@ -26,7 +31,7 @@ describe("<ReviewListItem />", () => {
   });
 
   test("should shows review no album", async () => {
-    const { findAllByText } = renderReviewsPage({
+    const { findAllByText } = renderComponent({
       showImage: false,
       review: reviewListItemDefault
     });
@@ -35,7 +40,7 @@ describe("<ReviewListItem />", () => {
   });
 
   test("should shows review no cover", async () => {
-    const { findAllByText } = renderReviewsPage({
+    const { findAllByText } = renderComponent({
       review: {
         ...reviewListItemDefault,
         album: {

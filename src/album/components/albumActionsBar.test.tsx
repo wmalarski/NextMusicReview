@@ -1,44 +1,41 @@
-import { ChakraProvider } from "@chakra-ui/react";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { QueryClientProvider } from "react-query";
 import { albumGridItemDefault } from "../../graphql/mocks/defaults";
-import queryClient from "../../graphql/queryClient";
+import TestWrapper from "../../tests/components/testWrapper";
 import AlbumActionsBar, { AlbumActionsBarProps } from "./albumActionsBar";
 
 jest.mock("@chakra-ui/media-query", () => ({
+  // TODO: fix this
   useMediaQuery: jest.fn().mockReturnValueOnce([true]).mockReturnValue([false])
 }));
 
-function renderAlbumActionsBar(props: Partial<AlbumActionsBarProps> = {}) {
+function renderComponent(props: Partial<AlbumActionsBarProps> = {}) {
   const defaultProps: AlbumActionsBarProps = {
     album: albumGridItemDefault
   };
   return render(
-    <ChakraProvider>
-      <QueryClientProvider client={queryClient}>
-        <AlbumActionsBar {...{ ...defaultProps, ...props }} />
-      </QueryClientProvider>
-    </ChakraProvider>
+    <TestWrapper>
+      <AlbumActionsBar {...{ ...defaultProps, ...props }} />
+    </TestWrapper>
   );
 }
 
 describe("<AlbumActionsBar />", () => {
-  test("required information displayed", async () => {
-    renderAlbumActionsBar();
+  test("should display required information", async () => {
+    renderComponent();
   });
 
-  test("required information displayed", async () => {
-    renderAlbumActionsBar();
+  test("should display required information", async () => {
+    renderComponent();
   });
 
   test("should display nothing", async () => {
-    renderAlbumActionsBar({ album: undefined });
+    renderComponent({ album: undefined });
   });
 
   test("should create link without performer", async () => {
-    renderAlbumActionsBar({
+    renderComponent({
       album: {
         ...albumGridItemDefault,
         performer: undefined
@@ -48,7 +45,7 @@ describe("<AlbumActionsBar />", () => {
 
   test("should try to open new page", async () => {
     global.open = jest.fn();
-    const { findByText } = renderAlbumActionsBar();
+    const { findByText } = renderComponent();
 
     userEvent.click(await findByText("YouTube"));
     expect(global.open).toBeCalled();

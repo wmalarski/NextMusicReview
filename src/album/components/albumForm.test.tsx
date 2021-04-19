@@ -3,37 +3,27 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { QueryClientProvider } from "react-query";
 import { albumGridItemDefault } from "../../graphql/mocks/defaults";
-import server from "../../graphql/mocks/mockServer";
-import queryClient from "../../graphql/queryClient";
+import TestWrapper from "../../tests/components/testWrapper";
 import AlbumForm, { AlbumFormProps } from "./albumForm";
 
-beforeAll(() => server.listen());
-afterEach(() => {
-  server.resetHandlers();
-  sessionStorage.clear();
-  queryClient.clear();
-});
-afterAll(() => server.close());
-
-function renderAlbumForm(props: Partial<AlbumFormProps> = {}) {
+function renderComponent(props: Partial<AlbumFormProps> = {}) {
   const defaultProps: AlbumFormProps = {
     album: albumGridItemDefault,
     onCancel: () => void 0
   };
   return render(
-    <QueryClientProvider client={queryClient}>
+    <TestWrapper>
       <AlbumForm {...{ ...defaultProps, ...props }} />
-    </QueryClientProvider>
+    </TestWrapper>
   );
 }
 
 describe("<AlbumForm />", () => {
-  test("sends album update mutation", async () => {
+  test("should send album update mutation", async () => {
     const onCancel = jest.fn();
     sessionStorage.setItem("authorization", "barer ey0");
-    const { findByText } = renderAlbumForm({ onCancel });
+    const { findByText } = renderComponent({ onCancel });
 
     userEvent.click(await findByText("Save"));
 
@@ -42,18 +32,18 @@ describe("<AlbumForm />", () => {
     expect(await findByText("Album updated")).toBeInTheDocument();
   });
 
-  test("sends unauthorized update mutation", async () => {
+  test("should send unauthorized update mutation", async () => {
     const onCancel = jest.fn();
-    const { findByText } = renderAlbumForm({ onCancel });
+    const { findByText } = renderComponent({ onCancel });
 
     userEvent.click(await findByText("Save"));
 
     expect(await findByText("Save not completed")).toBeInTheDocument();
   });
 
-  test("cancels edit", async () => {
+  test("should cancel edit", async () => {
     const onCancel = jest.fn();
-    const { findByText } = renderAlbumForm({ onCancel });
+    const { findByText } = renderComponent({ onCancel });
 
     userEvent.click(await findByText("Cancel"));
 

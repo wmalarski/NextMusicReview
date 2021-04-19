@@ -91,6 +91,9 @@
     "collectCoverageFrom": [
       "src/**/*.ts",
       "src/**/*.tsx"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/tests/setupTests.ts"
     ]
   },
   "msw": {

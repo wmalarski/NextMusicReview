@@ -3,10 +3,8 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { QueryClientProvider } from "react-query";
 import { albumGridItemDefault } from "../../graphql/mocks/defaults";
-import server from "../../graphql/mocks/mockServer";
-import queryClient from "../../graphql/queryClient";
+import TestWrapper from "../../tests/components/testWrapper";
 import AlbumDeleteButton, { AlbumDeleteButtonProps } from "./albumDeleteButton";
 
 const push = jest.fn();
@@ -22,20 +20,14 @@ jest.mock("next/router", () => ({
   }
 }));
 
-beforeAll(() => server.listen());
-afterEach(() => {
-  server.resetHandlers();
-  queryClient.clear();
-  push.mockClear();
-});
-afterAll(() => server.close());
+afterEach(() => push.mockClear());
 
-function renderAlbumDeleteButton(props: Partial<AlbumDeleteButtonProps> = {}) {
+function renderComponent(props: Partial<AlbumDeleteButtonProps> = {}) {
   const defaultProps: AlbumDeleteButtonProps = { album: albumGridItemDefault };
   return render(
-    <QueryClientProvider client={queryClient}>
+    <TestWrapper>
       <AlbumDeleteButton {...{ ...defaultProps, ...props }} />
-    </QueryClientProvider>
+    </TestWrapper>
   );
 }
 
@@ -43,7 +35,7 @@ describe("<AlbumDeleteButton />", () => {
   test("should succeed", async () => {
     sessionStorage.setItem("authorization", "barer ey0");
 
-    const { findByText } = renderAlbumDeleteButton();
+    const { findByText } = renderComponent();
 
     userEvent.click(await findByText("Delete"));
 

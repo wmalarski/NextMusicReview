@@ -30,7 +30,7 @@ export default function AlbumDrawer(props: AlbumDrawerProps): JSX.Element {
       <DrawerOverlay>
         {selectedAlbum && (
           <DrawerContent>
-            <DrawerCloseButton />
+            <DrawerCloseButton data-testid="drawer-close-button" />
             <AlbumDrawerContent album={selectedAlbum} />
             <DrawerFooter>
               <Stack w="100%" direction={{ base: "column", md: "row" }}>

@@ -8,7 +8,6 @@
     "analyze": "ANALYZE=true next build",
     "start": "next start",
     "prettier": "prettier --config .prettierrc 'src/**/*.(ts|tsx)' --write",
-    "lint": "eslint . --fix --ext .tsx,.ts",
     "codegen": "graphql-codegen --require dotenv/config --config codegen.yml dotenv_config_path=.env.local",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -17,32 +16,32 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.3.0",
-    "@chakra-ui/icons": "^1.0.10",
-    "@chakra-ui/react": "^1.5.1",
+    "@chakra-ui/icons": "^1.0.11",
+    "@chakra-ui/react": "^1.5.2",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
     "@hookform/resolvers": "^2.4.0",
-    "@testing-library/jest-dom": "^5.11.10",
-    "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^13.1.3",
-    "framer-motion": "^4.1.4",
+    "framer-motion": "^4.1.5",
     "isomorphic-fetch": "^3.0.0",
     "next": "^10.1.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-hook-form": "^7.1.1",
+    "react-hook-form": "^7.2.1",
     "react-query": "^3.13.10",
     "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.13.15",
     "@babel/preset-react": "^7.13.13",
-    "@graphql-codegen/cli": "^1.21.3",
-    "@graphql-codegen/typescript": "^1.21.1",
-    "@graphql-codegen/typescript-operations": "^1.17.15",
-    "@graphql-codegen/typescript-react-query": "^1.2.4",
+    "@graphql-codegen/cli": "^1.21.4",
+    "@graphql-codegen/typescript": "^1.22.0",
+    "@graphql-codegen/typescript-operations": "^1.17.16",
+    "@graphql-codegen/typescript-react-query": "^1.3.0",
     "@next/bundle-analyzer": "^10.1.3",
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.6",
     "@testing-library/react-hooks": "^5.1.1",
+    "@testing-library/user-event": "^13.1.5",
     "@types/isomorphic-fetch": "^0.0.35",
     "@types/jest": "^26.0.22",
     "@types/node": "^14.14.41",
@@ -63,16 +62,12 @@
     "husky": "^6.0.0",
     "jest": "^26.6.3",
     "jest-fetch-mock": "^3.0.3",
+    "lint-staged": "^10.5.4",
     "msw": "^0.28.1",
     "prettier": "^2.2.1",
     "react-test-renderer": "^17.0.2",
     "ts-jest": "^26.5.5",
     "typescript": "^4.2.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run prettier && npm run lint"
-    }
   },
   "jest": {
     "moduleNameMapper": {
@@ -93,9 +88,18 @@
         "tsconfig": "tsconfig.jest.json"
       }
     },
-    "collectCoverageFrom" : ["src/**/*.ts", "src/**/*.tsx"]
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/tests/setupTests.ts"
+    ]
   },
   "msw": {
     "workerDirectory": "public"
+  },
+  "lint-staged": {
+    "*.{tsx,ts}": "eslint --cache --fix"
   }
 }

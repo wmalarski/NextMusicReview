@@ -70,12 +70,7 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
           <Button isLoading={isLoading} variant="outline" onClick={onCancel}>
             Cancel
           </Button>
-          <Button
-            disabled={!isValid}
-            isLoading={isLoading}
-            type="submit"
-            colorScheme="gray"
-          >
+          <Button isLoading={isLoading} type="submit" colorScheme="gray">
             Save
           </Button>
         </ButtonGroup>

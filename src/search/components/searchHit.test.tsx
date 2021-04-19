@@ -1,11 +1,11 @@
-import { UserProvider } from "@auth0/nextjs-auth0";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@testing-library/react";
 import React from "react";
+import TestWrapper from "../../tests/components/testWrapper";
 import SearchHit, { AlbumHitProps } from "./searchHit";
 
-function renderSearchHit(props: Partial<AlbumHitProps> = {}) {
+function renderComponent(props: Partial<AlbumHitProps> = {}) {
   const defaultProps: AlbumHitProps = {
     hit: {
       id: "aId",
@@ -18,15 +18,15 @@ function renderSearchHit(props: Partial<AlbumHitProps> = {}) {
     }
   };
   return render(
-    <UserProvider>
+    <TestWrapper>
       <SearchHit {...{ ...defaultProps, ...props }} />
-    </UserProvider>
+    </TestWrapper>
   );
 }
 
 describe("<SearchHit />", () => {
   test("should be visible", async () => {
-    const { findByText } = renderSearchHit();
+    const { findByText } = renderComponent();
 
     expect(await findByText("albumName")).toBeInTheDocument();
     expect(await findByText("performerName")).toBeInTheDocument();

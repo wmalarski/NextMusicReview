@@ -14,7 +14,7 @@ export interface AlbumActionsBarProps {
 }
 
 function buildLink(album: AlbumGridItemFragment): string {
-  const { performer, name } = album ?? {};
+  const { performer, name } = album;
   const value = `${performer?.name ?? ""} ${name}`.replace(" ", "+");
   return `https://www.youtube.com/results?search_query=${value}`;
 }

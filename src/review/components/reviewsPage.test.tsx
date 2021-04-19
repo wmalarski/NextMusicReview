@@ -1,37 +1,22 @@
-import { UserProvider } from "@auth0/nextjs-auth0";
-import { ChakraProvider, theme } from "@chakra-ui/react";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-import { QueryClientProvider } from "react-query";
-import server from "../../graphql/mocks/mockServer";
-import queryClient from "../../graphql/queryClient";
 import ReviewsPage from "../../pages/reviews";
+import TestWrapper from "../../tests/components/testWrapper";
 
-beforeAll(() => server.listen());
-afterEach(() => {
-  server.resetHandlers();
-  queryClient.clear();
-});
-afterAll(() => server.close());
-
-function renderReviewsPage() {
+function renderComponent() {
   return render(
-    <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <ChakraProvider theme={theme}>
-          <ReviewsPage />
-        </ChakraProvider>
-      </UserProvider>
-    </QueryClientProvider>
+    <TestWrapper>
+      <ReviewsPage />
+    </TestWrapper>
   );
 }
 
 describe("<ReviewsPage />", () => {
-  test("shows reviews", async () => {
-    const { findByText, findAllByText } = renderReviewsPage();
+  test("should show reviews", async () => {
+    const { findByText, findAllByText } = renderComponent();
 
     await waitFor(async () =>
       expect(await findByText("reviewText")).toBeInTheDocument()
@@ -42,8 +27,8 @@ describe("<ReviewsPage />", () => {
     expect(await findAllByText("reviewText")).toHaveLength(1);
   });
 
-  test("fetch more", async () => {
-    const { findByText, findAllByText } = renderReviewsPage();
+  test("should fetch more", async () => {
+    const { findByText, findAllByText } = renderComponent();
 
     await waitFor(async () =>
       expect(await findByText("reviewText")).toBeInTheDocument()

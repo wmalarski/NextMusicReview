@@ -1,21 +1,21 @@
-import { UserProvider } from "@auth0/nextjs-auth0";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render } from "@testing-library/react";
 import React from "react";
 import SearchPage from "../../pages/search";
+import TestWrapper from "../../tests/components/testWrapper";
 
-function renderInfiniteSearch() {
+function renderComponent() {
   return render(
-    <UserProvider>
+    <TestWrapper>
       <SearchPage />
-    </UserProvider>
+    </TestWrapper>
   );
 }
 
 describe("<SearchPage />", () => {
   test("should be visible", async () => {
-    const { findByText } = renderInfiniteSearch();
+    const { findByText } = renderComponent();
     expect(await findByText("Algolia Search")).toBeInTheDocument();
   });
 });

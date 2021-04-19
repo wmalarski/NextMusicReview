@@ -33,6 +33,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# cache
+.eslintcache
+
 # python
 venv
 *.pkl

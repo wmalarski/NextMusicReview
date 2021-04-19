@@ -27,6 +27,7 @@ export default function AlbumGridItem(props: AlbumGridItemProps): JSX.Element {
 
   return (
     <Card
+      data-testid={`album-grid-item-${id}`}
       _hover={{ layerStyle: hoverStyle }}
       onClick={() => setSelectedId(curr => (curr === id ? null : id))}
     >

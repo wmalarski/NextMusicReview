@@ -4,6 +4,7 @@ import "@testing-library/jest-dom/extend-expect";
 import { render, waitFor } from "@testing-library/react";
 import React from "react";
 import { QueryClientProvider } from "react-query";
+import { albumGridItemDefault } from "../../graphql/mocks/defaults";
 import server from "../../graphql/mocks/mockServer";
 import queryClient from "../../graphql/queryClient";
 import AlbumDrawerContent, {
@@ -21,24 +22,7 @@ function renderAlbumDrawerContent(
   props: Partial<AlbumDrawerContentProps> = {}
 ) {
   const defaultProps: AlbumDrawerContentProps = {
-    album: {
-      id: "aId",
-      mBid: "mbid",
-      name: "name",
-      year: 1999,
-      details: {
-        image: [
-          {
-            size: "mega",
-            url: "url"
-          }
-        ]
-      },
-      performer: {
-        id: "pId",
-        name: "performer"
-      }
-    }
+    album: albumGridItemDefault
   };
   return render(
     <QueryClientProvider client={queryClient}>
@@ -53,14 +37,27 @@ describe("<AlbumDrawerContent />", () => {
   test("updates data with wiki content", async () => {
     const { findByText } = renderAlbumDrawerContent();
 
-    expect(await findByText("name")).toBeInTheDocument();
+    expect(await findByText("albumName")).toBeInTheDocument();
     expect(await findByText("1999")).toBeInTheDocument();
-    expect(await findByText("performer")).toBeInTheDocument();
+    expect(await findByText("performerName")).toBeInTheDocument();
 
     await waitFor(async () =>
       expect(await findByText("content")).toBeInTheDocument()
     );
 
     expect(await findByText("summary")).toBeInTheDocument();
+  });
+
+  test("updates data with wiki content", async () => {
+    const { findByText } = renderAlbumDrawerContent({
+      album: {
+        ...albumGridItemDefault,
+        year: 0,
+        performer: undefined,
+        details: undefined
+      }
+    });
+
+    expect(await findByText("albumName")).toBeInTheDocument();
   });
 });

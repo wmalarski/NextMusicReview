@@ -48,6 +48,7 @@ export default function AlbumForm(props: AlbumFormProps): JSX.Element {
         <TextInput
           label="Name"
           id="album-name"
+          role="textbox"
           defaultValue={initName}
           {...register("name")}
         />
@@ -77,12 +78,7 @@ export default function AlbumForm(props: AlbumFormProps): JSX.Element {
           <Button isLoading={isLoading} variant="outline" onClick={onCancel}>
             Cancel
           </Button>
-          <Button
-            disabled={!isValid}
-            isLoading={isLoading}
-            type="submit"
-            colorScheme="gray"
-          >
+          <Button isLoading={isLoading} type="submit" colorScheme="gray">
             Save
           </Button>
         </ButtonGroup>

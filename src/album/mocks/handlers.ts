@@ -1,5 +1,6 @@
 import { graphql } from "msw";
 import {
+  albumDetailsQueryDefault,
   albumGridItemDefault,
   reviewListItemDefault
 } from "../../graphql/mocks/defaults";
@@ -34,20 +35,7 @@ export default [
   ),
   graphql.query<AlbumDetailsQuery, AlbumDetailsQueryVariables>(
     "AlbumDetails",
-    (_req, res, ctx) =>
-      res(
-        ctx.data({
-          album: {
-            details: {
-              wiki: {
-                content: "content",
-                summary: "summary",
-                published: "published"
-              }
-            }
-          }
-        })
-      )
+    (_req, res, ctx) => res(ctx.data(albumDetailsQueryDefault))
   ),
   graphql.mutation<DeleteAlbumMutation, DeleteAlbumMutationVariables>(
     "DeleteAlbum",

@@ -1,4 +1,8 @@
-import { AlbumGridItemFragment, ReviewListItemFragment } from "../types";
+import {
+  AlbumDetailsQuery,
+  AlbumGridItemFragment,
+  ReviewListItemFragment
+} from "../types";
 
 export const albumGridItemDefault: AlbumGridItemFragment = {
   id: "aId",
@@ -7,10 +11,8 @@ export const albumGridItemDefault: AlbumGridItemFragment = {
   year: 1999,
   details: {
     image: [
-      {
-        size: "large",
-        url: "aaa"
-      }
+      { size: "large", url: "aaa" },
+      { size: "mega", url: "bbb" }
     ]
   },
   performer: {
@@ -25,4 +27,16 @@ export const reviewListItemDefault: ReviewListItemFragment = {
   rating: 5.5,
   text: "reviewText",
   updatedAt: "04-04"
+};
+
+export const albumDetailsQueryDefault: AlbumDetailsQuery = {
+  album: {
+    details: {
+      wiki: {
+        content: "content",
+        summary: "summary",
+        published: "published"
+      }
+    }
+  }
 };

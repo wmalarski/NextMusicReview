@@ -37,6 +37,15 @@ describe("<AlbumActionsBar />", () => {
     renderAlbumActionsBar({ album: undefined });
   });
 
+  test("should create link without performer", async () => {
+    renderAlbumActionsBar({
+      album: {
+        ...albumGridItemDefault,
+        performer: undefined
+      }
+    });
+  });
+
   test("should try to open new page", async () => {
     global.open = jest.fn();
     const { findByText } = renderAlbumActionsBar();

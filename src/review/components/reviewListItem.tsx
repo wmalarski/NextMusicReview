@@ -48,9 +48,11 @@ export default function ReviewListItem(
               <Link>{performer?.name}</Link>
             </NextLink>
           </Heading>
-          <Heading as="h6" size="xs">
-            {year}
-          </Heading>
+          {year !== 0 && (
+            <Heading as="h6" size="xs">
+              {year}
+            </Heading>
+          )}
           <Text>{createdAt}</Text>
           <Text>{text}</Text>
           <Text>{`Rate: ${rating}`}</Text>

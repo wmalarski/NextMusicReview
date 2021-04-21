@@ -37,7 +37,7 @@ export default function PerformerDetails(
       <Stack spacing={10}>
         <Box alignItems="center" flexGrow={1}>
           {isLoading ? (
-            <Skeleton size="lg" />
+            <Skeleton size="lg" width="100%" height="3rem" />
           ) : (
             <Heading as="h2" size="lg" variant="primary">
               {name}

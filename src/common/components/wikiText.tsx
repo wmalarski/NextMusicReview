@@ -33,7 +33,7 @@ export default function WikiText(props: WikiTextProps): JSX.Element {
       ) : (
         <Stack>
           {range(0, 6).map(index => (
-            <Skeleton key={index} height="20px" />
+            <Skeleton key={index} height="20px" width="100%" />
           ))}
         </Stack>
       )}

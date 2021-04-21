@@ -45,9 +45,11 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
                 <Link>{performer?.name}</Link>
               </NextLink>
             </Heading>
-            <Heading as="h6" size="xs">
-              {year}
-            </Heading>
+            {year !== 0 && (
+              <Heading as="h6" size="xs">
+                {year}
+              </Heading>
+            )}
           </Box>
         </HStack>
         <Stack direction={{ base: "column", md: "row" }}>

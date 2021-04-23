@@ -14,7 +14,22 @@ function renderComponent() {
   );
 }
 
+const push = jest.fn();
+jest.mock("next/router", () => ({
+  useRouter() {
+    return {
+      route: "/",
+      pathname: "",
+      query: "",
+      asPath: "",
+      push
+    };
+  }
+}));
+
 describe("<InfiniteSearch />", () => {
+  afterEach(() => push.mockClear());
+
   it("should check query and visibility", async () => {
     expect.hasAssertions();
     renderComponent();

@@ -9,17 +9,17 @@ export interface SearchArgs {
 export interface SearchInputProps {
   search: string;
   isLoading: boolean;
-  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  onSearch: (search: string) => void;
 }
 
 export default function SearchInput(props: SearchInputProps): JSX.Element {
-  const { search, isLoading, setSearch } = props;
+  const { search, isLoading, onSearch } = props;
 
   const { register, handleSubmit } = useForm<SearchArgs>({
     defaultValues: { search }
   });
 
-  const onSubmit = (args: SearchArgs): void => setSearch(args.search);
+  const onSubmit = (args: SearchArgs): void => onSearch(args.search);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

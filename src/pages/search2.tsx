@@ -1,4 +1,5 @@
 import { Button, Stack } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import React from "react";
 import AlbumGrid from "../album/components/albumGrid";
 import Layout from "../common/components/layout";
@@ -9,13 +10,18 @@ import useAlbumSearchInfiniteQuery from "../search/queries/useAlbumsInfiniteQuer
 const AlbumCount = 20;
 
 export default function InfiniteSearch(): JSX.Element {
+  const router = useRouter();
+
+  const { query } = router.query;
+  const initialQuery = Array.isArray(query) ? undefined : query;
+
   const {
     data,
     isLoading,
     search,
     fetchNextPage,
     setSearch
-  } = useAlbumSearchInfiniteQuery();
+  } = useAlbumSearchInfiniteQuery(initialQuery);
 
   const albums = React.useMemo(
     () => compact(data?.pages.flatMap(page => page.search?.nodes)),
@@ -34,7 +40,14 @@ export default function InfiniteSearch(): JSX.Element {
         <SearchInput
           isLoading={isLoading}
           search={search}
-          setSearch={setSearch}
+          onSearch={(query: string) => {
+            setSearch(query);
+            if (query.length > 0) {
+              router.push(`search2/?query=${query}`, undefined, {
+                shallow: true
+              });
+            }
+          }}
         />
         <AlbumGrid
           albums={albums}

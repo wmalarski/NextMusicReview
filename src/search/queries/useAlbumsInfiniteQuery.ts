@@ -35,8 +35,10 @@ const fetchAlbumSearch: QueryFunction<
     query: queryKey[1]
   })();
 
-export default function useAlbumSearchInfiniteQuery(): UseAlbumSearchInfiniteQueryResult {
-  const [search, setSearch] = React.useState<string>("");
+export default function useAlbumSearchInfiniteQuery(
+  initialSearch?: string
+): UseAlbumSearchInfiniteQueryResult {
+  const [search, setSearch] = React.useState<string>(initialSearch ?? "");
 
   return {
     search,

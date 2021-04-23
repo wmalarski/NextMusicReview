@@ -7,10 +7,7 @@ import {
   UpdatePerformerMutation,
   UpdatePerformerMutationVariables
 } from "../../graphql/types";
-import {
-  albumGridItemDefault,
-  reviewListItemDefault
-} from "../../tests/defaults";
+import { performerDetailsQueryDefault } from "../../tests/defaults";
 
 export default [
   graphql.mutation<DeletePerformerMutation, DeletePerformerMutationVariables>(
@@ -68,29 +65,8 @@ export default [
       res(
         ctx.data({
           performer: {
-            id: req.variables.id,
-            name: "performerName",
-            albums: {
-              nodes: [
-                {
-                  ...albumGridItemDefault,
-                  id: "aId1",
-                  reviews: { nodes: [{ ...reviewListItemDefault, id: "rId1" }] }
-                },
-                {
-                  ...albumGridItemDefault,
-                  id: "aId2",
-                  reviews: { nodes: [{ ...reviewListItemDefault, id: "rId2" }] }
-                }
-              ]
-            },
-            details: {
-              bio: {
-                content: "content",
-                summary: "summary",
-                published: "published"
-              }
-            }
+            ...performerDetailsQueryDefault.performer,
+            id: req.variables.id
           }
         })
       )

@@ -1,17 +1,16 @@
-import { UserProvider } from "@auth0/nextjs-auth0";
+import { UserProviderProps } from "@auth0/nextjs-auth0";
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 import { render, screen } from "@testing-library/react";
 import React from "react";
+import TestWrapper from "../../tests/components/testWrapper";
 import UserHeader from "./userHeader";
 
-function renderComponent(
-  props: Partial<Parameters<typeof UserProvider>[0]> = {}
-) {
+function renderComponent(props: Partial<UserProviderProps> = {}) {
   return render(
-    <UserProvider {...props}>
+    <TestWrapper userProps={props}>
       <UserHeader />
-    </UserProvider>
+    </TestWrapper>
   );
 }
 

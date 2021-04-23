@@ -1,17 +1,27 @@
-import { UserProvider } from "@auth0/nextjs-auth0";
-import { ChakraProvider } from "@chakra-ui/react";
+import { UserProvider, UserProviderProps } from "@auth0/nextjs-auth0";
+import { ChakraProvider, ChakraProviderProps } from "@chakra-ui/react";
 import React from "react";
-import { QueryClientProvider } from "react-query";
-import queryClient from "../../graphql/queryClient";
+import {
+  QueryClient,
+  QueryClientProvider,
+  QueryClientProviderProps
+} from "react-query";
 
-export default function TestWrapper(props: {
+export interface TestWrapperProps {
   children: React.ReactNode;
-}): JSX.Element {
+  chakraProps?: ChakraProviderProps;
+  userProps?: UserProviderProps;
+  queryProps?: QueryClientProviderProps;
+}
+
+export default function TestWrapper(props: TestWrapperProps): JSX.Element {
+  const { chakraProps, userProps, children, queryProps } = props;
+  const queryClient = new QueryClient();
   return (
-    <ChakraProvider>
-      <UserProvider>
-        <QueryClientProvider client={queryClient}>
-          {props.children}
+    <ChakraProvider {...chakraProps}>
+      <UserProvider {...userProps}>
+        <QueryClientProvider client={queryClient} {...queryProps}>
+          {children}
         </QueryClientProvider>
       </UserProvider>
     </ChakraProvider>

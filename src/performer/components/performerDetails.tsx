@@ -8,7 +8,6 @@ import ReviewAlbumsList from "../../review/components/reviewAlbumsList";
 import PerformerActionsBar from "./performerActionsBar";
 
 export interface PerformerDetailsProps {
-  id: string;
   query?: PerformerDetailsQuery;
 }
 
@@ -21,15 +20,19 @@ export default function PerformerDetails(
   const { details, name, albums } = performer ?? {};
   const isLoading = !query;
 
+  const albumNodes = React.useMemo(() => compact(albums?.nodes) ?? [], [
+    albums?.nodes
+  ]);
+
   const albumReviews = React.useMemo(
     () =>
       compact(
-        albums?.nodes?.flatMap(
+        albumNodes.flatMap(
           album =>
             album?.reviews?.nodes?.map(review => ({ album, review })) ?? []
         )
       ),
-    [albums?.nodes]
+    [albumNodes]
   );
 
   return (
@@ -50,13 +53,13 @@ export default function PerformerDetails(
           </Stack>
         )}
         <WikiText isLoading={isLoading} wiki={details?.bio} />
-        <Heading size="lg">Albums</Heading>
+        {albumNodes.length > 0 && <Heading size="lg">Albums</Heading>}
         <AlbumGrid
-          albums={compact(albums?.nodes)}
+          albums={albumNodes}
           isLoading={isLoading}
           defaultCount={albums?.nodes?.length ?? 5}
         />
-        <Heading size="lg">Reviews</Heading>
+        {albumReviews.length > 0 && <Heading size="lg">Reviews</Heading>}
         <ReviewAlbumsList
           showImage
           pairs={albumReviews}

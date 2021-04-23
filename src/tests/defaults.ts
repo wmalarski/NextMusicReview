@@ -1,6 +1,7 @@
 import {
   AlbumDetailsQuery,
   AlbumGridItemFragment,
+  PerformerDetailsQuery,
   ReviewListItemFragment
 } from "../graphql/types";
 
@@ -33,6 +34,34 @@ export const albumDetailsQueryDefault: AlbumDetailsQuery = {
   album: {
     details: {
       wiki: {
+        content: "content",
+        summary: "summary",
+        published: "published"
+      }
+    }
+  }
+};
+
+export const performerDetailsQueryDefault: PerformerDetailsQuery = {
+  performer: {
+    id: "pId",
+    name: "performerName",
+    albums: {
+      nodes: [
+        {
+          ...albumGridItemDefault,
+          id: "aId1",
+          reviews: { nodes: [{ ...reviewListItemDefault, id: "rId1" }] }
+        },
+        {
+          ...albumGridItemDefault,
+          id: "aId2",
+          reviews: { nodes: [{ ...reviewListItemDefault, id: "rId2" }] }
+        }
+      ]
+    },
+    details: {
+      bio: {
         content: "content",
         summary: "summary",
         published: "published"

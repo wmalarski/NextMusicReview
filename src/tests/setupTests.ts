@@ -1,3 +1,4 @@
+/* eslint-disable jest/require-top-level-describe */
 import "@testing-library/jest-dom";
 import queryClient from "../graphql/queryClient";
 import server from "./mockServer";

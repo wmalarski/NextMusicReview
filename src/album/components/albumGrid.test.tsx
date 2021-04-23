@@ -1,5 +1,6 @@
+import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import TestWrapper from "../../tests/components/testWrapper";
@@ -23,27 +24,30 @@ function renderComponent(props: Partial<AlbumGridProps> = {}) {
 }
 
 describe("<AlbumGrid />", () => {
-  test("should display all information", async () => {
-    const { findByText, findAllByText } = renderComponent();
+  it("should display all information", async () => {
+    expect.hasAssertions();
+    renderComponent();
 
-    expect(await findByText("Album1")).toBeInTheDocument();
-    expect(await findByText("Album2")).toBeInTheDocument();
-    expect(await findAllByText("performerName")).toHaveLength(2);
+    expect(await screen.findByText("Album1")).toBeInTheDocument();
+    expect(await screen.findByText("Album2")).toBeInTheDocument();
+    expect(await screen.findAllByText("performerName")).toHaveLength(2);
   });
 
-  test("should display drawer after selection", async () => {
-    const { findByText, findByTestId } = renderComponent();
+  it("should display drawer after selection", async () => {
+    expect.hasAssertions();
+    renderComponent();
 
-    userEvent.click(await findByTestId("album-grid-item-album1"));
-    expect(await findByText("content")).toBeInTheDocument();
-    userEvent.click(await findByText("Cancel"));
+    userEvent.click(await screen.findByTestId("album-grid-item-album1"));
+    expect(await screen.findByText("content")).toBeInTheDocument();
+    userEvent.click(await screen.findByText("Cancel"));
   });
 
-  test("should display drawer after selection", async () => {
-    const { findByTestId, findByText } = renderComponent();
+  it("should display drawer after selection and close after button click", async () => {
+    expect.hasAssertions();
+    renderComponent();
 
-    userEvent.click(await findByTestId("album-grid-item-album1"));
-    expect(await findByText("content")).toBeInTheDocument();
-    userEvent.click(await findByTestId("drawer-close-button"));
+    userEvent.click(await screen.findByTestId("album-grid-item-album1"));
+    expect(await screen.findByText("content")).toBeInTheDocument();
+    userEvent.click(await screen.findByTestId("drawer-close-button"));
   });
 });

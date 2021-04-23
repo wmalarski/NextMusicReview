@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import TestWrapper from "../../tests/components/testWrapper";
 import {
@@ -22,25 +22,28 @@ function renderComponent(props: Partial<ReviewListItemProps> = {}) {
 }
 
 describe("<ReviewListItem />", () => {
-  test("shows review", async () => {
-    const { findAllByText } = renderComponent();
+  it("shows review", async () => {
+    expect.hasAssertions();
+    renderComponent();
 
-    expect(await findAllByText("albumName")).toHaveLength(1);
-    expect(await findAllByText("performerName")).toHaveLength(1);
-    expect(await findAllByText("reviewText")).toHaveLength(1);
+    expect(await screen.findAllByText("albumName")).toHaveLength(1);
+    expect(await screen.findAllByText("performerName")).toHaveLength(1);
+    expect(await screen.findAllByText("reviewText")).toHaveLength(1);
   });
 
-  test("should shows review no album", async () => {
-    const { findAllByText } = renderComponent({
+  it("should shows review no album", async () => {
+    expect.hasAssertions();
+    renderComponent({
       showImage: false,
       review: reviewListItemDefault
     });
 
-    expect(await findAllByText("reviewText")).toHaveLength(1);
+    expect(await screen.findAllByText("reviewText")).toHaveLength(1);
   });
 
-  test("should shows review no cover", async () => {
-    const { findAllByText } = renderComponent({
+  it("should shows review no cover", async () => {
+    expect.hasAssertions();
+    renderComponent({
       review: {
         ...reviewListItemDefault,
         album: {
@@ -51,6 +54,6 @@ describe("<ReviewListItem />", () => {
       }
     });
 
-    expect(await findAllByText("reviewText")).toHaveLength(1);
+    expect(await screen.findAllByText("reviewText")).toHaveLength(1);
   });
 });

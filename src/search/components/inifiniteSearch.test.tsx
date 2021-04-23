@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { render, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import InfiniteSearch from "../../pages/search2";
@@ -15,46 +15,49 @@ function renderComponent() {
 }
 
 describe("<InfiniteSearch />", () => {
-  test("should check query and visibility", async () => {
-    const { findByText } = renderComponent();
+  it("should check query and visibility", async () => {
+    expect.hasAssertions();
+    renderComponent();
 
     await waitFor(async () =>
-      expect(await findByText("performerName")).toBeInTheDocument()
+      expect(await screen.findByText("performerName")).toBeInTheDocument()
     );
 
-    expect(await findByText("Random")).toBeInTheDocument();
-    expect(await findByText("1999")).toBeInTheDocument();
+    expect(await screen.findByText("Random")).toBeInTheDocument();
+    expect(await screen.findByText("1999")).toBeInTheDocument();
   });
 
-  test("should search box and query submit", async () => {
-    const { findByText, findByRole } = renderComponent();
+  it("should search box and query submit", async () => {
+    expect.hasAssertions();
+    renderComponent();
 
     await waitFor(async () =>
-      expect(await findByText("performerName")).toBeInTheDocument()
+      expect(await screen.findByText("performerName")).toBeInTheDocument()
     );
 
-    userEvent.type(await findByRole("textbox"), "New album");
-    userEvent.click(await findByText("Submit"));
+    userEvent.type(await screen.findByRole("textbox"), "New album");
+    userEvent.click(await screen.findByText("Submit"));
 
     await waitFor(async () =>
-      expect(await findByText("New album")).toBeInTheDocument()
+      expect(await screen.findByText("New album")).toBeInTheDocument()
     );
   });
 
-  test("should fetch more", async () => {
-    const { findByText, findAllByText } = renderComponent();
+  it("should fetch more", async () => {
+    expect.hasAssertions();
+    renderComponent();
 
     await waitFor(async () =>
-      expect(await findByText("performerName")).toBeInTheDocument()
+      expect(await screen.findByText("performerName")).toBeInTheDocument()
     );
-    expect(await findAllByText("performerName")).toHaveLength(1);
+    expect(await screen.findAllByText("performerName")).toHaveLength(1);
 
-    userEvent.click(await findByText("Fetch More"));
+    userEvent.click(await screen.findByText("Fetch More"));
 
     await waitFor(async () =>
-      expect(await findAllByText("performerName")).toHaveLength(2)
+      expect(await screen.findAllByText("performerName")).toHaveLength(2)
     );
 
-    expect(await findByText("Fetch More")).toBeDisabled();
+    expect(await screen.findByText("Fetch More")).toBeDisabled();
   });
 });

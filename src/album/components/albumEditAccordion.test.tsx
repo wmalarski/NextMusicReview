@@ -1,5 +1,6 @@
+import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import TestWrapper from "../../tests/components/testWrapper";
@@ -20,12 +21,13 @@ function renderComponent(props: Partial<AlbumEditAccordionProps> = {}) {
 }
 
 describe("<AlbumEditAccordion />", () => {
-  test("should open and close", async () => {
-    const { findByText } = renderComponent();
+  it("should open and close", async () => {
+    expect.hasAssertions();
+    renderComponent();
 
-    userEvent.click(await findByText("Edit"));
-    expect(await findByText("Name")).toBeInTheDocument();
-    expect(await findByText("Year")).toBeInTheDocument();
-    userEvent.click(await findByText("Edit"));
+    userEvent.click(await screen.findByText("Edit"));
+    expect(await screen.findByText("Name")).toBeInTheDocument();
+    expect(await screen.findByText("Year")).toBeInTheDocument();
+    userEvent.click(await screen.findByText("Edit"));
   });
 });

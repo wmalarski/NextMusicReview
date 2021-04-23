@@ -1,5 +1,6 @@
+import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 import TestWrapper from "../../tests/components/testWrapper";
 import {
@@ -23,15 +24,19 @@ function renderComponent(props: Partial<AlbumDetailsProps> = {}) {
 }
 
 describe("<AlbumDetails />", () => {
-  test("should display all information", async () => {
-    const { findByText, findAllByText } = renderComponent();
+  it("should display all information", async () => {
+    expect.hasAssertions();
 
-    expect(await findByText("content")).toBeInTheDocument();
-    expect(await findByText("summary")).toBeInTheDocument();
-    expect((await findAllByText("albumName"))[0]).toBeInTheDocument();
+    renderComponent();
+
+    expect(await screen.findByText("content")).toBeInTheDocument();
+    expect(await screen.findByText("summary")).toBeInTheDocument();
+    expect((await screen.findAllByText("albumName"))[0]).toBeInTheDocument();
   });
 
-  test("should display all information", async () => {
+  it("should display image", async () => {
+    expect.hasAssertions();
+
     renderComponent({
       reviewsQuery: {
         album: {
@@ -47,5 +52,7 @@ describe("<AlbumDetails />", () => {
         }
       }
     });
+
+    expect(await screen.findByText("content")).toBeInTheDocument();
   });
 });

@@ -1,11 +1,20 @@
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { render, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import TestWrapper from "../../tests/components/testWrapper";
 import { albumGridItemDefault } from "../../tests/defaults";
 import AlbumDeleteButton, { AlbumDeleteButtonProps } from "./albumDeleteButton";
+
+function renderComponent(props: Partial<AlbumDeleteButtonProps> = {}) {
+  const defaultProps: AlbumDeleteButtonProps = { album: albumGridItemDefault };
+  return render(
+    <TestWrapper>
+      <AlbumDeleteButton {...{ ...defaultProps, ...props }} />
+    </TestWrapper>
+  );
+}
 
 const push = jest.fn();
 jest.mock("next/router", () => ({
@@ -20,37 +29,34 @@ jest.mock("next/router", () => ({
   }
 }));
 
-afterEach(() => push.mockClear());
-
-function renderComponent(props: Partial<AlbumDeleteButtonProps> = {}) {
-  const defaultProps: AlbumDeleteButtonProps = { album: albumGridItemDefault };
-  return render(
-    <TestWrapper>
-      <AlbumDeleteButton {...{ ...defaultProps, ...props }} />
-    </TestWrapper>
-  );
-}
-
 describe("<AlbumDeleteButton />", () => {
-  test("should succeed", async () => {
+  afterEach(() => push.mockClear());
+
+  it("should succeed", async () => {
+    expect.hasAssertions();
     sessionStorage.setItem("authorization", "barer ey0");
 
-    const { findByText } = renderComponent();
+    renderComponent();
 
-    userEvent.click(await findByText("Delete"));
+    userEvent.click(await screen.findByText("Delete"));
 
-    await waitFor(async () => expect(push).toBeCalledWith("/performers/pId"));
+    await waitFor(async () =>
+      expect(push).toHaveBeenCalledWith("/performers/pId")
+    );
+
+    await waitFor(async () =>
+      expect(await screen.findByText("Album removed")).toBeInTheDocument()
+    );
   });
 
-  // test("should show authorization error", async () => {
-  //   const { findByText } = renderAlbumDeleteButton();
+  it("should show authorization error", async () => {
+    expect.hasAssertions();
+    renderComponent();
 
-  //   userEvent.click(await findByText("Delete"));
+    userEvent.click(await screen.findByText("Delete"));
 
-  //   // expect(await findByText("Error")).toBeInTheDocument();
-
-  //   await waitFor(async () =>
-  //     expect(await findByText("Cannot remove album")).toBeInTheDocument()
-  //   );
-  // });
+    await waitFor(async () =>
+      expect(await screen.findByText("Cannot remove album")).toBeInTheDocument()
+    );
+  });
 });

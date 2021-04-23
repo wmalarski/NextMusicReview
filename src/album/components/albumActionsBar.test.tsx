@@ -1,14 +1,11 @@
-import { render } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import "@testing-library/jest-dom/extend-expect";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import TestWrapper from "../../tests/components/testWrapper";
 import { albumGridItemDefault } from "../../tests/defaults";
 import AlbumActionsBar, { AlbumActionsBarProps } from "./albumActionsBar";
-
-jest.mock("@chakra-ui/media-query", () => ({
-  // TODO: fix this
-  useMediaQuery: jest.fn().mockReturnValueOnce([true]).mockReturnValue([false])
-}));
 
 function renderComponent(props: Partial<AlbumActionsBarProps> = {}) {
   const defaultProps: AlbumActionsBarProps = {
@@ -21,33 +18,58 @@ function renderComponent(props: Partial<AlbumActionsBarProps> = {}) {
   );
 }
 
+jest.mock("@chakra-ui/media-query", () => ({
+  useMediaQuery: jest.fn().mockReturnValue([false])
+}));
+
 describe("<AlbumActionsBar />", () => {
-  test("should display required information", async () => {
-    renderComponent();
+  const globalMock = jest.spyOn(global, "open").mockImplementation();
+  const { useMediaQuery } = jest.requireMock("@chakra-ui/media-query");
+
+  afterEach(() => {
+    globalMock.mockClear();
+    useMediaQuery.mockClear();
   });
 
-  test("should display required information", async () => {
+  it("should display required information", async () => {
+    expect.hasAssertions();
+    useMediaQuery.mockReturnValueOnce([true]);
     renderComponent();
+
+    expect((await screen.findAllByText("Delete")).length).toBeGreaterThan(0);
+    expect((await screen.findAllByText("Review")).length).toBeGreaterThan(0);
+    expect(await screen.findByText("YouTube")).toBeInTheDocument();
   });
 
-  test("should display nothing", async () => {
+  it("should display nothing", async () => {
+    expect.hasAssertions();
     renderComponent({ album: undefined });
+
+    expect(screen.queryByText("Delete")).toBeNull();
+    expect(screen.queryByText("Review")).toBeNull();
+    expect(screen.queryByText("YouTube")).toBeNull();
   });
 
-  test("should create link without performer", async () => {
+  it("should create link without performer", async () => {
+    expect.hasAssertions();
+
     renderComponent({
       album: {
         ...albumGridItemDefault,
         performer: undefined
       }
     });
+
+    userEvent.click(await screen.findByText("YouTube"));
+    expect(global.open).toHaveBeenCalledTimes(1);
   });
 
-  test("should try to open new page", async () => {
-    global.open = jest.fn();
-    const { findByText } = renderComponent();
+  it("should try to open new page", async () => {
+    expect.hasAssertions();
 
-    userEvent.click(await findByText("YouTube"));
-    expect(global.open).toBeCalled();
+    renderComponent();
+
+    userEvent.click(await screen.findByText("YouTube"));
+    expect(global.open).toHaveBeenCalledTimes(1);
   });
 });

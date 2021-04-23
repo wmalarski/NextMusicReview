@@ -28,7 +28,7 @@ export default function ReviewForm(props: ReviewFormProps): JSX.Element {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid }
+    formState: { errors }
   } = useForm<ReviewFormResults>({
     resolver: yupResolver(formSchema),
     defaultValues: { text: "", rating: 5 },

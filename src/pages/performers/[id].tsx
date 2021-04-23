@@ -17,7 +17,7 @@ export default function PerformerDetailsPage(
 
   return (
     <Layout container>
-      <PerformerDetails id={id} query={data} />
+      <PerformerDetails query={data} />
     </Layout>
   );
 }

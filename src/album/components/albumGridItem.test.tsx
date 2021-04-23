@@ -1,4 +1,6 @@
-import { render } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import "@testing-library/jest-dom/extend-expect";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import TestWrapper from "../../tests/components/testWrapper";
@@ -19,44 +21,47 @@ function renderComponent(props: Partial<AlbumGridItemProps> = {}) {
 }
 
 describe("<AlbumGridItem />", () => {
-  test("should display required information", async () => {
+  it("should display required information", async () => {
+    expect.hasAssertions();
     const onClick = jest.fn();
-    const { findByText } = renderComponent({ setSelectedId: onClick });
-    const albumComponent = await findByText("albumName");
+    renderComponent({ setSelectedId: onClick });
+    const albumComponent = await screen.findByText("albumName");
     expect(albumComponent).toBeTruthy();
 
-    const performerComponent = await findByText("performerName");
+    const performerComponent = await screen.findByText("performerName");
     expect(performerComponent).toBeTruthy();
 
-    const yearComponent = await findByText("1999");
+    const yearComponent = await screen.findByText("1999");
     expect(yearComponent).toBeTruthy();
 
-    expect(onClick).toBeCalledTimes(0);
+    expect(onClick).toHaveBeenCalledTimes(0);
   });
 
-  test("should select album grid item", async () => {
+  it("should select album grid item", async () => {
+    expect.hasAssertions();
     const onClick = jest.fn(reducer => {
       const result = reducer("otherId");
-      expect(result).toEqual("aId");
+      expect(result).toStrictEqual("aId");
     });
-    const { findByText } = renderComponent({ setSelectedId: onClick });
-    const yearComponent = await findByText("1999");
+    renderComponent({ setSelectedId: onClick });
+    const yearComponent = await screen.findByText("1999");
 
     userEvent.click(yearComponent);
 
-    expect(onClick).toBeCalledTimes(1);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  test("should deselect gird album", async () => {
+  it("should deselect gird album", async () => {
+    expect.hasAssertions();
     const onClick = jest.fn(reducer => {
       const result = reducer("aId");
       expect(result).toBeNull();
     });
-    const { findByText } = renderComponent({ setSelectedId: onClick });
-    const yearComponent = await findByText("1999");
+    renderComponent({ setSelectedId: onClick });
+    const yearComponent = await screen.findByText("1999");
 
     userEvent.click(yearComponent);
 
-    expect(onClick).toBeCalledTimes(1);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

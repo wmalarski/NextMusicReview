@@ -30,7 +30,7 @@ export default function AlbumForm(props: AlbumFormProps): JSX.Element {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid }
+    formState: { errors }
   } = useForm<AlbumFormData>({
     resolver: yupResolver(formSchema),
     defaultValues: { name: initName, year: initYear },

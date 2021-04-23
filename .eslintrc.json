@@ -2,14 +2,16 @@
   "env": {
     "browser": true,
     "es2021": true,
-    "node": true
+    "node": true,
+    "jest/globals": true
   },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
-    "prettier"
+    "prettier",
+    "plugin:jest/all"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -23,12 +25,14 @@
     "react",
     "@typescript-eslint",
     "react-hooks",
-    "prettier"
+    "prettier",
+    "jest"
   ],
   "rules": {
     "prettier/prettier": "error",
     "import/prefer-default-export": "off",
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "jest/no-hooks": "off"
   },
   "settings": {
     "react": {

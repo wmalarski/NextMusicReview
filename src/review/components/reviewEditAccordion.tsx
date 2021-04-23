@@ -20,6 +20,8 @@ export default function ReviewEditAccordion(
   return (
     <>
       <Button
+        name="Review"
+        title="Review"
         leftIcon={<ChatIcon />}
         onClick={() => (isOpen ? onClose() : onOpen())}
       >

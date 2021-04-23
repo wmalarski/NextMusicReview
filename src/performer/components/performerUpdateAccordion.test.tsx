@@ -4,30 +4,28 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import TestWrapper from "../../tests/components/testWrapper";
-import { albumGridItemDefault } from "../../tests/defaults";
-import AlbumEditAccordion, {
-  AlbumEditAccordionProps
-} from "./albumEditAccordion";
+import PerformerUpdateAccordion, {
+  PerformerUpdateAccordionProps
+} from "./performerUpdateAccordion";
 
-function renderComponent(props: Partial<AlbumEditAccordionProps> = {}) {
-  const defaultProps: AlbumEditAccordionProps = {
-    album: albumGridItemDefault
+function renderComponent(props: Partial<PerformerUpdateAccordionProps> = {}) {
+  const defaultProps: PerformerUpdateAccordionProps = {
+    performer: { id: "pId", name: "PerformerName" }
   };
   return render(
     <TestWrapper>
-      <AlbumEditAccordion {...{ ...defaultProps, ...props }} />
+      <PerformerUpdateAccordion {...{ ...defaultProps, ...props }} />
     </TestWrapper>
   );
 }
 
-describe("<AlbumEditAccordion />", () => {
+describe("<PerformerUpdateAccordion />", () => {
   it("should open and close", async () => {
     expect.hasAssertions();
     renderComponent();
 
     userEvent.click(await screen.findByText("Edit"));
     expect(await screen.findByText("Name")).toBeInTheDocument();
-    expect(await screen.findByText("Year")).toBeInTheDocument();
     userEvent.click(await screen.findByText("Edit"));
   });
 });

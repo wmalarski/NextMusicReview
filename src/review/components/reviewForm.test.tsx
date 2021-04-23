@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { render, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import TestWrapper from "../../tests/components/testWrapper";
@@ -19,33 +19,39 @@ function renderComponent(props: Partial<ReviewFormProps> = {}) {
 }
 
 describe("<ReviewForm />", () => {
-  test("should send review create mutation", async () => {
+  it("should send review create mutation", async () => {
+    expect.hasAssertions();
     const onCancel = jest.fn();
     sessionStorage.setItem("authorization", "barer ey0");
-    const { findByText } = renderComponent({ onCancel });
+    renderComponent({ onCancel });
 
-    userEvent.click(await findByText("Save"));
+    userEvent.click(await screen.findByText("Save"));
 
-    await waitFor(() => expect(onCancel).toBeCalled());
-
-    expect(await findByText("Review added")).toBeInTheDocument();
+    await waitFor(() => expect(onCancel).toHaveBeenCalledTimes(1));
+    await waitFor(async () =>
+      expect(await screen.findByText("Review added")).toBeInTheDocument()
+    );
   });
 
-  test("should send unauthorized review create mutation", async () => {
+  it("should send unauthorized review create mutation", async () => {
+    expect.hasAssertions();
     const onCancel = jest.fn();
-    const { findByText } = renderComponent({ onCancel });
+    renderComponent({ onCancel });
 
-    userEvent.click(await findByText("Save"));
+    userEvent.click(await screen.findByText("Save"));
 
-    expect(await findByText("Save not completed")).toBeInTheDocument();
+    await waitFor(async () =>
+      expect(await screen.findByText("Save not completed")).toBeInTheDocument()
+    );
   });
 
-  test("should cancel creation form", async () => {
+  it("should cancel creation form", async () => {
+    expect.hasAssertions();
     const onCancel = jest.fn();
-    const { findByText } = renderComponent({ onCancel });
+    renderComponent({ onCancel });
 
-    userEvent.click(await findByText("Cancel"));
+    userEvent.click(await screen.findByText("Cancel"));
 
-    expect(onCancel).toBeCalledTimes(1);
+    expect(onCancel).toHaveBeenCalledTimes(1);
   });
 });

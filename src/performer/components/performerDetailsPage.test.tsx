@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
-import { render, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import PerformerDetailsPage, {
   PerformerDetailsPageProps
@@ -17,16 +17,17 @@ function renderComponent(props: Partial<PerformerDetailsPageProps> = {}) {
 }
 
 describe("<PerformerDetailsPage />", () => {
-  test("should show wiki, albums and reviews", async () => {
-    const { findByText, findAllByText } = renderComponent();
+  it("should show wiki, albums and reviews", async () => {
+    expect.hasAssertions();
+    renderComponent();
 
     await waitFor(async () =>
-      expect(await findByText("content")).toBeInTheDocument()
+      expect(await screen.findByText("content")).toBeInTheDocument()
     );
 
-    expect(await findByText("content")).toBeInTheDocument();
-    expect(await findByText("summary")).toBeInTheDocument();
-    expect(await findAllByText("albumName")).toHaveLength(4); // reviews + albums
-    expect(await findAllByText("reviewText")).toHaveLength(2);
+    expect(await screen.findByText("content")).toBeInTheDocument();
+    expect(await screen.findByText("summary")).toBeInTheDocument();
+    expect(await screen.findAllByText("albumName")).toHaveLength(4); // reviews + albums
+    expect(await screen.findAllByText("reviewText")).toHaveLength(2);
   });
 });

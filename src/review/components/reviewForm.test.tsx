@@ -28,8 +28,9 @@ describe("<ReviewForm />", () => {
     userEvent.click(await screen.findByText("Save"));
 
     await waitFor(() => expect(onCancel).toHaveBeenCalledTimes(1));
-
-    expect(await screen.findByText("Review added")).toBeInTheDocument();
+    await waitFor(async () =>
+      expect(await screen.findByText("Review added")).toBeInTheDocument()
+    );
   });
 
   it("should send unauthorized review create mutation", async () => {
@@ -39,7 +40,9 @@ describe("<ReviewForm />", () => {
 
     userEvent.click(await screen.findByText("Save"));
 
-    expect(await screen.findByText("Save not completed")).toBeInTheDocument();
+    await waitFor(async () =>
+      expect(await screen.findByText("Save not completed")).toBeInTheDocument()
+    );
   });
 
   it("should cancel creation form", async () => {

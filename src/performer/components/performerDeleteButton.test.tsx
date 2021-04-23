@@ -44,19 +44,22 @@ describe("<PerformerDeleteButton />", () => {
     userEvent.click(await screen.findByText("Delete"));
 
     await waitFor(async () => expect(push).toHaveBeenCalledWith("/"));
+
+    await waitFor(async () =>
+      expect(await screen.findByText("Performer removed")).toBeInTheDocument()
+    );
   });
 
-  it.skip("should show authorization error", async () => {
+  it("should show authorization error", async () => {
     expect.hasAssertions();
     renderComponent();
 
     userEvent.click(await screen.findByText("Delete"));
-    expect(
-      await screen.findByTestId("chakra-toast-portal")
-    ).toBeInTheDocument();
 
-    expect(
-      await screen.findByText("Cannot remove performer")
-    ).toBeInTheDocument();
+    await waitFor(async () =>
+      expect(
+        await screen.findByText("Cannot remove performer")
+      ).toBeInTheDocument()
+    );
   });
 });

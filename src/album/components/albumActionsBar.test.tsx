@@ -18,24 +18,26 @@ function renderComponent(props: Partial<AlbumActionsBarProps> = {}) {
   );
 }
 
+jest.mock("@chakra-ui/media-query", () => ({
+  useMediaQuery: jest.fn().mockReturnValue([false])
+}));
+
 describe("<AlbumActionsBar />", () => {
   const globalMock = jest.spyOn(global, "open").mockImplementation();
-  afterEach(() => globalMock.mockClear());
+  const { useMediaQuery } = jest.requireMock("@chakra-ui/media-query");
 
-  jest.mock("@chakra-ui/media-query", () => ({
-    // TODO: fix this
-    useMediaQuery: jest
-      .fn()
-      .mockReturnValueOnce([true])
-      .mockReturnValue([false])
-  }));
+  afterEach(() => {
+    globalMock.mockClear();
+    useMediaQuery.mockClear();
+  });
 
   it("should display required information", async () => {
     expect.hasAssertions();
+    useMediaQuery.mockReturnValueOnce([true]);
     renderComponent();
 
-    expect(await screen.findByText("Delete")).toBeInTheDocument();
-    expect(await screen.findByText("Review")).toBeInTheDocument();
+    expect((await screen.findAllByText("Delete")).length).toBeGreaterThan(0);
+    expect((await screen.findAllByText("Review")).length).toBeGreaterThan(0);
     expect(await screen.findByText("YouTube")).toBeInTheDocument();
   });
 

@@ -43,15 +43,17 @@ describe("<AlbumDeleteButton />", () => {
     await waitFor(async () =>
       expect(push).toHaveBeenCalledWith("/performers/pId")
     );
+
+    await waitFor(async () =>
+      expect(await screen.findByText("Album removed")).toBeInTheDocument()
+    );
   });
 
-  it.skip("should show authorization error", async () => {
+  it("should show authorization error", async () => {
     expect.hasAssertions();
     renderComponent();
 
     userEvent.click(await screen.findByText("Delete"));
-
-    // expect(await screen.findByText("Error")).toBeInTheDocument();
 
     await waitFor(async () =>
       expect(await screen.findByText("Cannot remove album")).toBeInTheDocument()

@@ -17,14 +17,12 @@ export default function AlbumDeleteButton(
   const { mutate, isLoading } = useAlbumDelete({ album });
 
   return (
-    <>
-      <Button
-        isLoading={isLoading}
-        leftIcon={<DeleteIcon />}
-        onClick={() => mutate({ input: { id } })}
-      >
-        Delete
-      </Button>
-    </>
+    <Button
+      isLoading={isLoading}
+      leftIcon={<DeleteIcon />}
+      onClick={() => mutate({ input: { id } })}
+    >
+      Delete
+    </Button>
   );
 }

@@ -27,6 +27,13 @@ export default function usePerformerDelete(): ReturnType<
         });
       } else {
         router.push("/");
+        toast({
+          description: "Performer removed",
+          isClosable: true,
+          position: "bottom",
+          status: "success",
+          title: "Success"
+        });
       }
     },
     onError(error) {

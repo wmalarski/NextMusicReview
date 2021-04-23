@@ -34,7 +34,9 @@ describe("<PerformerUpdateForm />", () => {
 
     await waitFor(() => expect(onCancel).toHaveBeenCalledTimes(1));
 
-    expect(await screen.findByText("Performer updated")).toBeInTheDocument();
+    await waitFor(async () =>
+      expect(await screen.findByText("Performer updated")).toBeInTheDocument()
+    );
   });
 
   it("should send unauthorized performer update mutation", async () => {
@@ -44,7 +46,9 @@ describe("<PerformerUpdateForm />", () => {
 
     userEvent.click(await screen.findByText("Save"));
 
-    expect(await screen.findByText("Save not completed")).toBeInTheDocument();
+    await waitFor(async () =>
+      expect(await screen.findByText("Save not completed")).toBeInTheDocument()
+    );
   });
 
   it("should cancel edit", async () => {

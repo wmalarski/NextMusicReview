@@ -31,6 +31,13 @@ export default function useAlbumDelete(
       } else {
         const path = performer ? `/performers/${performer.id}` : "/";
         router.push(path);
+        toast({
+          description: "Album removed",
+          isClosable: true,
+          position: "bottom",
+          status: "success",
+          title: "Success"
+        });
       }
     },
     onError(error) {

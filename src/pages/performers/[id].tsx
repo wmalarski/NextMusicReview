@@ -1,8 +1,8 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
-import Layout from "../../common/components/layout";
+import Layout from "../../common/components/Layout/Layout";
 import { usePerformerDetailsQuery } from "../../graphql/types";
-import PerformerDetails from "../../performer/components/performerDetails";
+import PerformerDetails from "../../performer/components/PerformerDetails/PerformerDetails";
 
 export interface PerformerDetailsPageProps {
   id: string;

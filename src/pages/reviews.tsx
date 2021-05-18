@@ -1,9 +1,9 @@
 import { Button, Stack } from "@chakra-ui/react";
 import React from "react";
-import Layout from "../common/components/layout";
+import Layout from "../common/components/Layout/Layout";
 import { compact } from "../common/functions";
-import ReviewFilter from "../review/components/reviewFilter";
-import ReviewList from "../review/components/reviewList";
+import ReviewFilter from "../review/components/ReviewFilter/ReviewFilter";
+import ReviewList from "../review/components/ReviewList/ReviewList";
 import { defaultReviewFilterState } from "../review/defaults";
 import useReviewsInfiniteQuery from "../review/queries/useReviewsInfiniteQuery";
 import { ReviewFilterState } from "../review/types";

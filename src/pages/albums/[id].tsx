@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import React from "react";
-import AlbumDetails from "../../album/components/albumDetails";
-import Layout from "../../common/components/layout";
+import AlbumDetails from "../../album/components/AlbumDetails/AlbumDetails";
+import Layout from "../../common/components/Layout/Layout";
 import {
   useAlbumDetailsQuery,
   useAlbumReviewsQuery

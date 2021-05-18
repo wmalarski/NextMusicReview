@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../common/components/layout";
+import Layout from "../common/components/Layout/Layout";
 
 export default function SearchPage(): JSX.Element {
   return (

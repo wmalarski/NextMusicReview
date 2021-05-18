@@ -32,7 +32,8 @@
     "prettier/prettier": "error",
     "import/prefer-default-export": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "jest/no-hooks": "off"
+    "jest/no-hooks": "off",
+    "jest/no-disabled-tests": "off"
   },
   "settings": {
     "react": {

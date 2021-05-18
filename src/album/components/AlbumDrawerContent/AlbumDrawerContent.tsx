@@ -7,7 +7,6 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
-import WikiText from "../../../common/components/WikiText/WikiText";
 import {
   AlbumGridItemFragment,
   useAlbumDetailsQuery
@@ -50,7 +49,7 @@ export default function AlbumDrawerContent(
       <DrawerBody>
         <Stack spacing={10}>
           {/* {image?.url && <Image src={image.url} alt={name} />} */}
-          <WikiText isLoading={isLoading} wiki={data?.album.details?.wiki} />
+          {/* <WikiText isLoading={isLoading} wiki={data?.album.details?.wiki} /> */}
         </Stack>
       </DrawerBody>
     </>

@@ -1,11 +1,5 @@
 query AlbumDetails($id: ID!) {
   album(id: $id) {
-    details {
-      wiki {
-        content
-        published
-        summary
-      }
-    }
+    __typename
   }
 }

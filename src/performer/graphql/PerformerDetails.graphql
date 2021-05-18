@@ -11,12 +11,5 @@ query PerformerDetails($id: ID!) {
         }
       }
     }
-    details {
-      bio {
-        content
-        published
-        summary
-      }
-    }
   }
 }

@@ -626,7 +626,7 @@ export type AlbumDetailsQueryVariables = Exact<{
 }>;
 
 
-export type AlbumDetailsQuery = { album: { details?: Maybe<{ wiki?: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> } };
+export type AlbumDetailsQuery = { album: { __typename: 'Album' } };
 
 export type AlbumGridItemFragment = (
   Pick<Album, 'id' | 'name' | 'mBid' | 'year'>
@@ -686,7 +686,7 @@ export type PerformerDetailsQuery = { performer: (
     { albums?: Maybe<{ nodes?: Maybe<Array<(
         { reviews?: Maybe<{ nodes?: Maybe<Array<ReviewListItemFragment>> }> }
         & AlbumGridItemFragment
-      )>> }>, details?: Maybe<{ bio?: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
+      )>> }> }
     & PerformerDetailsFragment
   ) };
 
@@ -759,13 +759,7 @@ export const ReviewListItemFragmentDoc = `
 export const AlbumDetailsDocument = `
     query AlbumDetails($id: ID!) {
   album(id: $id) {
-    details {
-      wiki {
-        content
-        published
-        summary
-      }
-    }
+    __typename
   }
 }
     `;
@@ -892,13 +886,6 @@ export const PerformerDetailsDocument = `
             ...ReviewListItem
           }
         }
-      }
-    }
-    details {
-      bio {
-        content
-        published
-        summary
       }
     }
   }

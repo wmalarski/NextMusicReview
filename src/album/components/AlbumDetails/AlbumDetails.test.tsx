@@ -40,15 +40,15 @@ describe("<AlbumDetails />", () => {
     renderComponent({
       reviewsQuery: {
         album: {
-          ...albumGridItemDefault,
-          details: {
-            image: [
-              {
-                size: "extralarge",
-                url: "aaa"
-              }
-            ]
-          }
+          ...albumGridItemDefault
+          // details: {
+          //   image: [
+          //     {
+          //       size: "extralarge",
+          //       url: "aaa"
+          //     }
+          //   ]
+          // }
         }
       }
     });

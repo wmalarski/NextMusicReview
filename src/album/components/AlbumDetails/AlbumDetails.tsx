@@ -1,12 +1,4 @@
-import {
-  Box,
-  Container,
-  Heading,
-  HStack,
-  Image,
-  Link,
-  Stack
-} from "@chakra-ui/react";
+import { Box, Container, Heading, HStack, Link, Stack } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 import WikiText from "../../../common/components/WikiText/WikiText";
@@ -27,15 +19,15 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
 
   const { wiki } = detailsQuery?.album?.details ?? {};
   const { album } = reviewsQuery ?? {};
-  const { reviews, name, performer, details, year } = album ?? {};
+  const { reviews, name, performer, year } = album ?? {};
 
-  const image = details?.image.find(img => img.size === "extralarge");
+  // const image = details?.image.find(img => img.size === "extralarge");
 
   return (
     <Container maxW="2xl">
       <Stack spacing={10}>
         <HStack>
-          {image?.url && <Image src={image.url} alt={name} />}
+          {/* {image?.url && <Image src={image.url} alt={name} />} */}
           <Box alignItems="center" flexGrow={1}>
             <Heading as="h2" size="lg" variant="primary">
               {name}

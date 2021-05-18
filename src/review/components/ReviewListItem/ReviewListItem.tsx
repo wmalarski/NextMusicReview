@@ -3,7 +3,6 @@ import {
   Center,
   Heading,
   HStack,
-  Image as ChakraImage,
   Link,
   Stack,
   Text
@@ -23,9 +22,9 @@ export default function ReviewListItem(
 ): JSX.Element {
   const { review, showImage } = props;
   const { createdAt, rating, text, album } = review;
-  const { id, details, name, performer, year } = album ?? {};
+  const { id, name, performer, year } = album ?? {};
 
-  const image = details?.image.find(img => img.size === "large");
+  // const image = details?.image.find(img => img.size === "large");
 
   return (
     <Card alignItems="start">
@@ -33,7 +32,7 @@ export default function ReviewListItem(
         <Box>
           {showImage && (
             <Center>
-              {image?.url && <ChakraImage src={image.url} alt={name} />}
+              {/* {image?.url && <ChakraImage src={image.url} alt={name} />} */}
             </Center>
           )}
         </Box>

@@ -48,7 +48,7 @@ describe("<ReviewListItem />", () => {
         ...reviewListItemDefault,
         album: {
           ...albumGridItemDefault,
-          details: undefined,
+          // details: undefined,
           performer: undefined
         }
       }

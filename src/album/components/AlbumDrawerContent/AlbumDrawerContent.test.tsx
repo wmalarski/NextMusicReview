@@ -44,8 +44,8 @@ describe("<AlbumDrawerContent />", () => {
       album: {
         ...albumGridItemDefault,
         year: 0,
-        performer: undefined,
-        details: undefined
+        performer: undefined
+        // details: undefined
       }
     });
 

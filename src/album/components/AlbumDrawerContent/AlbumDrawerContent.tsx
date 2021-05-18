@@ -2,7 +2,6 @@ import {
   DrawerBody,
   DrawerHeader,
   Heading,
-  Image,
   Link,
   Stack
 } from "@chakra-ui/react";
@@ -22,9 +21,9 @@ export default function AlbumDrawerContent(
   props: AlbumDrawerContentProps
 ): JSX.Element {
   const { album } = props;
-  const { id, details, name, year, performer } = album;
+  const { id, name, year, performer } = album;
 
-  const image = details?.image.find(img => img.size === "mega");
+  // const image = details?.image.find(img => img.size === "mega");
 
   const { data, isLoading } = useAlbumDetailsQuery({ id: album.id });
 
@@ -50,7 +49,7 @@ export default function AlbumDrawerContent(
 
       <DrawerBody>
         <Stack spacing={10}>
-          {image?.url && <Image src={image.url} alt={name} />}
+          {/* {image?.url && <Image src={image.url} alt={name} />} */}
           <WikiText isLoading={isLoading} wiki={data?.album.details?.wiki} />
         </Stack>
       </DrawerBody>

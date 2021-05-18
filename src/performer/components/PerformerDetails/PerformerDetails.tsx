@@ -1,7 +1,6 @@
 import { Box, Container, Heading, Skeleton, Stack } from "@chakra-ui/react";
 import React from "react";
 import AlbumGrid from "../../../album/components/AlbumGrid/AlbumGrid";
-import WikiText from "../../../common/components/WikiText/WikiText";
 import { compact } from "../../../common/functions";
 import { PerformerDetailsQuery } from "../../../graphql/types";
 import ReviewAlbumsList from "../../../review/components/ReviewAlbumsList/ReviewAlbumsList";
@@ -17,7 +16,7 @@ export default function PerformerDetails(
   const { query } = props;
 
   const { performer } = query ?? {};
-  const { details, name, albums } = performer ?? {};
+  const { name, albums } = performer ?? {};
   const isLoading = !query;
 
   const albumNodes = React.useMemo(() => compact(albums?.nodes) ?? [], [
@@ -52,7 +51,7 @@ export default function PerformerDetails(
             <PerformerActionsBar performer={performer} />
           </Stack>
         )}
-        <WikiText isLoading={isLoading} wiki={details?.bio} />
+        {/* <WikiText isLoading={isLoading} wiki={details?.bio} /> */}
         {albumNodes.length > 0 && <Heading size="lg">Albums</Heading>}
         <AlbumGrid
           albums={albumNodes}

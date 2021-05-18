@@ -32,13 +32,14 @@ export const reviewListItemDefault: ReviewListItemFragment = {
 
 export const albumDetailsQueryDefault: AlbumDetailsQuery = {
   album: {
-    details: {
-      wiki: {
-        content: "content",
-        summary: "summary",
-        published: "published"
-      }
-    }
+    __typename: "Album"
+    // details: {
+    //   wiki: {
+    //     content: "content",
+    //     summary: "summary",
+    //     published: "published"
+    //   }
+    // }
   }
 };
 
@@ -59,13 +60,13 @@ export const performerDetailsQueryDefault: PerformerDetailsQuery = {
           reviews: { nodes: [{ ...reviewListItemDefault, id: "rId2" }] }
         }
       ]
-    },
-    details: {
-      bio: {
-        content: "content",
-        summary: "summary",
-        published: "published"
-      }
     }
+    // details: {
+    //   bio: {
+    //     content: "content",
+    //     summary: "summary",
+    //     published: "published"
+    //   }
+    // }
   }
 };

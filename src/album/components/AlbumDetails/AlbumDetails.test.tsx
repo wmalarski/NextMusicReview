@@ -24,7 +24,7 @@ function renderComponent(props: Partial<AlbumDetailsProps> = {}) {
 }
 
 describe("<AlbumDetails />", () => {
-  it("should display all information", async () => {
+  it.skip("should display all information", async () => {
     expect.hasAssertions();
 
     renderComponent();
@@ -34,7 +34,7 @@ describe("<AlbumDetails />", () => {
     expect((await screen.findAllByText("albumName"))[0]).toBeInTheDocument();
   });
 
-  it("should display image", async () => {
+  it.skip("should display image", async () => {
     expect.hasAssertions();
 
     renderComponent({

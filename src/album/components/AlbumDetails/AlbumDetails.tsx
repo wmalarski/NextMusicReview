@@ -1,7 +1,6 @@
 import { Box, Container, Heading, HStack, Link, Stack } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
-import WikiText from "../../../common/components/WikiText/WikiText";
 import { compact } from "../../../common/functions";
 import { AlbumDetailsQuery, AlbumReviewsQuery } from "../../../graphql/types";
 import ReviewList from "../../../review/components/ReviewList/ReviewList";
@@ -17,7 +16,7 @@ export interface AlbumDetailsProps {
 export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
   const { detailsQuery, reviewsQuery, isLoading } = props;
 
-  const { wiki } = detailsQuery?.album?.details ?? {};
+  // const { wiki } = detailsQuery?.album?.details ?? {};
   const { album } = reviewsQuery ?? {};
   const { reviews, name, performer, year } = album ?? {};
 
@@ -47,7 +46,7 @@ export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
         <Stack direction={{ base: "column", md: "row" }}>
           <AlbumActionsBar album={album} />
         </Stack>
-        <WikiText isLoading={isLoading} wiki={wiki} />
+        {/* <WikiText isLoading={isLoading} wiki={wiki} /> */}
         <Heading as="h4" size="md">
           Reviews
         </Heading>

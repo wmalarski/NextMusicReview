@@ -17,7 +17,7 @@ function renderComponent(props: Partial<PerformerDetailsPageProps> = {}) {
 }
 
 describe("<PerformerDetailsPage />", () => {
-  it("should show wiki, albums and reviews", async () => {
+  it.skip("should show wiki, albums and reviews", async () => {
     expect.hasAssertions();
     renderComponent();
 

@@ -66,15 +66,15 @@ export default [
                 id: input.id,
                 name: "pName"
               },
-              year: input.year,
-              details: {
-                image: [
-                  {
-                    size: "large",
-                    url: "url"
-                  }
-                ]
-              }
+              year: input.year
+              // details: {
+              //   image: [
+              //     {
+              //       size: "large",
+              //       url: "url"
+              //     }
+              //   ]
+              // }
             }
           }
         })

@@ -1,18 +1,9 @@
-import {
-  useQuery,
-  UseQueryOptions,
-  useMutation,
-  UseMutationOptions
-} from "react-query";
-import { fetcher } from "./fetcher";
+import { useQuery, UseQueryOptions, useMutation, UseMutationOptions } from 'react-query';
+import { fetcher } from './fetcher';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -26,25 +17,29 @@ export type Scalars = {
   Decimal: any;
 };
 
+
+
+
 export type Album = Node & {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
   user?: Maybe<User>;
   performer?: Maybe<Performer>;
   reviews?: Maybe<ReviewConnection>;
-  reviewsCount: Scalars["Int"];
+  reviewsCount: Scalars['Int'];
   details?: Maybe<AlbumDetails>;
-  mBid: Scalars["String"];
-  name: Scalars["String"];
-  year: Scalars["Int"];
-  createdAt: Scalars["DateTime"];
-  updatedAt: Scalars["DateTime"];
+  mBid: Scalars['String'];
+  name: Scalars['String'];
+  year: Scalars['Int'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
+
 export type AlbumReviewsArgs = {
-  first?: Maybe<Scalars["Int"]>;
-  after?: Maybe<Scalars["String"]>;
-  last?: Maybe<Scalars["Int"]>;
-  before?: Maybe<Scalars["String"]>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
   where?: Maybe<ReviewFilterInput>;
   order?: Maybe<Array<ReviewSortInput>>;
 };
@@ -60,7 +55,7 @@ export type AlbumConnection = {
 };
 
 export type AlbumDetails = {
-  mBid: Scalars["String"];
+  mBid: Scalars['String'];
   image: Array<Image>;
   wiki?: Maybe<Wiki>;
   tags?: Maybe<Tags>;
@@ -69,7 +64,7 @@ export type AlbumDetails = {
 /** An edge in a connection. */
 export type AlbumEdge = {
   /** A cursor for use in pagination. */
-  cursor: Scalars["String"];
+  cursor: Scalars['String'];
   /** The item at the end of the edge. */
   node: Album;
 };
@@ -84,10 +79,10 @@ export type AlbumFilterInput = {
 };
 
 export type AlbumSearch = {
-  name: Scalars["String"];
-  performer: Scalars["String"];
+  name: Scalars['String'];
+  performer: Scalars['String'];
   image: Array<Image>;
-  mbid?: Maybe<Scalars["String"]>;
+  mbid?: Maybe<Scalars['String']>;
 };
 
 export type AlbumSortInput = {
@@ -102,60 +97,60 @@ export type AlbumSortInput = {
 };
 
 export enum ApplyPolicy {
-  BeforeResolver = "BEFORE_RESOLVER",
-  AfterResolver = "AFTER_RESOLVER"
+  BeforeResolver = 'BEFORE_RESOLVER',
+  AfterResolver = 'AFTER_RESOLVER'
 }
 
 export type ComparableDateTimeOperationFilterInput = {
-  eq?: Maybe<Scalars["DateTime"]>;
-  neq?: Maybe<Scalars["DateTime"]>;
-  in?: Maybe<Array<Scalars["DateTime"]>>;
-  nin?: Maybe<Array<Scalars["DateTime"]>>;
-  gt?: Maybe<Scalars["DateTime"]>;
-  ngt?: Maybe<Scalars["DateTime"]>;
-  gte?: Maybe<Scalars["DateTime"]>;
-  ngte?: Maybe<Scalars["DateTime"]>;
-  lt?: Maybe<Scalars["DateTime"]>;
-  nlt?: Maybe<Scalars["DateTime"]>;
-  lte?: Maybe<Scalars["DateTime"]>;
-  nlte?: Maybe<Scalars["DateTime"]>;
+  eq?: Maybe<Scalars['DateTime']>;
+  neq?: Maybe<Scalars['DateTime']>;
+  in?: Maybe<Array<Scalars['DateTime']>>;
+  nin?: Maybe<Array<Scalars['DateTime']>>;
+  gt?: Maybe<Scalars['DateTime']>;
+  ngt?: Maybe<Scalars['DateTime']>;
+  gte?: Maybe<Scalars['DateTime']>;
+  ngte?: Maybe<Scalars['DateTime']>;
+  lt?: Maybe<Scalars['DateTime']>;
+  nlt?: Maybe<Scalars['DateTime']>;
+  lte?: Maybe<Scalars['DateTime']>;
+  nlte?: Maybe<Scalars['DateTime']>;
 };
 
 export type ComparableDecimalOperationFilterInput = {
-  eq?: Maybe<Scalars["Decimal"]>;
-  neq?: Maybe<Scalars["Decimal"]>;
-  in?: Maybe<Array<Scalars["Decimal"]>>;
-  nin?: Maybe<Array<Scalars["Decimal"]>>;
-  gt?: Maybe<Scalars["Decimal"]>;
-  ngt?: Maybe<Scalars["Decimal"]>;
-  gte?: Maybe<Scalars["Decimal"]>;
-  ngte?: Maybe<Scalars["Decimal"]>;
-  lt?: Maybe<Scalars["Decimal"]>;
-  nlt?: Maybe<Scalars["Decimal"]>;
-  lte?: Maybe<Scalars["Decimal"]>;
-  nlte?: Maybe<Scalars["Decimal"]>;
+  eq?: Maybe<Scalars['Decimal']>;
+  neq?: Maybe<Scalars['Decimal']>;
+  in?: Maybe<Array<Scalars['Decimal']>>;
+  nin?: Maybe<Array<Scalars['Decimal']>>;
+  gt?: Maybe<Scalars['Decimal']>;
+  ngt?: Maybe<Scalars['Decimal']>;
+  gte?: Maybe<Scalars['Decimal']>;
+  ngte?: Maybe<Scalars['Decimal']>;
+  lt?: Maybe<Scalars['Decimal']>;
+  nlt?: Maybe<Scalars['Decimal']>;
+  lte?: Maybe<Scalars['Decimal']>;
+  nlte?: Maybe<Scalars['Decimal']>;
 };
 
 export type ComparableInt32OperationFilterInput = {
-  eq?: Maybe<Scalars["Int"]>;
-  neq?: Maybe<Scalars["Int"]>;
-  in?: Maybe<Array<Scalars["Int"]>>;
-  nin?: Maybe<Array<Scalars["Int"]>>;
-  gt?: Maybe<Scalars["Int"]>;
-  ngt?: Maybe<Scalars["Int"]>;
-  gte?: Maybe<Scalars["Int"]>;
-  ngte?: Maybe<Scalars["Int"]>;
-  lt?: Maybe<Scalars["Int"]>;
-  nlt?: Maybe<Scalars["Int"]>;
-  lte?: Maybe<Scalars["Int"]>;
-  nlte?: Maybe<Scalars["Int"]>;
+  eq?: Maybe<Scalars['Int']>;
+  neq?: Maybe<Scalars['Int']>;
+  in?: Maybe<Array<Scalars['Int']>>;
+  nin?: Maybe<Array<Scalars['Int']>>;
+  gt?: Maybe<Scalars['Int']>;
+  ngt?: Maybe<Scalars['Int']>;
+  gte?: Maybe<Scalars['Int']>;
+  ngte?: Maybe<Scalars['Int']>;
+  lt?: Maybe<Scalars['Int']>;
+  nlt?: Maybe<Scalars['Int']>;
+  lte?: Maybe<Scalars['Int']>;
+  nlte?: Maybe<Scalars['Int']>;
 };
 
 export type CreateAlbumInput = {
-  mBid: Scalars["String"];
-  name: Scalars["String"];
-  performer: Scalars["ID"];
-  year: Scalars["Int"];
+  mBid: Scalars['String'];
+  name: Scalars['String'];
+  performer: Scalars['ID'];
+  year: Scalars['Int'];
 };
 
 export type CreateAlbumPayload = {
@@ -164,15 +159,15 @@ export type CreateAlbumPayload = {
 };
 
 export type CreatePerformerAlbumInput = {
-  mBid: Scalars["String"];
-  name: Scalars["String"];
-  year: Scalars["Int"];
+  mBid: Scalars['String'];
+  name: Scalars['String'];
+  year: Scalars['Int'];
   reviews?: Maybe<Array<CreatePerformerReviewInput>>;
 };
 
 export type CreatePerformerInput = {
-  mBid: Scalars["String"];
-  name: Scalars["String"];
+  mBid: Scalars['String'];
+  name: Scalars['String'];
   albums: Array<CreatePerformerAlbumInput>;
 };
 
@@ -182,16 +177,16 @@ export type CreatePerformerPayload = {
 };
 
 export type CreatePerformerReviewInput = {
-  text: Scalars["String"];
-  rating: Scalars["Decimal"];
-  createdAt: Scalars["DateTime"];
-  updatedAt: Scalars["DateTime"];
+  text: Scalars['String'];
+  rating: Scalars['Decimal'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
 export type CreateReviewInput = {
-  album: Scalars["ID"];
-  rating: Scalars["Decimal"];
-  text: Scalars["String"];
+  album: Scalars['ID'];
+  rating: Scalars['Decimal'];
+  text: Scalars['String'];
 };
 
 export type CreateReviewPayload = {
@@ -199,26 +194,28 @@ export type CreateReviewPayload = {
   errors?: Maybe<Array<UserError>>;
 };
 
+
+
 export type DeleteAlbumInput = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
 export type DeletePayload = {
-  success: Scalars["Boolean"];
+  success: Scalars['Boolean'];
   errors?: Maybe<Array<UserError>>;
 };
 
 export type DeletePerformerInput = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
 export type DeleteReviewInput = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
 export type Image = {
-  url?: Maybe<Scalars["String"]>;
-  size?: Maybe<Scalars["String"]>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['String']>;
 };
 
 export type Mutation = {
@@ -233,37 +230,46 @@ export type Mutation = {
   deleteReview: DeletePayload;
 };
 
+
 export type MutationCreatePerformerArgs = {
   input: CreatePerformerInput;
 };
+
 
 export type MutationUpdatePerformerArgs = {
   input: UpdatePerformerInput;
 };
 
+
 export type MutationDeletePerformerArgs = {
   input: DeletePerformerInput;
 };
+
 
 export type MutationCreateAlbumArgs = {
   input: CreateAlbumInput;
 };
 
+
 export type MutationUpdateAlbumArgs = {
   input: UpdateAlbumInput;
 };
+
 
 export type MutationDeleteAlbumArgs = {
   input: DeleteAlbumInput;
 };
 
+
 export type MutationCreateReviewArgs = {
   input: CreateReviewInput;
 };
 
+
 export type MutationUpdateReviewArgs = {
   input: UpdateReviewInput;
 };
+
 
 export type MutationDeleteReviewArgs = {
   input: DeleteReviewInput;
@@ -271,37 +277,38 @@ export type MutationDeleteReviewArgs = {
 
 /** The node interface is implemented by entities that have a global unique identifier. */
 export type Node = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
 /** Information about pagination in a connection. */
 export type PageInfo = {
   /** Indicates whether more edges exist following the set defined by the clients arguments. */
-  hasNextPage: Scalars["Boolean"];
+  hasNextPage: Scalars['Boolean'];
   /** Indicates whether more edges exist prior the set defined by the clients arguments. */
-  hasPreviousPage: Scalars["Boolean"];
+  hasPreviousPage: Scalars['Boolean'];
   /** When paginating backwards, the cursor to continue. */
-  startCursor?: Maybe<Scalars["String"]>;
+  startCursor?: Maybe<Scalars['String']>;
   /** When paginating forwards, the cursor to continue. */
-  endCursor?: Maybe<Scalars["String"]>;
+  endCursor?: Maybe<Scalars['String']>;
 };
 
 export type Performer = Node & {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
   user?: Maybe<User>;
   albums?: Maybe<AlbumConnection>;
   details?: Maybe<PerformerDetails>;
-  mBid: Scalars["String"];
-  name: Scalars["String"];
-  createdAt: Scalars["DateTime"];
-  updatedAt: Scalars["DateTime"];
+  mBid: Scalars['String'];
+  name: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
+
 export type PerformerAlbumsArgs = {
-  first?: Maybe<Scalars["Int"]>;
-  after?: Maybe<Scalars["String"]>;
-  last?: Maybe<Scalars["Int"]>;
-  before?: Maybe<Scalars["String"]>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
   where?: Maybe<AlbumFilterInput>;
   order?: Maybe<Array<AlbumSortInput>>;
 };
@@ -317,16 +324,16 @@ export type PerformerConnection = {
 };
 
 export type PerformerCorrection = {
-  name?: Maybe<Scalars["String"]>;
-  mbid?: Maybe<Scalars["String"]>;
+  name?: Maybe<Scalars['String']>;
+  mbid?: Maybe<Scalars['String']>;
 };
 
 export type PerformerCorrectionInput = {
-  performer: Scalars["String"];
+  performer: Scalars['String'];
 };
 
 export type PerformerDetails = {
-  mBid: Scalars["String"];
+  mBid: Scalars['String'];
   image: Array<Image>;
   bio?: Maybe<Wiki>;
   tags?: Maybe<Tags>;
@@ -335,7 +342,7 @@ export type PerformerDetails = {
 /** An edge in a connection. */
 export type PerformerEdge = {
   /** A cursor for use in pagination. */
-  cursor: Scalars["String"];
+  cursor: Scalars['String'];
   /** The item at the end of the edge. */
   node: Performer;
 };
@@ -352,9 +359,9 @@ export type PerformerFilterInput = {
 };
 
 export type PerformerSearch = {
-  name: Scalars["String"];
+  name: Scalars['String'];
   image: Array<Image>;
-  mbid?: Maybe<Scalars["String"]>;
+  mbid?: Maybe<Scalars['String']>;
 };
 
 export type PerformerSortInput = {
@@ -382,91 +389,104 @@ export type Query = {
   performerCorrection?: Maybe<PerformerCorrection>;
 };
 
+
 export type QueryNodeArgs = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
+
 export type QueryPerformersArgs = {
-  first?: Maybe<Scalars["Int"]>;
-  after?: Maybe<Scalars["String"]>;
-  last?: Maybe<Scalars["Int"]>;
-  before?: Maybe<Scalars["String"]>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
   where?: Maybe<PerformerFilterInput>;
   order?: Maybe<Array<PerformerSortInput>>;
 };
 
+
 export type QueryPerformerArgs = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
+
 
 export type QueryAlbumsArgs = {
-  first?: Maybe<Scalars["Int"]>;
-  after?: Maybe<Scalars["String"]>;
-  last?: Maybe<Scalars["Int"]>;
-  before?: Maybe<Scalars["String"]>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
   where?: Maybe<AlbumFilterInput>;
   order?: Maybe<Array<AlbumSortInput>>;
 };
+
 
 export type QuerySearchArgs = {
-  first?: Maybe<Scalars["Int"]>;
-  after?: Maybe<Scalars["String"]>;
-  last?: Maybe<Scalars["Int"]>;
-  before?: Maybe<Scalars["String"]>;
-  query: Scalars["String"];
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
+  query: Scalars['String'];
   where?: Maybe<AlbumFilterInput>;
   order?: Maybe<Array<AlbumSortInput>>;
 };
+
 
 export type QueryRandomAlbumsArgs = {
-  count: Scalars["Int"];
+  count: Scalars['Int'];
   where?: Maybe<AlbumFilterInput>;
   order?: Maybe<Array<AlbumSortInput>>;
 };
+
 
 export type QueryMyRandomAlbumsArgs = {
-  count: Scalars["Int"];
+  count: Scalars['Int'];
   where?: Maybe<AlbumFilterInput>;
   order?: Maybe<Array<AlbumSortInput>>;
 };
 
+
 export type QueryAlbumArgs = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
 
+
 export type QueryReviewsArgs = {
-  first?: Maybe<Scalars["Int"]>;
-  after?: Maybe<Scalars["String"]>;
-  last?: Maybe<Scalars["Int"]>;
-  before?: Maybe<Scalars["String"]>;
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  last?: Maybe<Scalars['Int']>;
+  before?: Maybe<Scalars['String']>;
   where?: Maybe<ReviewFilterInput>;
   order?: Maybe<Array<ReviewSortInput>>;
 };
 
+
 export type QueryReviewArgs = {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 };
+
 
 export type QuerySearchAlbumsArgs = {
   input: SearchAlbumsInput;
 };
 
+
 export type QuerySearchPerformersArgs = {
   input: SearchPerformerInput;
 };
+
 
 export type QueryPerformerCorrectionArgs = {
   input: PerformerCorrectionInput;
 };
 
 export type Review = Node & {
-  id: Scalars["ID"];
+  id: Scalars['ID'];
   user?: Maybe<User>;
   album?: Maybe<Album>;
-  text: Scalars["String"];
-  rating: Scalars["Decimal"];
-  createdAt: Scalars["DateTime"];
-  updatedAt: Scalars["DateTime"];
+  text: Scalars['String'];
+  rating: Scalars['Decimal'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
 };
 
 /** A connection to a list of items. */
@@ -482,7 +502,7 @@ export type ReviewConnection = {
 /** An edge in a connection. */
 export type ReviewEdge = {
   /** A cursor for use in pagination. */
-  cursor: Scalars["String"];
+  cursor: Scalars['String'];
   /** The item at the end of the edge. */
   node: Review;
 };
@@ -510,39 +530,39 @@ export type ReviewSortInput = {
 };
 
 export type SearchAlbumsInput = {
-  album: Scalars["String"];
-  page: Scalars["Int"];
-  limit: Scalars["Int"];
+  album: Scalars['String'];
+  page: Scalars['Int'];
+  limit: Scalars['Int'];
 };
 
 export type SearchPerformerInput = {
-  performer: Scalars["String"];
-  page: Scalars["Int"];
-  limit: Scalars["Int"];
+  performer: Scalars['String'];
+  page: Scalars['Int'];
+  limit: Scalars['Int'];
 };
 
 export enum SortEnumType {
-  Asc = "ASC",
-  Desc = "DESC"
+  Asc = 'ASC',
+  Desc = 'DESC'
 }
 
 export type StringOperationFilterInput = {
   and?: Maybe<Array<StringOperationFilterInput>>;
   or?: Maybe<Array<StringOperationFilterInput>>;
-  eq?: Maybe<Scalars["String"]>;
-  neq?: Maybe<Scalars["String"]>;
-  contains?: Maybe<Scalars["String"]>;
-  ncontains?: Maybe<Scalars["String"]>;
-  in?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  nin?: Maybe<Array<Maybe<Scalars["String"]>>>;
-  startsWith?: Maybe<Scalars["String"]>;
-  nstartsWith?: Maybe<Scalars["String"]>;
-  endsWith?: Maybe<Scalars["String"]>;
-  nendsWith?: Maybe<Scalars["String"]>;
+  eq?: Maybe<Scalars['String']>;
+  neq?: Maybe<Scalars['String']>;
+  contains?: Maybe<Scalars['String']>;
+  ncontains?: Maybe<Scalars['String']>;
+  in?: Maybe<Array<Maybe<Scalars['String']>>>;
+  nin?: Maybe<Array<Maybe<Scalars['String']>>>;
+  startsWith?: Maybe<Scalars['String']>;
+  nstartsWith?: Maybe<Scalars['String']>;
+  endsWith?: Maybe<Scalars['String']>;
+  nendsWith?: Maybe<Scalars['String']>;
 };
 
 export type Tag = {
-  name: Scalars["String"];
+  name: Scalars['String'];
 };
 
 export type Tags = {
@@ -550,11 +570,11 @@ export type Tags = {
 };
 
 export type UpdateAlbumInput = {
-  id: Scalars["ID"];
-  mBid: Scalars["String"];
-  name: Scalars["String"];
-  performer: Scalars["ID"];
-  year: Scalars["Int"];
+  id: Scalars['ID'];
+  mBid: Scalars['String'];
+  name: Scalars['String'];
+  performer: Scalars['ID'];
+  year: Scalars['Int'];
 };
 
 export type UpdateAlbumPayload = {
@@ -563,8 +583,8 @@ export type UpdateAlbumPayload = {
 };
 
 export type UpdatePerformerInput = {
-  id: Scalars["ID"];
-  name: Scalars["String"];
+  id: Scalars['ID'];
+  name: Scalars['String'];
 };
 
 export type UpdatePerformerPayload = {
@@ -573,9 +593,9 @@ export type UpdatePerformerPayload = {
 };
 
 export type UpdateReviewInput = {
-  id: Scalars["ID"];
-  text: Scalars["String"];
-  rating: Scalars["Decimal"];
+  id: Scalars['ID'];
+  text: Scalars['String'];
+  rating: Scalars['Decimal'];
 };
 
 export type UpdateReviewPayload = {
@@ -587,71 +607,63 @@ export type User = {
   performers?: Maybe<Array<Maybe<Performer>>>;
   albums?: Maybe<Array<Maybe<Album>>>;
   reviews?: Maybe<Array<Maybe<Review>>>;
-  id: Scalars["String"];
+  id: Scalars['String'];
 };
 
 export type UserError = {
-  message: Scalars["String"];
-  code: Scalars["String"];
+  message: Scalars['String'];
+  code: Scalars['String'];
 };
 
 export type Wiki = {
-  published?: Maybe<Scalars["String"]>;
-  summary: Scalars["String"];
-  content: Scalars["String"];
+  published?: Maybe<Scalars['String']>;
+  summary: Scalars['String'];
+  content: Scalars['String'];
 };
 
 export type AlbumDetailsQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 }>;
 
-export type AlbumDetailsQuery = {
-  album: {
-    details?: Maybe<{
-      wiki?: Maybe<Pick<Wiki, "content" | "published" | "summary">>;
-    }>;
-  };
-};
 
-export type AlbumGridItemFragment = Pick<
-  Album,
-  "id" | "name" | "mBid" | "year"
-> & {
-  performer?: Maybe<Pick<Performer, "id" | "name">>;
-  details?: Maybe<{ image: Array<Pick<Image, "size" | "url">> }>;
-};
+export type AlbumDetailsQuery = { album: { details?: Maybe<{ wiki?: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> } };
+
+export type AlbumGridItemFragment = (
+  Pick<Album, 'id' | 'name' | 'mBid' | 'year'>
+  & { performer?: Maybe<Pick<Performer, 'id' | 'name'>> }
+);
 
 export type AlbumReviewsQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 }>;
 
-export type AlbumReviewsQuery = {
-  album: {
-    reviews?: Maybe<{ nodes?: Maybe<Array<ReviewListItemFragment>> }>;
-  } & AlbumGridItemFragment;
-};
+
+export type AlbumReviewsQuery = { album: (
+    { reviews?: Maybe<{ nodes?: Maybe<Array<ReviewListItemFragment>> }> }
+    & AlbumGridItemFragment
+  ) };
 
 export type DeleteAlbumMutationVariables = Exact<{
   input: DeleteAlbumInput;
 }>;
 
-export type DeleteAlbumMutation = {
-  deleteAlbum: Pick<DeletePayload, "success"> & {
-    errors?: Maybe<Array<Pick<UserError, "code" | "message">>>;
-  };
-};
+
+export type DeleteAlbumMutation = { deleteAlbum: (
+    Pick<DeletePayload, 'success'>
+    & { errors?: Maybe<Array<Pick<UserError, 'code' | 'message'>>> }
+  ) };
 
 export type UpdateAlbumMutationVariables = Exact<{
   input: UpdateAlbumInput;
 }>;
 
-export type UpdateAlbumMutation = {
-  updateAlbum: { album?: Maybe<AlbumGridItemFragment> };
-};
+
+export type UpdateAlbumMutation = { updateAlbum: { album?: Maybe<AlbumGridItemFragment> } };
 
 export type RandomAlbumsQueryVariables = Exact<{
-  count: Scalars["Int"];
+  count: Scalars['Int'];
 }>;
+
 
 export type RandomAlbumsQuery = { randomAlbums: Array<AlbumGridItemFragment> };
 
@@ -659,86 +671,63 @@ export type DeletePerformerMutationVariables = Exact<{
   input: DeletePerformerInput;
 }>;
 
-export type DeletePerformerMutation = {
-  deletePerformer: Pick<DeletePayload, "success"> & {
-    errors?: Maybe<Array<Pick<UserError, "code" | "message">>>;
-  };
-};
+
+export type DeletePerformerMutation = { deletePerformer: (
+    Pick<DeletePayload, 'success'>
+    & { errors?: Maybe<Array<Pick<UserError, 'code' | 'message'>>> }
+  ) };
 
 export type PerformerDetailsQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars['ID'];
 }>;
 
-export type PerformerDetailsQuery = {
-  performer: {
-    albums?: Maybe<{
-      nodes?: Maybe<
-        Array<
-          {
-            reviews?: Maybe<{ nodes?: Maybe<Array<ReviewListItemFragment>> }>;
-          } & AlbumGridItemFragment
-        >
-      >;
-    }>;
-    details?: Maybe<{
-      bio?: Maybe<Pick<Wiki, "content" | "published" | "summary">>;
-    }>;
-  } & PerformerDetailsFragment;
-};
 
-export type PerformerDetailsFragment = Pick<Performer, "id" | "name">;
+export type PerformerDetailsQuery = { performer: (
+    { albums?: Maybe<{ nodes?: Maybe<Array<(
+        { reviews?: Maybe<{ nodes?: Maybe<Array<ReviewListItemFragment>> }> }
+        & AlbumGridItemFragment
+      )>> }>, details?: Maybe<{ bio?: Maybe<Pick<Wiki, 'content' | 'published' | 'summary'>> }> }
+    & PerformerDetailsFragment
+  ) };
+
+export type PerformerDetailsFragment = Pick<Performer, 'id' | 'name'>;
 
 export type UpdatePerformerMutationVariables = Exact<{
   input: UpdatePerformerInput;
 }>;
 
-export type UpdatePerformerMutation = {
-  updatePerformer: {
-    errors?: Maybe<Array<Pick<UserError, "code" | "message">>>;
-    performer?: Maybe<PerformerDetailsFragment>;
-  };
-};
+
+export type UpdatePerformerMutation = { updatePerformer: { errors?: Maybe<Array<Pick<UserError, 'code' | 'message'>>>, performer?: Maybe<PerformerDetailsFragment> } };
 
 export type CreateReviewMutationVariables = Exact<{
   input: CreateReviewInput;
 }>;
 
-export type CreateReviewMutation = {
-  createReview: { review?: Maybe<ReviewListItemFragment> };
-};
 
-export type ReviewListItemFragment = Pick<
-  Review,
-  "id" | "rating" | "text" | "updatedAt" | "createdAt"
->;
+export type CreateReviewMutation = { createReview: { review?: Maybe<ReviewListItemFragment> } };
+
+export type ReviewListItemFragment = Pick<Review, 'id' | 'rating' | 'text' | 'updatedAt' | 'createdAt'>;
 
 export type ReviewsQueryVariables = Exact<{
-  after?: Maybe<Scalars["String"]>;
-  first?: Maybe<Scalars["Int"]>;
+  after?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
   order?: Maybe<Array<ReviewSortInput> | ReviewSortInput>;
 }>;
 
-export type ReviewsQuery = {
-  reviews?: Maybe<{
-    pageInfo: Pick<PageInfo, "endCursor" | "hasNextPage">;
-    nodes?: Maybe<
-      Array<{ album?: Maybe<AlbumGridItemFragment> } & ReviewListItemFragment>
-    >;
-  }>;
-};
+
+export type ReviewsQuery = { reviews?: Maybe<{ pageInfo: Pick<PageInfo, 'endCursor' | 'hasNextPage'>, nodes?: Maybe<Array<(
+      { album?: Maybe<AlbumGridItemFragment> }
+      & ReviewListItemFragment
+    )>> }> };
 
 export type AlbumSearchQueryVariables = Exact<{
-  first?: Maybe<Scalars["Int"]>;
-  after?: Maybe<Scalars["String"]>;
-  query: Scalars["String"];
+  first?: Maybe<Scalars['Int']>;
+  after?: Maybe<Scalars['String']>;
+  query: Scalars['String'];
 }>;
 
-export type AlbumSearchQuery = {
-  search?: Maybe<{
-    pageInfo: Pick<PageInfo, "hasNextPage" | "endCursor">;
-    nodes?: Maybe<Array<AlbumGridItemFragment>>;
-  }>;
-};
+
+export type AlbumSearchQuery = { search?: Maybe<{ pageInfo: Pick<PageInfo, 'hasNextPage' | 'endCursor'>, nodes?: Maybe<Array<AlbumGridItemFragment>> }> };
 
 export const AlbumGridItemFragmentDoc = `
     fragment AlbumGridItem on Album {
@@ -750,12 +739,6 @@ export const AlbumGridItemFragmentDoc = `
     name
   }
   year
-  details {
-    image {
-      size
-      url
-    }
-  }
 }
     `;
 export const PerformerDetailsFragmentDoc = `
@@ -787,20 +770,17 @@ export const AlbumDetailsDocument = `
 }
     `;
 export const useAlbumDetailsQuery = <
-  TData = AlbumDetailsQuery,
-  TError = unknown
->(
-  variables: AlbumDetailsQueryVariables,
-  options?: UseQueryOptions<AlbumDetailsQuery, TError, TData>
-) =>
-  useQuery<AlbumDetailsQuery, TError, TData>(
-    ["AlbumDetails", variables],
-    fetcher<AlbumDetailsQuery, AlbumDetailsQueryVariables>(
-      AlbumDetailsDocument,
-      variables
-    ),
-    options
-  );
+      TData = AlbumDetailsQuery,
+      TError = unknown
+    >(
+      variables: AlbumDetailsQueryVariables, 
+      options?: UseQueryOptions<AlbumDetailsQuery, TError, TData>
+    ) => 
+    useQuery<AlbumDetailsQuery, TError, TData>(
+      ['AlbumDetails', variables],
+      fetcher<AlbumDetailsQuery, AlbumDetailsQueryVariables>(AlbumDetailsDocument, variables),
+      options
+    );
 export const AlbumReviewsDocument = `
     query AlbumReviews($id: ID!) {
   album(id: $id) {
@@ -815,20 +795,17 @@ export const AlbumReviewsDocument = `
     ${AlbumGridItemFragmentDoc}
 ${ReviewListItemFragmentDoc}`;
 export const useAlbumReviewsQuery = <
-  TData = AlbumReviewsQuery,
-  TError = unknown
->(
-  variables: AlbumReviewsQueryVariables,
-  options?: UseQueryOptions<AlbumReviewsQuery, TError, TData>
-) =>
-  useQuery<AlbumReviewsQuery, TError, TData>(
-    ["AlbumReviews", variables],
-    fetcher<AlbumReviewsQuery, AlbumReviewsQueryVariables>(
-      AlbumReviewsDocument,
-      variables
-    ),
-    options
-  );
+      TData = AlbumReviewsQuery,
+      TError = unknown
+    >(
+      variables: AlbumReviewsQueryVariables, 
+      options?: UseQueryOptions<AlbumReviewsQuery, TError, TData>
+    ) => 
+    useQuery<AlbumReviewsQuery, TError, TData>(
+      ['AlbumReviews', variables],
+      fetcher<AlbumReviewsQuery, AlbumReviewsQueryVariables>(AlbumReviewsDocument, variables),
+      options
+    );
 export const DeleteAlbumDocument = `
     mutation DeleteAlbum($input: DeleteAlbumInput!) {
   deleteAlbum(input: $input) {
@@ -840,27 +817,14 @@ export const DeleteAlbumDocument = `
   }
 }
     `;
-export const useDeleteAlbumMutation = <TError = unknown, TContext = unknown>(
-  options?: UseMutationOptions<
-    DeleteAlbumMutation,
-    TError,
-    DeleteAlbumMutationVariables,
-    TContext
-  >
-) =>
-  useMutation<
-    DeleteAlbumMutation,
-    TError,
-    DeleteAlbumMutationVariables,
-    TContext
-  >(
-    (variables?: DeleteAlbumMutationVariables) =>
-      fetcher<DeleteAlbumMutation, DeleteAlbumMutationVariables>(
-        DeleteAlbumDocument,
-        variables
-      )(),
-    options
-  );
+export const useDeleteAlbumMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<DeleteAlbumMutation, TError, DeleteAlbumMutationVariables, TContext>) => 
+    useMutation<DeleteAlbumMutation, TError, DeleteAlbumMutationVariables, TContext>(
+      (variables?: DeleteAlbumMutationVariables) => fetcher<DeleteAlbumMutation, DeleteAlbumMutationVariables>(DeleteAlbumDocument, variables)(),
+      options
+    );
 export const UpdateAlbumDocument = `
     mutation UpdateAlbum($input: UpdateAlbumInput!) {
   updateAlbum(input: $input) {
@@ -870,27 +834,14 @@ export const UpdateAlbumDocument = `
   }
 }
     ${AlbumGridItemFragmentDoc}`;
-export const useUpdateAlbumMutation = <TError = unknown, TContext = unknown>(
-  options?: UseMutationOptions<
-    UpdateAlbumMutation,
-    TError,
-    UpdateAlbumMutationVariables,
-    TContext
-  >
-) =>
-  useMutation<
-    UpdateAlbumMutation,
-    TError,
-    UpdateAlbumMutationVariables,
-    TContext
-  >(
-    (variables?: UpdateAlbumMutationVariables) =>
-      fetcher<UpdateAlbumMutation, UpdateAlbumMutationVariables>(
-        UpdateAlbumDocument,
-        variables
-      )(),
-    options
-  );
+export const useUpdateAlbumMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdateAlbumMutation, TError, UpdateAlbumMutationVariables, TContext>) => 
+    useMutation<UpdateAlbumMutation, TError, UpdateAlbumMutationVariables, TContext>(
+      (variables?: UpdateAlbumMutationVariables) => fetcher<UpdateAlbumMutation, UpdateAlbumMutationVariables>(UpdateAlbumDocument, variables)(),
+      options
+    );
 export const RandomAlbumsDocument = `
     query RandomAlbums($count: Int!) {
   randomAlbums(count: $count) {
@@ -899,20 +850,17 @@ export const RandomAlbumsDocument = `
 }
     ${AlbumGridItemFragmentDoc}`;
 export const useRandomAlbumsQuery = <
-  TData = RandomAlbumsQuery,
-  TError = unknown
->(
-  variables: RandomAlbumsQueryVariables,
-  options?: UseQueryOptions<RandomAlbumsQuery, TError, TData>
-) =>
-  useQuery<RandomAlbumsQuery, TError, TData>(
-    ["RandomAlbums", variables],
-    fetcher<RandomAlbumsQuery, RandomAlbumsQueryVariables>(
-      RandomAlbumsDocument,
-      variables
-    ),
-    options
-  );
+      TData = RandomAlbumsQuery,
+      TError = unknown
+    >(
+      variables: RandomAlbumsQueryVariables, 
+      options?: UseQueryOptions<RandomAlbumsQuery, TError, TData>
+    ) => 
+    useQuery<RandomAlbumsQuery, TError, TData>(
+      ['RandomAlbums', variables],
+      fetcher<RandomAlbumsQuery, RandomAlbumsQueryVariables>(RandomAlbumsDocument, variables),
+      options
+    );
 export const DeletePerformerDocument = `
     mutation DeletePerformer($input: DeletePerformerInput!) {
   deletePerformer(input: $input) {
@@ -925,29 +873,13 @@ export const DeletePerformerDocument = `
 }
     `;
 export const useDeletePerformerMutation = <
-  TError = unknown,
-  TContext = unknown
->(
-  options?: UseMutationOptions<
-    DeletePerformerMutation,
-    TError,
-    DeletePerformerMutationVariables,
-    TContext
-  >
-) =>
-  useMutation<
-    DeletePerformerMutation,
-    TError,
-    DeletePerformerMutationVariables,
-    TContext
-  >(
-    (variables?: DeletePerformerMutationVariables) =>
-      fetcher<DeletePerformerMutation, DeletePerformerMutationVariables>(
-        DeletePerformerDocument,
-        variables
-      )(),
-    options
-  );
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<DeletePerformerMutation, TError, DeletePerformerMutationVariables, TContext>) => 
+    useMutation<DeletePerformerMutation, TError, DeletePerformerMutationVariables, TContext>(
+      (variables?: DeletePerformerMutationVariables) => fetcher<DeletePerformerMutation, DeletePerformerMutationVariables>(DeletePerformerDocument, variables)(),
+      options
+    );
 export const PerformerDetailsDocument = `
     query PerformerDetails($id: ID!) {
   performer(id: $id) {
@@ -975,20 +907,17 @@ export const PerformerDetailsDocument = `
 ${AlbumGridItemFragmentDoc}
 ${ReviewListItemFragmentDoc}`;
 export const usePerformerDetailsQuery = <
-  TData = PerformerDetailsQuery,
-  TError = unknown
->(
-  variables: PerformerDetailsQueryVariables,
-  options?: UseQueryOptions<PerformerDetailsQuery, TError, TData>
-) =>
-  useQuery<PerformerDetailsQuery, TError, TData>(
-    ["PerformerDetails", variables],
-    fetcher<PerformerDetailsQuery, PerformerDetailsQueryVariables>(
-      PerformerDetailsDocument,
-      variables
-    ),
-    options
-  );
+      TData = PerformerDetailsQuery,
+      TError = unknown
+    >(
+      variables: PerformerDetailsQueryVariables, 
+      options?: UseQueryOptions<PerformerDetailsQuery, TError, TData>
+    ) => 
+    useQuery<PerformerDetailsQuery, TError, TData>(
+      ['PerformerDetails', variables],
+      fetcher<PerformerDetailsQuery, PerformerDetailsQueryVariables>(PerformerDetailsDocument, variables),
+      options
+    );
 export const UpdatePerformerDocument = `
     mutation UpdatePerformer($input: UpdatePerformerInput!) {
   updatePerformer(input: $input) {
@@ -1003,29 +932,13 @@ export const UpdatePerformerDocument = `
 }
     ${PerformerDetailsFragmentDoc}`;
 export const useUpdatePerformerMutation = <
-  TError = unknown,
-  TContext = unknown
->(
-  options?: UseMutationOptions<
-    UpdatePerformerMutation,
-    TError,
-    UpdatePerformerMutationVariables,
-    TContext
-  >
-) =>
-  useMutation<
-    UpdatePerformerMutation,
-    TError,
-    UpdatePerformerMutationVariables,
-    TContext
-  >(
-    (variables?: UpdatePerformerMutationVariables) =>
-      fetcher<UpdatePerformerMutation, UpdatePerformerMutationVariables>(
-        UpdatePerformerDocument,
-        variables
-      )(),
-    options
-  );
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdatePerformerMutation, TError, UpdatePerformerMutationVariables, TContext>) => 
+    useMutation<UpdatePerformerMutation, TError, UpdatePerformerMutationVariables, TContext>(
+      (variables?: UpdatePerformerMutationVariables) => fetcher<UpdatePerformerMutation, UpdatePerformerMutationVariables>(UpdatePerformerDocument, variables)(),
+      options
+    );
 export const CreateReviewDocument = `
     mutation CreateReview($input: CreateReviewInput!) {
   createReview(input: $input) {
@@ -1035,27 +948,14 @@ export const CreateReviewDocument = `
   }
 }
     ${ReviewListItemFragmentDoc}`;
-export const useCreateReviewMutation = <TError = unknown, TContext = unknown>(
-  options?: UseMutationOptions<
-    CreateReviewMutation,
-    TError,
-    CreateReviewMutationVariables,
-    TContext
-  >
-) =>
-  useMutation<
-    CreateReviewMutation,
-    TError,
-    CreateReviewMutationVariables,
-    TContext
-  >(
-    (variables?: CreateReviewMutationVariables) =>
-      fetcher<CreateReviewMutation, CreateReviewMutationVariables>(
-        CreateReviewDocument,
-        variables
-      )(),
-    options
-  );
+export const useCreateReviewMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<CreateReviewMutation, TError, CreateReviewMutationVariables, TContext>) => 
+    useMutation<CreateReviewMutation, TError, CreateReviewMutationVariables, TContext>(
+      (variables?: CreateReviewMutationVariables) => fetcher<CreateReviewMutation, CreateReviewMutationVariables>(CreateReviewDocument, variables)(),
+      options
+    );
 export const ReviewsDocument = `
     query Reviews($after: String, $first: Int, $order: [ReviewSortInput!]) {
   reviews(after: $after, first: $first, order: $order) {
@@ -1073,15 +973,18 @@ export const ReviewsDocument = `
 }
     ${ReviewListItemFragmentDoc}
 ${AlbumGridItemFragmentDoc}`;
-export const useReviewsQuery = <TData = ReviewsQuery, TError = unknown>(
-  variables?: ReviewsQueryVariables,
-  options?: UseQueryOptions<ReviewsQuery, TError, TData>
-) =>
-  useQuery<ReviewsQuery, TError, TData>(
-    ["Reviews", variables],
-    fetcher<ReviewsQuery, ReviewsQueryVariables>(ReviewsDocument, variables),
-    options
-  );
+export const useReviewsQuery = <
+      TData = ReviewsQuery,
+      TError = unknown
+    >(
+      variables?: ReviewsQueryVariables, 
+      options?: UseQueryOptions<ReviewsQuery, TError, TData>
+    ) => 
+    useQuery<ReviewsQuery, TError, TData>(
+      ['Reviews', variables],
+      fetcher<ReviewsQuery, ReviewsQueryVariables>(ReviewsDocument, variables),
+      options
+    );
 export const AlbumSearchDocument = `
     query AlbumSearch($first: Int, $after: String, $query: String!) {
   search(first: $first, after: $after, query: $query) {
@@ -1095,15 +998,15 @@ export const AlbumSearchDocument = `
   }
 }
     ${AlbumGridItemFragmentDoc}`;
-export const useAlbumSearchQuery = <TData = AlbumSearchQuery, TError = unknown>(
-  variables: AlbumSearchQueryVariables,
-  options?: UseQueryOptions<AlbumSearchQuery, TError, TData>
-) =>
-  useQuery<AlbumSearchQuery, TError, TData>(
-    ["AlbumSearch", variables],
-    fetcher<AlbumSearchQuery, AlbumSearchQueryVariables>(
-      AlbumSearchDocument,
-      variables
-    ),
-    options
-  );
+export const useAlbumSearchQuery = <
+      TData = AlbumSearchQuery,
+      TError = unknown
+    >(
+      variables: AlbumSearchQueryVariables, 
+      options?: UseQueryOptions<AlbumSearchQuery, TError, TData>
+    ) => 
+    useQuery<AlbumSearchQuery, TError, TData>(
+      ['AlbumSearch', variables],
+      fetcher<AlbumSearchQuery, AlbumSearchQueryVariables>(AlbumSearchDocument, variables),
+      options
+    );

@@ -1,10 +1,10 @@
 import { Button, Stack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
-import AlbumGrid from "../album/components/albumGrid";
-import Layout from "../common/components/layout";
+import AlbumGrid from "../album/components/AlbumGrid/AlbumGrid";
+import Layout from "../common/components/Layout/Layout";
 import { compact } from "../common/functions";
-import SearchInput from "../search/components/searchInput";
+import SearchInput from "../search/components/SearchInput/SearchInput";
 import useAlbumSearchInfiniteQuery from "../search/queries/useAlbumsInfiniteQuery";
 
 const AlbumCount = 20;

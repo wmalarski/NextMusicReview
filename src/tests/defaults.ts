@@ -10,12 +10,12 @@ export const albumGridItemDefault: AlbumGridItemFragment = {
   name: "albumName",
   mBid: "mBid",
   year: 1999,
-  details: {
-    image: [
-      { size: "large", url: "aaa" },
-      { size: "mega", url: "bbb" }
-    ]
-  },
+  // details: {
+  //   image: [
+  //     { size: "large", url: "aaa" },
+  //     { size: "mega", url: "bbb" }
+  //   ]
+  // },
   performer: {
     id: "pId",
     name: "performerName"

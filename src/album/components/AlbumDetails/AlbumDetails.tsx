@@ -1,9 +1,18 @@
-import { Box, Container, Heading, HStack, Link, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Heading,
+  HStack,
+  Image,
+  Link,
+  Stack
+} from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 import { compact } from "../../../common/functions";
 import { AlbumDetailsQuery, AlbumReviewsQuery } from "../../../graphql/types";
 import ReviewList from "../../../review/components/ReviewList/ReviewList";
+import { frontCoverUrl } from "../../utils/covers";
 import AlbumActionsBar from "../AlbumActionsBar/AlbumActionsBar";
 
 export interface AlbumDetailsProps {
@@ -14,19 +23,16 @@ export interface AlbumDetailsProps {
 }
 
 export default function AlbumDetails(props: AlbumDetailsProps): JSX.Element {
-  const { detailsQuery, reviewsQuery, isLoading } = props;
+  const { reviewsQuery, isLoading } = props;
 
-  // const { wiki } = detailsQuery?.album?.details ?? {};
   const { album } = reviewsQuery ?? {};
-  const { reviews, name, performer, year } = album ?? {};
-
-  // const image = details?.image.find(img => img.size === "extralarge");
+  const { reviews, name, performer, year, mBid } = album ?? {};
 
   return (
     <Container maxW="2xl">
       <Stack spacing={10}>
         <HStack>
-          {/* {image?.url && <Image src={image.url} alt={name} />} */}
+          {mBid && <Image src={frontCoverUrl({ mBid })} alt={name} />}
           <Box alignItems="center" flexGrow={1}>
             <Heading as="h2" size="lg" variant="primary">
               {name}

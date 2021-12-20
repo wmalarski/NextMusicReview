@@ -2,15 +2,14 @@ import {
   DrawerBody,
   DrawerHeader,
   Heading,
+  Image,
   Link,
   Stack
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
-import {
-  AlbumGridItemFragment,
-  useAlbumDetailsQuery
-} from "../../../graphql/types";
+import { AlbumGridItemFragment } from "../../../graphql/types";
+import { frontCoverUrl } from "../../utils/covers";
 
 export interface AlbumDrawerContentProps {
   album: AlbumGridItemFragment;
@@ -20,11 +19,11 @@ export default function AlbumDrawerContent(
   props: AlbumDrawerContentProps
 ): JSX.Element {
   const { album } = props;
-  const { id, name, year, performer } = album;
+  const { id, name, year, performer, mBid } = album;
 
   // const image = details?.image.find(img => img.size === "mega");
 
-  const { data, isLoading } = useAlbumDetailsQuery({ id: album.id });
+  // const { data, isLoading } = useAlbumDetailsQuery({ id: album.id });
 
   return (
     <>
@@ -48,7 +47,7 @@ export default function AlbumDrawerContent(
 
       <DrawerBody>
         <Stack spacing={10}>
-          {/* {image?.url && <Image src={image.url} alt={name} />} */}
+          {mBid && <Image src={frontCoverUrl({ mBid })} alt={name} />}
           {/* <WikiText isLoading={isLoading} wiki={data?.album.details?.wiki} /> */}
         </Stack>
       </DrawerBody>

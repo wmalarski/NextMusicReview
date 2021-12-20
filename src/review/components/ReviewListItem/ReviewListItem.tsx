@@ -3,12 +3,14 @@ import {
   Center,
   Heading,
   HStack,
+  Image,
   Link,
   Stack,
   Text
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
+import { frontCoverUrl } from "../../../album/utils/covers";
 import Card from "../../../common/components/Card/Card";
 import { ReviewListItemArgs } from "../../types";
 
@@ -22,7 +24,7 @@ export default function ReviewListItem(
 ): JSX.Element {
   const { review, showImage } = props;
   const { createdAt, rating, text, album } = review;
-  const { id, name, performer, year } = album ?? {};
+  const { id, name, performer, year, mBid } = album ?? {};
 
   // const image = details?.image.find(img => img.size === "large");
 
@@ -32,7 +34,7 @@ export default function ReviewListItem(
         <Box>
           {showImage && (
             <Center>
-              {/* {image?.url && <ChakraImage src={image.url} alt={name} />} */}
+              {mBid && <Image src={frontCoverUrl({ mBid })} alt={name} />}
             </Center>
           )}
         </Box>

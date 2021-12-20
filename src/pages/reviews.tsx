@@ -13,12 +13,8 @@ export default function ReviewsPage(): JSX.Element {
     defaultReviewFilterState
   );
 
-  const {
-    data,
-    isLoading,
-    fetchNextPage,
-    isFetching
-  } = useReviewsInfiniteQuery(filter);
+  const { data, isLoading, fetchNextPage, isFetching } =
+    useReviewsInfiniteQuery(filter);
 
   const reviews =
     compact(data?.pages.flatMap(page => page.reviews?.nodes)) ?? [];

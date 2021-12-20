@@ -16,14 +16,10 @@ export default function AlbumDetailsPage(
 ): JSX.Element {
   const { id } = props;
 
-  const {
-    data: detailsQuery,
-    isLoading: isDetailsLoading
-  } = useAlbumDetailsQuery({ id });
-  const {
-    data: reviewsQuery,
-    isLoading: isReviewsLoading
-  } = useAlbumReviewsQuery({ id });
+  const { data: detailsQuery, isLoading: isDetailsLoading } =
+    useAlbumDetailsQuery({ id });
+  const { data: reviewsQuery, isLoading: isReviewsLoading } =
+    useAlbumReviewsQuery({ id });
 
   return (
     <Layout container>

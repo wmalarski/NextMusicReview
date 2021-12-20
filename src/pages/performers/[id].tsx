@@ -26,9 +26,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: true };
 };
 
-export const getStaticProps: GetStaticProps<PerformerDetailsPageProps> = async ({
-  params
-}) => {
+export const getStaticProps: GetStaticProps<
+  PerformerDetailsPageProps
+> = async ({ params }) => {
   const id = Array.isArray(params?.id) ? undefined : params?.id;
 
   if (!id) return { notFound: true };

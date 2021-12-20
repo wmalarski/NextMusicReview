@@ -27,7 +27,8 @@ const theme = extendTheme({
   components: {
     Text: {
       variants: {
-        primary: props => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        primary: (props: any) => ({
           color:
             props.colorMode === "dark"
               ? `${colorPrefix}.200`
@@ -37,7 +38,8 @@ const theme = extendTheme({
     },
     Heading: {
       variants: {
-        primary: props => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        primary: (props: any) => ({
           color:
             props.colorMode === "dark"
               ? `${colorPrefix}.200`

@@ -15,13 +15,8 @@ export default function InfiniteSearch(): JSX.Element {
   const { query } = router.query;
   const initialQuery = Array.isArray(query) ? undefined : query;
 
-  const {
-    data,
-    isLoading,
-    search,
-    fetchNextPage,
-    setSearch
-  } = useAlbumSearchInfiniteQuery(initialQuery);
+  const { data, isLoading, search, fetchNextPage, setSearch } =
+    useAlbumSearchInfiniteQuery(initialQuery);
 
   const albums = React.useMemo(
     () => compact(data?.pages.flatMap(page => page.search?.nodes)),
